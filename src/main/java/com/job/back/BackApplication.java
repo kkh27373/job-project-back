@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BackApplication {
 	// 주석
+	// 가나?
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
 	}
