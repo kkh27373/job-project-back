@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "Applicant")
 public class ApplicantEntity {
     @Id
-    private String userEmail;
-    private String license;
-    private String companyName;
-    private String finalEducation;
-    private String carrer;
-    private String desireCategory;
-    private String totalScore;
+    private String applicantUserEmail;
+    private String applicantLicense;
+    private String applicantCompanyName;
+    private String applicantFinalEducation;
+    private String applicantCarrer;
+    private String applicantDesireCategory;
+    private String applicantTotalScore;
 }
