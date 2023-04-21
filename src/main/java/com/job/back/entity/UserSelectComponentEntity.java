@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "UserSeletComponent")
 public class UserSelectComponentEntity {
     @Id
-    private String userEmail;
+    private String userUserEmail;
     private String userFinalEducation;
     private String userCarrer;
     private String userLicense;

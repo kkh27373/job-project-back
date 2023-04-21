@@ -15,12 +15,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "User")
 public class UserEntity {
     @Id
-    private String email;
-    private String password;
-    private String nickname;
-    private String telnumber;
-    private String address;
-    private String profile;
-
+    private String userEmail;
+    private String userPassword;
+    private String userProfile;
+    private String userTelNumber;
+    private String userName;
+    private String userAddress;
+    private int userAge;
+    private String userGender;
+    private String userFinalEducation;
+    private String userCarrer;
+    private String userLicense;
     
 }
