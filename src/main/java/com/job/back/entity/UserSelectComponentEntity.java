@@ -11,16 +11,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "User")
-@Table(name = "User")
-public class UserEntity {
+@Entity(name = "UserSeletComponent")
+@Table(name = "UserSeletComponent")
+public class UserSelectComponentEntity {
     @Id
-    private String email;
-    private String password;
-    private String nickname;
-    private String telnumber;
-    private String address;
-    private String profile;
-
-    
+    private String userEmail;
+    private String userFinalEducation;
+    private String userCarrer;
+    private String userLicense;
 }
