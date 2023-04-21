@@ -23,10 +23,6 @@ public class CompanySelectComponentEntity {
     private int userCareerGradeOne;
     private int userLiceseGradeOne;
 
-    // json type
-    //{"userFinalEducationGradeOne"}
-
-    
     @JsonProperty("서울대학교")
     public int seoulUniversity() {
         return userFinalEducationGradeOne;
