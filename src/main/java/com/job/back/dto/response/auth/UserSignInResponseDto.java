@@ -1,4 +1,4 @@
-package com.job.back.dto.responser.auth;
+package com.job.back.dto.response.auth;
 
 import com.job.back.entity.UserEntity;
 

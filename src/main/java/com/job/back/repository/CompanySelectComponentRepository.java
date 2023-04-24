@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.job.back.entity.CompanySelectComponentEntity;
 
 @Repository
-public interface CompanySelectConponentRepository extends JpaRepository<CompanySelectComponentEntity, String> {
+public interface CompanySelectComponentRepository extends JpaRepository<CompanySelectComponentEntity, String> {
     public CompanySelectComponentEntity findByCompanyTelNumber(String companyTelNumber);
 }
