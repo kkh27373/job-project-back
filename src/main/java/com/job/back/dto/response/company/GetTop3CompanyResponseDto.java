@@ -1,4 +1,4 @@
-package com.job.back.dto.responser.company;
+package com.job.back.dto.response.company;
 
 import com.job.back.entity.CompanyEntity;
 

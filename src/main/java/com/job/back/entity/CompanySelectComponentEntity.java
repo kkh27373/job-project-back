@@ -21,7 +21,7 @@ public class CompanySelectComponentEntity {
     private int userFinalEducationGradeThree;
     private int userFinalEducationGradeEtc;
     private int userCareerGradeOne;
-    private int userLiceseGradeOne;
+    private int userLicenseGradeOne;
 
     @JsonProperty("1순위 대학교")
     public String[] first_grade_university;
