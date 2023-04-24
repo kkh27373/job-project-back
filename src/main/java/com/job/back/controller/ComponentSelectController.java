@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.job.back.common.constant.ApiPattern;
+import com.job.back.dto.University_Grade_Dto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.SelectUniversityResponseDto;
 import com.job.back.service.CompanySelectComponentService;
@@ -23,10 +24,12 @@ public class ComponentSelectController {
     @PostMapping(SELECT_UNIVERSITY)
     public ResponseDto<SelectUniversityResponseDto> selectUniversity(
         @AuthenticationPrincipal String email,
-        @Valid @RequestBody String[] University,
-        @RequestBody int score
+        @Valid @RequestBody University_Grade_Dto University
     ){
-        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University(University, score);
+        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University(University.first_grade_university,University.first_grade_university_score,
+                                                                                                            University.second_grade_university,University.second_grade_university_score,
+                                                                                                            University.third_grade_university,University.third_grade_university_score,
+                                                                                                            University.etc_grade_university,University.etc_grade_university_score,);
 
         return response;
         
