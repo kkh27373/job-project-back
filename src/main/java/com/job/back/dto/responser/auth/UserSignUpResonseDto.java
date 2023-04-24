@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpResonseDto {
+public class UserSignUpResonseDto {
     private boolean status;
 }

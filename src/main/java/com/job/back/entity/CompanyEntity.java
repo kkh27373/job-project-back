@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Company")
 public class CompanyEntity {
     @Id
-    private int companyTelNumber;
+    private String companyTelNumber;
     private String companyName;
     private String companyProfileUrl;
     private String companyAddress;

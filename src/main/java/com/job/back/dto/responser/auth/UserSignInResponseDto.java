@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInResponseDto {
+public class UserSignInResponseDto {
     // 이메일일
     private String userEmail;
     // 패스워드
     private String userPassword;
     // 프로필
-    private String userProfile;
+    private String userProfileUrl;
     // 전화번호
     private String userTelNumber;
     //이름
@@ -31,10 +31,10 @@ public class SignInResponseDto {
     // 토큰 만료기간
     private int expiredTime;
 
-    public SignInResponseDto(UserEntity userEntity, String token) {
+    public UserSignInResponseDto(UserEntity userEntity, String token) {
         this.userEmail = userEntity.getUserEmail();
         this.userPassword = userEntity.getUserPassword();
-        this.userProfile = userEntity.getUserProfile();
+        this.userProfileUrl = userEntity.getUserProfileUrl();
         this.userTelNumber = userEntity.getUserTelNumber();
         this.userName = userEntity.getUserName();
         this.userAddress = userEntity.getUserAddress();
