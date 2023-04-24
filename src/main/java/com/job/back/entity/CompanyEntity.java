@@ -27,4 +27,6 @@ public class CompanyEntity {
     private String companySales;
     private String companyPassword;
     private String companyEmail;
+
+    
 }

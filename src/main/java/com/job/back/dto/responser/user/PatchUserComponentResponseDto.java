@@ -1,6 +1,6 @@
 package com.job.back.dto.responser.user;
 
-import com.job.back.entity.UserEntity;
+import com.job.back.entity.UserSelectComponentEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +14,9 @@ public class PatchUserComponentResponseDto {
     private String userCarrer;
     private String userLicense;
 
-    public PatchUserComponentResponseDto(UserEntity userEntity) {
-        this.userFinalEducation = userEntity.getUserFinalEducation();
-        this.userCarrer = userEntity.getUserCarrer();
-        this.userLicense = userEntity.getUserLicense();
+    public PatchUserComponentResponseDto(UserSelectComponentEntity userSelectComponentEntity) {
+        this.userFinalEducation = userSelectComponentEntity.getUserFinalEducation();
+        this.userCarrer = userSelectComponentEntity.getUserCarrer();
+        this.userLicense = userSelectComponentEntity.getUserLicense();
     }
 }
