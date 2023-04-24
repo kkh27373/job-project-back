@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValidateEmailResponseDto {
-    // userEmail이 중복이 확인하는 메서드
+    // userEmail 중복 확인하는 메서드
     private boolean result;
 
 }
