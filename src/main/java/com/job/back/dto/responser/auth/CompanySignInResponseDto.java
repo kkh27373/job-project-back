@@ -39,8 +39,4 @@ public class CompanySignInResponseDto {
         this.token = token;
         this.expiredTime = 3600000;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2d946cb55c9590784a733e63f76aeb915f219689

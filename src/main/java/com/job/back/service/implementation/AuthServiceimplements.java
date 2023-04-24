@@ -17,6 +17,7 @@ import com.job.back.dto.responser.auth.UserSignInResponseDto;
 import com.job.back.dto.responser.auth.UserSignUpResonseDto;
 import com.job.back.entity.CompanyEntity;
 import com.job.back.entity.UserEntity;
+import com.job.back.provider.TokenProvider;
 import com.job.back.repository.CompanyReposiotry;
 import com.job.back.repository.UserReposiotory;
 import com.job.back.service.AuthService;
@@ -26,6 +27,7 @@ public class AuthServiceimplements implements AuthService {
 
     @Autowired private UserReposiotory userReposiotory;
     @Autowired private CompanyReposiotry companyReposiotry;
+    @Autowired private TokenProvider tokenProvider;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -100,7 +102,15 @@ public class AuthServiceimplements implements AuthService {
         
         UserEntity userEntity = null;
 
+        String userEmail = dto.getUserEmail();
+        String userPassword = dto.getUserPassword();
+
         try {
+            userEntity = userReposiotory.findByUserEmail(userEmail);
+            if(userEntity == null) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
+
+            boolean isEqualPassword = passwordEncoder.matches(userPassword, userEntity.getUserPassword());
+            if(!isEqualPassword) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,7 +118,8 @@ public class AuthServiceimplements implements AuthService {
         }
 
         try {
-            
+            String token = tokenProvider.create(userEmail);
+            data = new UserSignInResponseDto(userEntity, token);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
@@ -124,7 +135,15 @@ public class AuthServiceimplements implements AuthService {
         
         CompanyEntity companyEntity = null;
 
+        String companyEmail = dto.getCompanyEmail();
+        String companyPassword = dto.getCompanyPassword();
+
         try {
+            companyEntity = companyReposiotry.findByCompanyEmail(companyEmail);
+            if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
+
+            boolean isEqualPassword = passwordEncoder.matches(companyPassword, companyEntity.getCompanyPassword());
+            if(!isEqualPassword) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,7 +151,8 @@ public class AuthServiceimplements implements AuthService {
         }
 
         try {
-            
+            String token = tokenProvider.create(companyEmail);
+            data = new CompanySignInResponseDto(companyEntity, token);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
