@@ -14,7 +14,7 @@ public class GetUserResponseDto {
     //? user가 맞는지 구분하는 메서드
     private String userEmail;
     private String userPassword;
-    private String userProfile;
+    private String userProfileUrl;
     private String userTelNumber;
     private String userName;
     private String userAddress;
@@ -24,7 +24,7 @@ public class GetUserResponseDto {
     public GetUserResponseDto(UserEntity userEntity) {
         this.userEmail = userEntity.getUserEmail();
         this.userPassword = userEntity.getUserPassword();
-        this.userProfile = userEntity.getUserProfile();
+        this.userProfileUrl = userEntity.getUserProfileUrl();
         this.userTelNumber = userEntity.getUserTelNumber();
         this.userName = userEntity.getUserName();
         this.userAddress = userEntity.getUserAddress();
