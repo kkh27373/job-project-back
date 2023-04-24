@@ -5,10 +5,14 @@ import com.job.back.dto.request.auth.CompanySignUpDto;
 import com.job.back.dto.request.auth.UserSignInDto;
 import com.job.back.dto.request.auth.UserSignUpDto;
 import com.job.back.dto.responser.ResponseDto;
+import com.job.back.dto.responser.auth.CompanySignInResponseDto;
+import com.job.back.dto.responser.auth.CompanySignUpResponseDto;
+import com.job.back.dto.responser.auth.UserSignInResponseDto;
+import com.job.back.dto.responser.auth.UserSignUpResonseDto;
 
 public interface AuthService {
-    public ResponseDto<UserSignUpDto> userSignUp(UserSignUpDto dto);
-    public ResponseDto<UserSignInDto> userSignIn(UserSignInDto dto);
-    public ResponseDto<CompanySignUpDto> companySignUp(CompanySignUpDto dto);
-    public ResponseDto<CompanySignInDto> companySignIn(CompanySignInDto dto);
+    public ResponseDto<UserSignUpResonseDto> userSignUp(UserSignUpDto dto);
+    public ResponseDto<UserSignInResponseDto> userSignIn(UserSignInDto dto);
+    public ResponseDto<CompanySignUpResponseDto> companySignUp(CompanySignUpDto dto);
+    public ResponseDto<CompanySignInResponseDto> companySignIn(CompanySignInDto dto);
 }
