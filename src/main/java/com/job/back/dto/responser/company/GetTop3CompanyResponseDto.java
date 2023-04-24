@@ -1,5 +1,8 @@
 package com.job.back.dto.responser.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.job.back.entity.CompanyEntity;
 
 import lombok.AllArgsConstructor;
@@ -23,5 +26,15 @@ public class GetTop3CompanyResponseDto {
         this.companyName = companyEntity.getCompanyName();
         this.companyCategory = companyEntity.getCompanyCategory();
         this.companyAddress = companyEntity.getCompanyAddress();
+    }
+
+    public static List<GetTop3CompanyResponseDto> copyList(List<CompanyEntity> companyEntityList) {
+        List<GetTop3CompanyResponseDto> list = new ArrayList<>();
+
+        for (CompanyEntity companyEntity: companyEntityList) {
+            GetTop3CompanyResponseDto dto = new GetTop3CompanyResponseDto(companyEntity);
+            list.add(dto);
+        }
+        return list;
     }
 }
