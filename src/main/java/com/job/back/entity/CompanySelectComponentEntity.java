@@ -34,7 +34,7 @@ public class CompanySelectComponentEntity {
     public String[] etc_grade_university;
 
     public CompanySelectComponentEntity(String[] first_grade_university,String[] second_grade_university,String[] third_grade_university, String[] etc_grade_university){
-        
+
     }
 
     
