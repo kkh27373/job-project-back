@@ -1,4 +1,5 @@
-package com.job.back.dto.response.auth;
+package com.job.back.dto.response.company;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanySignUpResonseDto {
-    private boolean status;
+public class ValidateCompanyEmailResponseDto {
+    private boolean result;
 }

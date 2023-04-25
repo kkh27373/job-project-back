@@ -59,7 +59,7 @@ public class AuthServiceimplements implements AuthService {
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
         
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+        return ResponseDto.setSucess(ResponseMessage.SUCCESS, data);
 
     }
 
@@ -91,7 +91,7 @@ public class AuthServiceimplements implements AuthService {
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
 
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+        return ResponseDto.setSucess(ResponseMessage.SUCCESS,data);
     }
 
     //=============================================================================================
@@ -125,7 +125,7 @@ public class AuthServiceimplements implements AuthService {
             return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
         }
 
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+        return ResponseDto.setSucess(ResponseMessage.SUCCESS, data);
     }
 
 
@@ -158,7 +158,7 @@ public class AuthServiceimplements implements AuthService {
             return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
         }
 
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+        return ResponseDto.setSucess(ResponseMessage.SUCCESS, data);
     }
 
     
