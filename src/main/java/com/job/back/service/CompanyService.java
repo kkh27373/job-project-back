@@ -2,7 +2,6 @@ package com.job.back.service;
 
 import javax.validation.Valid;
 
-import com.job.back.dto.request.company.PatchCompanyDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
