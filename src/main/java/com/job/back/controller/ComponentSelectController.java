@@ -29,7 +29,7 @@ public class ComponentSelectController {
         ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University(University.first_grade_university,University.first_grade_university_score,
                                                                                                             University.second_grade_university,University.second_grade_university_score,
                                                                                                             University.third_grade_university,University.third_grade_university_score,
-                                                                                                            University.etc_grade_university,University.etc_grade_university_score,);
+                                                                                                            University.etc_grade_university,University.etc_grade_university_score);
 
         return response;
         
