@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class TokenProvider {
-    @Value("${jwt.scurity-key}")
+    @Value("${jwt.security-key}")
     private String SECURITY_KEY;
 
     public String create(String userEmail) {

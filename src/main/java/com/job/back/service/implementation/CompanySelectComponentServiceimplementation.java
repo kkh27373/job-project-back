@@ -1,5 +1,7 @@
 package com.job.back.service.implementation;
 
+import org.springframework.stereotype.Service;
+
 import com.job.back.common.constant.ResponseMessage;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.SelectCarrerResponseDto;
@@ -11,6 +13,7 @@ import com.job.back.service.CompanySelectComponentService;
 
 import io.swagger.models.Response;
 
+@Service
 public class CompanySelectComponentServiceimplementation implements CompanySelectComponentService {
 
     CompanySelectComponent_University_Repository companySelectComponentRepository;

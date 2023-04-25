@@ -17,6 +17,7 @@ import com.job.back.entity.CompanyEntity;
 import com.job.back.repository.CompanyReposiotry;
 import com.job.back.service.CompanyService;
 
+@Service
 public class CompanyServiceImplements implements CompanyService {
     @Autowired private CompanyReposiotry companyReposiotry;
 
