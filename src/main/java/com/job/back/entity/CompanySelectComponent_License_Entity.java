@@ -21,7 +21,7 @@ public class CompanySelectComponent_License_Entity {
     public String[] license;
     public int license_score;
 
-    public CompanySelectComponent_License_Entity(String license,int license_score){
+    public CompanySelectComponent_License_Entity(String license[],int license_score){
 
         
 

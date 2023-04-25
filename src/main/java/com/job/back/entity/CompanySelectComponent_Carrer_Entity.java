@@ -1,6 +1,7 @@
 package com.job.back.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class CompanySelectComponent_Carrer_Entity {
     public String[] carrer;
     public int carrer_score;
 
-    public CompanySelectComponent_Carrer_Entity(String carrer,int carrer_score){
+    public CompanySelectComponent_Carrer_Entity(String[] carrer,int carrer_score){
 
     }
     
