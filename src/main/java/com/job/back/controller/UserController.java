@@ -27,8 +27,8 @@ public class UserController {
     
      @Autowired private UserService userService;
      private final String GET_USER = "/";
-     private final String VALIDATE_EMAIL = "validte/email";
-     private final String VALIDATE_TEL_NUMBER = "validte/tel-number";
+     private final String VALIDATE_USER_EMAIL = "validte/user-email";
+     private final String VALIDATE_USER_TEL_NUMBER = "validte/user-tel-number";
 
      @ApiOperation(value = "유저 정보 불러오기", notes = "Request Header Authorization에 Bearer Token을 포함하여 요청을 하면, 성공시 유저 정보를 반환하고 실패시 실패 메세지를 반환")
      @GetMapping(GET_USER)
@@ -38,18 +38,18 @@ public class UserController {
      }
 
      @ApiOperation(value = "유저 이메일 중복 체크")
-     @GetMapping(VALIDATE_EMAIL)
-     public ResponseDto<ValidateEmailResponseDto> validateEmail(@Valid @RequestBody ValidateUserEmailDto requserBody
+     @GetMapping(VALIDATE_USER_EMAIL)
+     public ResponseDto<ValidateEmailResponseDto> validateEmail(@Valid @RequestBody ValidateUserEmailDto requsetBody
      ) {
-        ResponseDto<ValidateEmailResponseDto> response = userService.validateEmail(requserBody);
+        ResponseDto<ValidateEmailResponseDto> response = userService.validateEmail(requsetBody);
         return response;
      };
 
      @ApiOperation(value = "유저 전화번호 중복 체크")
-     @GetMapping(VALIDATE_TEL_NUMBER)
-     public ResponseDto<ValidateTelNumberResponseDto> validateTelNumber(@Valid @RequestBody ValidateUserTelNumberDto requserBody
+     @GetMapping(VALIDATE_USER_TEL_NUMBER)
+     public ResponseDto<ValidateTelNumberResponseDto> validateTelNumber(@Valid @RequestBody ValidateUserTelNumberDto requsetBody
      ) {
-        ResponseDto<ValidateTelNumberResponseDto> response = userService.validateTelNumber(requserBody);
+        ResponseDto<ValidateTelNumberResponseDto> response = userService.validateTelNumber(requsetBody);
         return response;
      };
 
