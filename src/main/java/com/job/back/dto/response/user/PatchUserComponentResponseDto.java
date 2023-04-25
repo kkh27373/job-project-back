@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatchUserComponentResponseDto {
+    private String userEmail;
     private String userFinalEducation;
     private String userCarrer;
     private String userLicense;
@@ -19,5 +20,6 @@ public class PatchUserComponentResponseDto {
         this.userFinalEducation = userSelectComponentEntity.getUserFinalEducation();
         this.userCarrer = userSelectComponentEntity.getUserCarrer();
         this.userLicense = userSelectComponentEntity.getUserLicense();
+        this.userEmail = userSelectComponentEntity.getUserUserEmail();
     }
 }
