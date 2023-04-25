@@ -15,7 +15,7 @@ public class ResponseDto<D> {
 
     private D data;
 
-    public static <D> ResponseDto<D> setSucess(String message,D data) {
+    public static <D> ResponseDto<D> setSuccess(String message,D data) {
         // ^  @AllArgsConstructor(staticName = "set") 이거를 불러오는 거 set으로 
         return ResponseDto.set(true, message, data);
     }
