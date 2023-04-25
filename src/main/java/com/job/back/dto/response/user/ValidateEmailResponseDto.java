@@ -1,4 +1,4 @@
-package com.job.back.dto.responser.user;
+package com.job.back.dto.response.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
