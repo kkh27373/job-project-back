@@ -1,6 +1,7 @@
 package com.job.back.service;
 
 import com.job.back.dto.response.ResponseDto;
+import com.job.back.dto.response.company.SelectCarrerResponseDto;
 import com.job.back.dto.response.company.SelectUniversityResponseDto;
 
 public interface CompanySelectComponentService {
