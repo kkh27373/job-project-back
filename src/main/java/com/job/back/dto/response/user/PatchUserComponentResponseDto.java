@@ -1,5 +1,6 @@
 package com.job.back.dto.response.user;
 
+import com.job.back.entity.UserEntity;
 import com.job.back.entity.UserSelectComponentEntity;
 
 import lombok.AllArgsConstructor;
