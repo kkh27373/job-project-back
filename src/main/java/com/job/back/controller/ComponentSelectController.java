@@ -26,10 +26,10 @@ public class ComponentSelectController {
         @AuthenticationPrincipal String email,
         @Valid @RequestBody University_Grade_Dto University
     ){
-        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University(University.first_grade_university,University.first_grade_university_score,
+        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University_Score(University.first_grade_university,University.first_grade_university_score,
                                                                                                             University.second_grade_university,University.second_grade_university_score,
                                                                                                             University.third_grade_university,University.third_grade_university_score,
-                                                                                                            University.etc_grade_university,University.etc_grade_university_score,);
+                                                                                                            University.etc_grade_university,University.etc_grade_university_score);
 
         return response;
         
