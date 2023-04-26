@@ -3,6 +3,7 @@ package com.job.back.service.implementation;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;

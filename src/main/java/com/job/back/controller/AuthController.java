@@ -30,24 +30,25 @@ public class AuthController {
     private final String COMPANY_SIGN_UP = "/company-sign-up";
     private final String COMPANY_SIGN_IN = "/company-sign-in";
 
+    // 유저 회원가입
     @PostMapping(USER_SIGN_UP)
     public ResponseDto<UserSignUpResonseDto> userSignUp(@Valid @RequestBody UserSignUpDto requestBody){
         ResponseDto<UserSignUpResonseDto> response = authService.userSignUp(requestBody);
         return response;
     }
-
+    //회사 회원가입
     @PostMapping(COMPANY_SIGN_UP)
     public ResponseDto<CompanySignUpResponseDto> companySignUp(@Valid @RequestBody CompanySignUpDto requestBody){
         ResponseDto<CompanySignUpResponseDto> response = authService.companySignUp(requestBody);
         return response;
     }
-
+    //유저 로그인
     @PostMapping(USER_SIGN_IN)
     public ResponseDto<UserSignInResponseDto> userSignIn(@Valid @RequestBody UserSignInDto requestBody){
         ResponseDto<UserSignInResponseDto> response = authService.userSignIn(requestBody);
         return response;
     }
-
+    //회사 로그인
     @PostMapping(COMPANY_SIGN_IN)
     public ResponseDto<CompanySignInResponseDto> companySignIn(@Valid @RequestBody CompanySignInDto requestBody){
         ResponseDto<CompanySignInResponseDto> response = authService.companySignIn(requestBody);

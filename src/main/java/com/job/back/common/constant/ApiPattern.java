@@ -1,6 +1,6 @@
 package com.job.back.common.constant;
 
-public class ApiPattern {
+public interface ApiPattern {
     public static final String USER = "/user";
     public static final String COMPANY = "/company";
 
