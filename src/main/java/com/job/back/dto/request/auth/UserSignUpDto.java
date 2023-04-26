@@ -2,6 +2,7 @@ package com.job.back.dto.request.auth;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
@@ -35,8 +36,8 @@ public class UserSignUpDto {
     @NotBlank
     private String userAddress;
 
-    @NotBlank
-    private int userAge;
+    @NotNull
+    private Integer userAge;
 
     @NotBlank
     private String userGender;
