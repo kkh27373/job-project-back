@@ -22,7 +22,7 @@ public class CompanySelectComponent_Carrer_Entity {
     public String[] carrer;
     public int carrer_score;
 
-    public CompanySelectComponent_Carrer_Entity(String carrer,int carrer_score){
+    public CompanySelectComponent_Carrer_Entity(String[] carrer,int carrer_score){
 
     }
     
