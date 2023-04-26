@@ -107,10 +107,16 @@ public class AuthServiceimplements implements AuthService {
 
         try {
             userEntity = userReposiotory.findByUserEmail(userEmail);
-            if(userEntity == null) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
+            if(userEntity == null) { 
+                System.out.println("1번");
+                return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
+            }
 
             boolean isEqualPassword = passwordEncoder.matches(userPassword, userEntity.getUserPassword());
-            if(!isEqualPassword) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
+            if(!isEqualPassword) { 
+                System.out.println("2번");
+                return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
+            }
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,6 +128,7 @@ public class AuthServiceimplements implements AuthService {
             data = new UserSignInResponseDto(userEntity, token);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("3번");
             return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
         }
 

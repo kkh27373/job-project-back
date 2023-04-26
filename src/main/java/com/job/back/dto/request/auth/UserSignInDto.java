@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class UserSignInDto {
     @NotBlank
     @Email
-    @Length(max = 20)
+    @Length(max = 30)
     private String userEmail;
     @NotBlank
-    @Length(min = 8, max = 20)
+    @Length(min = 8, max = 50)
     private String userPassword;
 }

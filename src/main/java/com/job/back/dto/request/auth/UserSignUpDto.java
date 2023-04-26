@@ -27,7 +27,7 @@ public class UserSignUpDto {
     private String userProfileUrl;
 
     @NotBlank
-    @Length(min=11, max=13)
+    @Length(min=11, max=15)
     private String userTelNumber;
 
     @NotBlank
@@ -36,6 +36,8 @@ public class UserSignUpDto {
     @NotBlank
     private String userAddress;
 
+    // ! int 는 NotBlank 를 사용하지 못한다 
+    // ! ==> int는 null 도 사용 불가 ==> Integer 사용 ==> Not Null을 사용해준다 
     @NotNull
     private Integer userAge;
 

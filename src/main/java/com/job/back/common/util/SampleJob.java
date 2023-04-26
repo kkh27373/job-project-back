@@ -11,36 +11,36 @@ import org.quartz.TriggerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-@Component
-public class SampleJob implements Job {
+// @Component
+// public class SampleJob implements Job {
 
-    @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.out.println("Sample Job excute!!");
-    }
+//     @Override
+//     public void execute(JobExecutionContext context) throws JobExecutionException {
+//         System.out.println("Sample Job excute!!");
+//     }
 
-    @Bean
-    public JobDetail jobDetail() {
-        return JobBuilder
-        .newJob()
-        .ofType(SampleJob.class)
-        .storeDurably()
-        .withIdentity("Test Sample Job Detail")
-        .withDescription("Sample Job Detail 테이트입니다")
-        .build();
-    }
+//     @Bean
+//     public JobDetail jobDetail() {
+//         return JobBuilder
+//         .newJob()
+//         .ofType(SampleJob.class)
+//         .storeDurably()
+//         .withIdentity("Test Sample Job Detail")
+//         .withDescription("Sample Job Detail 테이트입니다")
+//         .build();
+//     }
 
-    @Bean
-    public Trigger trigger(JobDetail jobDetail) {
+//     @Bean
+//     public Trigger trigger(JobDetail jobDetail) {
 
-        System.out.println(jobDetail.toString());
-        CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule("2 * * * * ?");
+//         System.out.println(jobDetail.toString());
+//         CronScheduleBuilder cronSchedule = CronScheduleBuilder.cronSchedule("2 * * * * ?");
 
-        return TriggerBuilder.newTrigger().forJob(jobDetail)
-        .withIdentity("Test Sample Trigger")
-        .withDescription("Sample Trggier 테스트입니다.")
-        .withSchedule(cronSchedule)
-        .build();
-    }
+//         return TriggerBuilder.newTrigger().forJob(jobDetail)
+//         .withIdentity("Test Sample Trigger")
+//         .withDescription("Sample Trggier 테스트입니다.")
+//         .withSchedule(cronSchedule)
+//         .build();
+//     }
     
-}
+// }
