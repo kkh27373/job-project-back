@@ -1,5 +1,6 @@
 package com.job.back.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "User")
 public class UserEntity {
     @Id
+    @Column(name="user_email")
     private String userEmail;
     private String userPassword;
     private String userProfileUrl;

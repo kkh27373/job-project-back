@@ -73,6 +73,7 @@ public class CompanyServiceImplements implements CompanyService {
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
             data = new GetCompanyResponseDto(companyEntity);
+            
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
