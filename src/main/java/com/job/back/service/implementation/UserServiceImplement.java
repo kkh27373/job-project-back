@@ -16,17 +16,13 @@ import com.job.back.dto.request.user.ValidateUserTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
-import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
-import com.job.back.dto.response.user.PatchUserComponentResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
 import com.job.back.entity.UserEntity;
 import com.job.back.repository.UserReposiotory;
 import com.job.back.service.UserService;
-
-
 
 @Service
 public class UserServiceImplement implements UserService {
