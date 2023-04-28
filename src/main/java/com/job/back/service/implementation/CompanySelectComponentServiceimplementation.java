@@ -1,5 +1,6 @@
 package com.job.back.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
@@ -19,12 +20,15 @@ import io.swagger.models.Response;
 
 @Service
 public class CompanySelectComponentServiceimplementation implements CompanySelectComponentService {
-
+    @Autowired
     CompanySelectComponent_University_Repository companySelectComponentRepository;
+    @Autowired
     CompanySelectComponent_Carrer_Repository companyselectcomponentcarrerrepository;
+    @Autowired
     CompanySelectComponent_License_Repository companyselectcomponentlicenserepository;
     
-    public ResponseDto<SelectUniversityResponseDto> select_University_Score(String[] University_grade_one,int first_grade_score,
+    public ResponseDto<SelectUniversityResponseDto> select_University_Score(String companyTelNumber,
+                                                                            String[] University_grade_one,int first_grade_score,
                                                                             String[] University_grade_two,int second_grade_score,
                                                                             String[] University_grade_three,int third_grade_score,
                                                                             String[] University_grade_etc,int etc_grade_score){
@@ -33,7 +37,8 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
 
 
         try{
-            CompanySelectComponent_University_Entity companyselectcomponentuniversityentity   =  new CompanySelectComponent_University_Entity(University_grade_one,first_grade_score,
+            CompanySelectComponent_University_Entity companyselectcomponentuniversityentity   =  new CompanySelectComponent_University_Entity(companyTelNumber,
+                                                                                                                                    University_grade_one,first_grade_score,
                                                                                                                                     University_grade_two,second_grade_score,
                                                                                                                                     University_grade_three,third_grade_score,
                                                                                                                                     University_grade_etc,etc_grade_score);

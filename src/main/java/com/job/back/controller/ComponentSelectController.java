@@ -2,10 +2,12 @@ package com.job.back.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.job.back.common.constant.ApiPattern;
 import com.job.back.dto.Carrer_Dto;
@@ -17,7 +19,7 @@ import com.job.back.dto.response.company.SelectLicenseResponseDto;
 import com.job.back.dto.response.company.SelectUniversityResponseDto;
 import com.job.back.service.CompanySelectComponentService;
 
-
+@RestController
 @RequestMapping(ApiPattern.SELECT_COMPONENT)
 public class ComponentSelectController {
 
@@ -25,6 +27,7 @@ public class ComponentSelectController {
     private final String SELECT_CARRER = "/carrer";
     private final String SELECT_LICENSE = "/license";
 
+    @Autowired
     CompanySelectComponentService companyselectcomponentservice;
 
     @PostMapping(SELECT_UNIVERSITY)
@@ -32,10 +35,11 @@ public class ComponentSelectController {
         @AuthenticationPrincipal String email,
         @Valid @RequestBody University_Grade_Dto University
     ){
-        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University_Score(University.first_grade_university,University.first_grade_university_score,
-                                                                                                            University.second_grade_university,University.second_grade_university_score,
-                                                                                                            University.third_grade_university,University.third_grade_university_score,
-                                                                                                            University.etc_grade_university,University.etc_grade_university_score);
+        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University_Score(University.getCompanyTelNumber(),
+                                                                                                            University.getFirst_grade_university(),University.getFirst_grade_university_score(),
+                                                                                                            University.getSecond_grade_university(),University.getSecond_grade_university_score(),
+                                                                                                            University.getThird_grade_university(),University.getThird_grade_university_score(),
+                                                                                                            University.getEtc_grade_university(),University.getEtc_grade_university_score());
 
         return response;
         
