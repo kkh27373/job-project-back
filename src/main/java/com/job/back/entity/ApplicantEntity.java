@@ -1,8 +1,6 @@
 package com.job.back.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity(name ="Applicant" )
 @Table(name = "Applicant")
 public class ApplicantEntity {
+    
     @Id
     // 지원자 이메일
     private String applicantUserEmail;

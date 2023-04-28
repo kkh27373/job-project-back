@@ -47,14 +47,6 @@ public class CompanyController {
         return response;
     }
 
-    @ApiOperation(PATCH_COMPANY_PROFILE)
-    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(
-        @ApiParam(hidden = true)
-        @AuthenticationPrincipal String companyEmail,
-        @Valid @RequestBody PatchCompanyProfileDto requestBody
-    ){
-        ResponseDto<PatchCompanyProfileResponseDto> response = companyService.patchCompanyProfile(companyEmail, requestBody);
-        return response;
-    }
+    
 
 }

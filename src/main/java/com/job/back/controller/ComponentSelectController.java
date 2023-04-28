@@ -51,7 +51,7 @@ public class ComponentSelectController {
         @AuthenticationPrincipal String email,
         @Valid @RequestBody Carrer_Dto Carrer
     ){
-        ResponseDto<SelectCarrerResponseDto> response = companyselectcomponentservice.select_Carrer_Score(Carrer.carrer, Carrer.carrer_score);
+        ResponseDto<SelectCarrerResponseDto> response = companyselectcomponentservice.select_Carrer_Score(Carrer.getCompanyTelNumber(),Carrer.getCarrer(), Carrer.getCarrer_score());
 
         return response;
 
@@ -63,7 +63,7 @@ public class ComponentSelectController {
         @AuthenticationPrincipal String email,
         @Valid @RequestBody License_Dto License
     ){
-        ResponseDto<SelectLicenseResponseDto> response = companyselectcomponentservice.select_License_Score(License.license, License.license_score);
+        ResponseDto<SelectLicenseResponseDto> response = companyselectcomponentservice.select_License_Score(License.getCompanyTelNumber(),License.getLicense(), License.getLicense_score());
 
         return response;
     }

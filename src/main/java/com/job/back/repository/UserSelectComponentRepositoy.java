@@ -7,6 +7,8 @@ import com.job.back.entity.UserSelectComponentEntity;
 
 @Repository
 public interface UserSelectComponentRepositoy extends JpaRepository<UserSelectComponentEntity,String> {
-    public UserSelectComponentEntity findByUserUserEmail(String userUserEmail);
+    
+    
+    public UserSelectComponentEntity findByUserEmail(String userUserEmail);
     
 }
