@@ -1,8 +1,6 @@
 package com.job.back.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity(name = "Company_University_Select_Component")
 @Table(name = "Company_University_Select_Component")
 public class CompanySelectComponent_University_Entity {
+    
     @Id
     private String companyTelNumber;
     

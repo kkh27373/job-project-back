@@ -7,9 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Carrer_Dto {
 
-    public static String[] carrer;
-    public static int carrer_score;
+    private  String companyTelNumber;
+
+    private String[] carrer;
+    private int carrer_score;
     
 }

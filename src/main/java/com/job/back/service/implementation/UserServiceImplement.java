@@ -9,7 +9,6 @@ import com.job.back.common.constant.ResponseMessage;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
-import com.job.back.dto.request.user.PatchProfileDto;
 import com.job.back.dto.request.user.PatchUserComponentDto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
@@ -18,36 +17,46 @@ import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
+import com.job.back.dto.response.user.PatchUserComponentResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
 import com.job.back.entity.UserEntity;
+import com.job.back.entity.UserSelectComponentEntity;
 import com.job.back.repository.UserReposiotory;
+import com.job.back.repository.UserSelectComponentRepositoy;
 import com.job.back.service.UserService;
 
 @Service
 public class UserServiceImplement implements UserService {
 
+    @Autowired UserSelectComponentRepositoy userSelectComponentRepositoy;
     @Autowired UserReposiotory userReposiotory;
 
 
 
-    public ResponseDto<PatchProfileDto> patchProfile(String userEmail, PatchProfileDto dto ){
+    // ! UserSelectComponent(FinalEducation,Carrer,License) 만 수정 할 수 있는 함수 
+    public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent(String userEmail, PatchUserComponentDto dto ){
 
-        PatchProfileDto data = null;
+        PatchUserComponentResponseDto data = null;
 
-        String profile = dto.getUserProfileUrl();
+        String[] userFinalEducation = dto.getUserFinalEducation();
+        String[] userCarrer = dto.getUserCarrer();
+        String[] userLicense = dto.getUserLicense();
+         
 
 
         try{
             
-            UserEntity userEntity = userReposiotory.findByUserEmail(userEmail);
-            if(userEntity==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
+            UserSelectComponentEntity userselectcomponententity = userSelectComponentRepositoy.findByUserEmail(userEmail);
+            if(userselectcomponententity==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
 
             
-            userEntity.setUserProfileUrl(profile);
-            userReposiotory.save(userEntity);
+            userselectcomponententity.setUserFinalEducation(userFinalEducation);
+            userselectcomponententity.setUserCarrer(userCarrer);
+            userselectcomponententity.setUserLicense(userLicense);
+            userSelectComponentRepositoy.save(userselectcomponententity);
 
-            data = new PatchProfileDto(userEntity);
+            data = new PatchUserComponentResponseDto(userselectcomponententity);
 
 
 

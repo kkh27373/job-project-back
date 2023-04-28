@@ -22,12 +22,7 @@ import com.job.back.service.CompanyService;
 public class CompanyServiceImplements implements CompanyService {
     @Autowired private CompanyReposiotry companyReposiotry;
 
-    @Override
-    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(String companyEmail,
-            @Valid PatchCompanyProfileDto requestBody) {
-        return null;
-    }
-
+   
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
         ValidateCompanyEmailResponseDto data = null;

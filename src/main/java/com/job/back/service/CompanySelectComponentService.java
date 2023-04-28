@@ -11,9 +11,9 @@ public interface CompanySelectComponentService {
                                                                             String[] University_grade_two,int second_grade_score,
                                                                             String[] University_grade_third,int third_grade_score,
                                                                             String[] University_grade_etc,int etc_grade_score);
-    public ResponseDto<SelectCarrerResponseDto> select_Carrer_Score(String[] Carrer,int score);
+    public ResponseDto<SelectCarrerResponseDto> select_Carrer_Score(String comapnyTelNumber,String[] Carrer,int score);
 
 
-    public ResponseDto<SelectLicenseResponseDto> select_License_Score(String[] License,int score);
+    public ResponseDto<SelectLicenseResponseDto> select_License_Score(String comapnyTelNumber,String[] License,int score);
     
 }
