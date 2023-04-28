@@ -22,7 +22,6 @@ public class GetTop3CompanyResponseDto {
 
     public GetTop3CompanyResponseDto(CompanyEntity companyEntity) {
         this.companyProfileUrl = companyEntity.getCompanyProfileUrl();
-        this.companyHomepage = companyEntity.getCompanyHomepage();
         this.companyName = companyEntity.getCompanyName();
         this.companyCategory = companyEntity.getCompanyCategory();
         this.companyAddress = companyEntity.getCompanyAddress();
