@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
+import com.job.back.dto.User_Select_Component_Dto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
@@ -35,7 +36,7 @@ public class UserServiceImplement implements UserService {
 
 
     // ! UserSelectComponent(FinalEducation,Carrer,License) 만 수정 할 수 있는 함수 
-    public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent(String userEmail, PatchUserComponentDto dto ){
+    public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent(String userEmail, User_Select_Component_Dto dto ){
 
         PatchUserComponentResponseDto data = null;
 

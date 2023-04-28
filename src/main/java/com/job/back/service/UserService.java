@@ -10,7 +10,7 @@ import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
 
 public interface UserService {
-    public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent(String userEmail, PatchUserComponentDto dto );
+    public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent(String userEmail, User_Select_Component_Dto dto );
     public ResponseDto<GetUserResponseDto> getUser(String userEmail);
     public ResponseDto<ValidateEmailResponseDto> validateEmail(ValidateUserEmailDto dto);
     public ResponseDto<ValidateTelNumberResponseDto> validateTelNumber(ValidateUserTelNumberDto dto);
