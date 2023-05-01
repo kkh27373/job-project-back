@@ -22,22 +22,19 @@ import com.job.back.dto.response.user.PatchUserComponentResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
 import com.job.back.entity.UserEntity;
-import com.job.back.entity.UserSelectComponentEntity;
 import com.job.back.repository.UserReposiotory;
-import com.job.back.repository.UserSelectComponentRepositoy;
 import com.job.back.service.UserService;
 
 @Service
 public class UserServiceImplement implements UserService {
 
-    @Autowired UserSelectComponentRepositoy userSelectComponentRepositoy;
-    @Autowired UserReposiotory userReposiotory;
+    @Autowired UserReposiotory userRepository;
 
 
 
     // ! UserSelectComponent(FinalEducation,Carrer,License) 만 수정 할 수 있는 함수 
     public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent(String userEmail, User_Select_Component_Dto dto ){
-
+                                                                                            // ! User_Select_Component_Dto에는 RequestBody의 Json 타입 에 들어가는게  온다
         PatchUserComponentResponseDto data = null;
 
         String[] userFinalEducation = dto.getUserFinalEducation();
@@ -48,16 +45,17 @@ public class UserServiceImplement implements UserService {
 
         try{
             
-            UserSelectComponentEntity userselectcomponententity = userSelectComponentRepositoy.findByUserEmail(userEmail);
-            if(userselectcomponententity==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
+            //! UserRepository에서 입력된 Email이 있는지를 찾아봐야지  
+            UserEntity userentity = userRepository.findByUserEmail(userEmail);
+            if(userentity==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
 
             
-            userselectcomponententity.setUserFinalEducation(userFinalEducation);
-            userselectcomponententity.setUserCarrer(userCarrer);
-            userselectcomponententity.setUserLicense(userLicense);
-            userSelectComponentRepositoy.save(userselectcomponententity);
+            userentity.setUserFinalEducation(userFinalEducation);
+            userentity.setUserCarrer(userCarrer);
+            userentity.setUserLicense(userLicense);
+            userRepository.save(userentity);
 
-            data = new PatchUserComponentResponseDto(userselectcomponententity);
+            data = new PatchUserComponentResponseDto(userentity);
 
 
 
@@ -76,7 +74,7 @@ public class UserServiceImplement implements UserService {
 
 
         try{
-            UserEntity userentity = userReposiotory.findByUserEmail(userEmail);
+            UserEntity userentity = userRepository.findByUserEmail(userEmail);
             if(userentity==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
 

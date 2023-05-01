@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.job.back.dto.User_Select_Component_Dto;
 import com.job.back.dto.request.auth.UserSignUpDto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,9 @@ public class UserEntity {
     private String userAddress;
     private int userAge;
     private String userGender;
+    private String[] userFinalEducation;
+    private String[] userCarrer;
+    private String[] userLicense;
     
     public UserEntity(UserSignUpDto dto){
         this.userEmail = dto.getUserEmail();
@@ -37,5 +42,12 @@ public class UserEntity {
         this.userAddress = dto.getUserAddress();
         this.userAge = dto.getUserAge();
         this.userGender = dto.getUserGender();
+    }
+
+    // ! User 필드 중에서 나중에 회원가입시 필수 입력사항이 아니고 나중에 수정가능한 필드들에 대한 생성자 
+    public UserEntity(User_Select_Component_Dto dto){
+        this.userFinalEducation  = dto.getUserFinalEducation();
+        this.userCarrer = dto.getUserCarrer();
+        this.userLicense = dto.getUserLicense();
     }
 }

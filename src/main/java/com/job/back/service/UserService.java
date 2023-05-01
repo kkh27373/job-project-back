@@ -1,5 +1,6 @@
 package com.job.back.service;
 
+import com.job.back.dto.User_Select_Component_Dto;
 import com.job.back.dto.request.user.PatchUserComponentDto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
