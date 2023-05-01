@@ -66,7 +66,20 @@ public class UserController {
      (@AuthenticationPrincipal String email, 
       @Valid @RequestBody User_Select_Component_Dto user_Select_Component_Dto){
 
-      ResponseDto<PatchUserComponentResponseDto> response = userService.patchUserSelectComponent(email, null)
+      ResponseDto<PatchUserComponentResponseDto> response = userService.patchUserSelectComponent(email,user_Select_Component_Dto );
+
+      return response;
+
+
+            
+
+
+
+         
+         
+         
+         
+                                                                                                
 
 
 

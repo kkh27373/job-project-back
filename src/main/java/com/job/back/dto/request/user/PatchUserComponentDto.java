@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PatchUserComponentDto {
     @NotBlank
-    private String[] userFinalEducation;
+    private String userFinalEducation;
     @NotBlank
-    private String[] userCarrer;
+    private String userCarrer;
     @NotBlank
-    private String[] userLicense;
+    private String userLicense;
 
 }
