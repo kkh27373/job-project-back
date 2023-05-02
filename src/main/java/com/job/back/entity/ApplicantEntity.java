@@ -29,5 +29,5 @@ public class ApplicantEntity {
     // 지원자 지원할 분야
     private String applicantDesireCategory;
     // 지원자 최종 점수
-    private String applicantTotalScore;
+    private int applicantTotalScore;
 }

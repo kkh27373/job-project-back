@@ -1,11 +1,14 @@
 package com.job.back.service.implementation;
 
+import java.util.Arrays;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
+import com.job.back.common.util.DatabaseJson;
 import com.job.back.dto.User_Select_Component_Dto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
@@ -41,20 +44,35 @@ public class UserServiceImplement implements UserService {
         String[] userCarrer = dto.getUserCarrer();
         String[] userLicense = dto.getUserLicense();
          
-
+        System.out.println("실행0"+Arrays.toString(userFinalEducation));
 
         try{
             
             //! UserRepository에서 입력된 Email이 있는지를 찾아봐야지  
-            UserEntity userentity = userRepository.findByUserEmail(userEmail);
+            // ! (String userEmail, User_Select_Component_Dto dto ) 그냥 userEmail을 매개변수로 받으면 안되고, dto의 getUserEmail을 해서 받아야 한다 
+            // ! 나중에 RequestBody에서 이메일을 받으니까 
+            UserEntity userentity = userRepository.findByUserEmail(dto.getUserEmail());
             if(userentity==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
 
-            
-            userentity.setUserFinalEducation(userFinalEducation);
-            userentity.setUserCarrer(userCarrer);
-            userentity.setUserLicense(userLicense);
+
+            System.out.println("실행1"+userentity.getUserEmail());
+            // ! 실행1rlagusxo96652@naver.com
+
+
+            // ! 여기서 UserEntity에 저장할 때만String[]에서 String으로 바꾼다 
+            userentity.setUserFinalEducation(DatabaseJson.arrayToString(userFinalEducation));
+            System.out.println("실행2"+userentity.getUserFinalEducation());
+            // ! 실행2[Ljava.lang.String;@13d31368
+            // ! String[] 의 주소가 userentity로 저장된다 ==> 어떻게 하면 주소가 아니라 값으로 저장할 수 있을까 ?
+
+
+            // ! 들어갈때는 String으로 들어가고 Postman에 성공여부 보여줄 때는 String[] 로 보여진다 
+            userentity.setUserCarrer(DatabaseJson.arrayToString(userCarrer));
+            userentity.setUserLicense(DatabaseJson.arrayToString(userLicense));
             userRepository.save(userentity);
 
+
+            // ! data에 들어갈때 ["서비스업 10년","제조업 5년",""] 이렇게 들어가야 한다
             data = new PatchUserComponentResponseDto(userentity);
 
 
