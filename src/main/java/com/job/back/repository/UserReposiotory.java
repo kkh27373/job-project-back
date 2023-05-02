@@ -9,6 +9,7 @@ import com.job.back.entity.UserEntity;
 public interface UserReposiotory extends JpaRepository<UserEntity,String> {
     
     public boolean existsByUserEmail(String userEmail);
+    
     public boolean existsByUserTelNumber(String userTelNumber);
 
     public boolean existsByUserEmailOrUserTelNumber(String userEmail, String userTelNumber);
