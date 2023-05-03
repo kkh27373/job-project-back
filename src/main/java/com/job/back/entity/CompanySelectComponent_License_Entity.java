@@ -20,8 +20,8 @@ public class CompanySelectComponent_License_Entity {
     @Id
     private String companyTelNumber;
 
-    public String license;
-    public int license_score;
+    private String license;
+    private int license_score;
 
     public CompanySelectComponent_License_Entity(String companyTelNumber, String license[],int license_score){
 

@@ -31,7 +31,7 @@ public class ApplicantController {
         @AuthenticationPrincipal String email,
         // ! Applicant_Score_Dto에 User의 select_component(final_education,carrer,license)가 담겨서 보내진다
         @Valid @RequestBody Applicant_Content_Dto dto,
-        @PathVariable("companyTelNumber") String company_Tel_Number
+        @PathVariable String company_Tel_Number
     ){
 
         
