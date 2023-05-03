@@ -21,8 +21,8 @@ public class CompanySelectComponent_Carrer_Entity {
     private String companyTelNumber;
 
 
-    public String carrer;
-    public int carrer_score;
+    private String carrer;
+    private int carrer_score;
 
     public CompanySelectComponent_Carrer_Entity(String companyTelNumber,String[] carrer,int carrer_score){
 

@@ -21,7 +21,7 @@ import io.swagger.models.Response;
 @Service
 public class CompanySelectComponentServiceimplementation implements CompanySelectComponentService {
     @Autowired
-    CompanySelectComponent_University_Repository companySelectComponentRepository;
+    CompanySelectComponent_University_Repository companyselectcomponentuniversityrepository;
     @Autowired
     CompanySelectComponent_Carrer_Repository companyselectcomponentcarrerrepository;
     @Autowired
@@ -42,7 +42,7 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
                                                                                                                                     University_grade_two,second_grade_score,
                                                                                                                                     University_grade_three,third_grade_score,
                                                                                                                                     University_grade_etc,etc_grade_score);
-            companySelectComponentRepository.save(companyselectcomponentuniversityentity);
+            companyselectcomponentuniversityrepository.save(companyselectcomponentuniversityentity);
 
 
             
