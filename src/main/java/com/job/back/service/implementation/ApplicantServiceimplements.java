@@ -1,15 +1,21 @@
 package com.job.back.service.implementation;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
 import com.job.back.common.util.DatabaseJson;
 import com.job.back.dto.Applicant_Content_Dto;
+import com.job.back.dto.Applicant_Total_Score_Dto;
 import com.job.back.dto.Carrer_Dto;
 import com.job.back.dto.License_Dto;
 import com.job.back.dto.University_Grade_Dto;
 import com.job.back.dto.response.ResponseDto;
+import com.job.back.dto.response.applicant.ApplicantPercentileResponseDto;
 import com.job.back.dto.response.applicant.ApplicantScoreResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
@@ -40,7 +46,7 @@ public class ApplicantServiceimplements implements ApplicantService{
 
 
     // ! 지원자의 점수를 계산하고 보여주는 ServiceImplemnts
-    public ResponseDto<ApplicantScoreResponseDto> show_Applicant_Score(String company_Tel_Number,
+    public ResponseDto<ApplicantScoreResponseDto> show_Applicant_Total_Score(String company_Tel_Number,
                                                                        Applicant_Content_Dto applicantContentDto){
                                                                         
         ApplicantScoreResponseDto data = null; 
@@ -116,5 +122,55 @@ public class ApplicantServiceimplements implements ApplicantService{
     }
 
 
+
+    public ResponseDto<ApplicantPercentileResponseDto> show_Applicant_Percentile(String company_Tel_Number,Applicant_Total_Score_Dto my_dto){
+
+        ApplicantPercentileResponseDto data =null;
+
+        
+        List<Integer> arr = null;
+
+        
+
+
+        try{
+
+            
+            
+            // ! 해당 회사에 지원한 모든 지원자의 entity를 applicant_Total_Score 내림차순으로 정렬해서 보여준다 
+            List<ApplicantEntity> applicantEntity_arr_OrderBy_Applicant_Total_Score=  applicant_Repository.findByApplicantCompanyTelNumberOrderByApplicantTotalScoreDesc(company_Tel_Number);
+            // ! 해당 회사에 지원한 모든 지원자의 entity
+            List<ApplicantEntity> applicantEntity_arr=  applicant_Repository.findByApplicantCompanyTelNumber(company_Tel_Number);
+            // ! 나의 백분위를 알고싶은 지원자의 entity
+            ApplicantEntity my_aApplicantEntity = applicant_Repository.findByApplicantUserEmail(my_dto.getApplicant_Email());
+
+            
+
+            for(ApplicantEntity i:applicantEntity_arr_OrderBy_Applicant_Total_Score){
+                // ! 이게 null이라는데 ?
+                arr.add(i.getApplicantTotalScore());
+            }
+            
+            
+            for(Integer i: arr){
+                System.out.println("배열"+i);
+            }
+
+
+
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
     
 }
+
+
+  
