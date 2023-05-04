@@ -15,7 +15,7 @@ public class ApplicantScoreResponseDto {
     private int applicant_carrer_score;
     private int applicant_license_score;
 
-    private int applicant_total_score = applicant_university_score+applicant_carrer_score+applicant_license_score;
+    private int applicant_total_score;
 
 
 

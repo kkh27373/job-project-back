@@ -33,7 +33,7 @@ public class ApplicantServiceimplements implements ApplicantService{
     CompanySelectComponent_License_Repository companySelectComponent_License_Repository;
     @Autowired
     ApplicantRepositroy applicant_Repository;
-    @Autowired
+    
 
     
 
@@ -70,7 +70,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             if(company_carrer_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
 
-            data.setApplicant_carrer_score(0);
+            data.setApplicant_carrer_score(ApplicantFunction.Carrer_Matching_Function(company_carrer_info, applicantContentDto));
 
             
             
@@ -80,15 +80,23 @@ public class ApplicantServiceimplements implements ApplicantService{
             CompanySelectComponent_License_Entity company_license_info = companySelectComponent_License_Repository.findByCompanyTelNumber(company_Tel_Number);
             if(company_license_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
-            data.setApplicant_license_score(0);
 
+            data.setApplicant_license_score(ApplicantFunction.License_Matching_Function(company_license_info, applicantContentDto));
+
+            int applicant_total_score = data.getApplicant_university_score()+data.getApplicant_carrer_score()+data.getApplicant_license_score();
             
+            data.setApplicant_total_score(applicant_total_score);
+
             ApplicantEntity for_Repository_saving = new ApplicantEntity(applicantContentDto.getApplicantEmail(),
                                                                         company_Tel_Number,
                                                                         DatabaseJson.arrayToString(applicantContentDto.getApplicant_FinalEducation()),
                                                                         DatabaseJson.arrayToString(applicantContentDto.getApplicant_Carrer()),
                                                                         DatabaseJson.arrayToString(applicantContentDto.getApplicant_License()),
                                                                         data.getApplicant_total_score());
+
+            System.out.println(for_Repository_saving.getApplicantLicense());  
+            System.out.println(data.getApplicant_total_score());
+            System.out.println(for_Repository_saving.getApplicantTotalScore());                                                          
             
             // !  Matching 된 정보를 applicantRepository에 save한다 
             applicant_Repository.save(for_Repository_saving);
