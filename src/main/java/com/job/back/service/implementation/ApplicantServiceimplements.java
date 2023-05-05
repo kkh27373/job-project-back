@@ -1,5 +1,6 @@
 package com.job.back.service.implementation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +27,8 @@ import com.job.back.repository.CompanySelectComponent_Carrer_Repository;
 import com.job.back.repository.CompanySelectComponent_License_Repository;
 import com.job.back.repository.CompanySelectComponent_University_Repository;
 import com.job.back.service.ApplicantService;
-import com.job.back.service.implementation.ApplicantServiceImplementsFunction.ApplicantFunction;
+import com.job.back.service.implementation.ApplicantServiceImplementsFunction.Applicant_Percentile_Function;
+import com.job.back.service.implementation.ApplicantServiceImplementsFunction.Applicant_Total_Score_Function;
 
 @Service
 public class ApplicantServiceimplements implements ApplicantService{
@@ -66,7 +68,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             
             
             // ! 여기 지원자의 대학교를 보고 회사측에서 지정한 점수를 return 하는 함수 
-            data.setApplicant_university_score(ApplicantFunction.University_Matching_Function(company_university_info,applicantContentDto));    
+            data.setApplicant_university_score(Applicant_Total_Score_Function.University_Matching_Function(company_university_info,applicantContentDto));    
 
             
             
@@ -76,7 +78,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             if(company_carrer_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
 
-            data.setApplicant_carrer_score(ApplicantFunction.Carrer_Matching_Function(company_carrer_info, applicantContentDto));
+            data.setApplicant_carrer_score(Applicant_Total_Score_Function.Carrer_Matching_Function(company_carrer_info, applicantContentDto));
 
             
             
@@ -87,7 +89,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             if(company_license_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
 
-            data.setApplicant_license_score(ApplicantFunction.License_Matching_Function(company_license_info, applicantContentDto));
+            data.setApplicant_license_score(Applicant_Total_Score_Function.License_Matching_Function(company_license_info, applicantContentDto));
 
             int applicant_total_score = data.getApplicant_university_score()+data.getApplicant_carrer_score()+data.getApplicant_license_score();
             
@@ -128,33 +130,34 @@ public class ApplicantServiceimplements implements ApplicantService{
         ApplicantPercentileResponseDto data =null;
 
         
-        List<Integer> arr = null;
+        List<Integer> arr = new ArrayList<>();
+
+        double my_Percentile;
 
         
+
+    
 
 
         try{
 
-            
-            
-            // ! 해당 회사에 지원한 모든 지원자의 entity를 applicant_Total_Score 내림차순으로 정렬해서 보여준다 
-            List<ApplicantEntity> applicantEntity_arr_OrderBy_Applicant_Total_Score=  applicant_Repository.findByApplicantCompanyTelNumberOrderByApplicantTotalScoreDesc(company_Tel_Number);
+            // ! 해당 회사에 지원한 모든 지원자의 entity를 applicant_Total_Score 내림차순으로 정렬해서 보여준다
+            List<ApplicantEntity> applicantEntity_arr_OrderBy_Applicant_Total_Score = applicant_Repository
+                    .findByApplicantCompanyTelNumberOrderByApplicantTotalScoreDesc(company_Tel_Number);
             // ! 해당 회사에 지원한 모든 지원자의 entity
-            List<ApplicantEntity> applicantEntity_arr=  applicant_Repository.findByApplicantCompanyTelNumber(company_Tel_Number);
+            // List<ApplicantEntity> applicantEntity_arr=
+            // applicant_Repository.findByApplicantCompanyTelNumber(company_Tel_Number);
             // ! 나의 백분위를 알고싶은 지원자의 entity
-            ApplicantEntity my_aApplicantEntity = applicant_Repository.findByApplicantUserEmail(my_dto.getApplicant_Email());
+            ApplicantEntity my_aApplicantEntity = applicant_Repository
+                    .findByApplicantUserEmail(my_dto.getApplicant_Email());
+
+            my_Percentile = Applicant_Percentile_Function.Percentile_Function(applicantEntity_arr_OrderBy_Applicant_Total_Score, arr,my_aApplicantEntity);
+
+            System.out.println("당신은 상위 : "+my_Percentile + "% 입니다.");
 
             
-
-            for(ApplicantEntity i:applicantEntity_arr_OrderBy_Applicant_Total_Score){
-                // ! 이게 null이라는데 ?
-                arr.add(i.getApplicantTotalScore());
-            }
             
             
-            for(Integer i: arr){
-                System.out.println("배열"+i);
-            }
 
 
 

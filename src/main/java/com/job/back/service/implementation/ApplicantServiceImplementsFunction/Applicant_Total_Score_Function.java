@@ -6,7 +6,7 @@ import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 import com.job.back.entity.CompanySelectComponent_License_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 
-public class ApplicantFunction {
+public class Applicant_Total_Score_Function {
 
     public static int University_Matching_Function(CompanySelectComponent_University_Entity companyselect_University,
                                                    Applicant_Content_Dto applicant_content_dto){
