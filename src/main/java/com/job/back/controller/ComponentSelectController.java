@@ -23,14 +23,14 @@ import com.job.back.service.CompanySelectComponentService;
 @RequestMapping(ApiPattern.SELECT_COMPONENT)
 public class ComponentSelectController {
 
-    private final String SELECT_UNIVERSITY = "/university";
-    private final String SELECT_CARRER = "/carrer";
-    private final String SELECT_LICENSE = "/license";
+    private final String COMPANY_SELECT_UNIVERSITY = "company/university";
+    private final String COMPANY_SELECT_CARRER = "company/carrer";
+    private final String COMPANY_SELECT_LICENSE = "company/license";
 
     @Autowired
     CompanySelectComponentService companyselectcomponentservice;
 
-    @PostMapping(SELECT_UNIVERSITY)
+    @PostMapping(COMPANY_SELECT_UNIVERSITY)
     public ResponseDto<SelectUniversityResponseDto> selectUniversity(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody University_Grade_Dto University
@@ -46,24 +46,24 @@ public class ComponentSelectController {
     }
 
 
-    @PostMapping(SELECT_CARRER)
+    @PostMapping(COMPANY_SELECT_CARRER)
     public ResponseDto<SelectCarrerResponseDto> selectCarrer(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody Carrer_Dto Carrer
     ){
-        ResponseDto<SelectCarrerResponseDto> response = companyselectcomponentservice.select_Carrer_Score(Carrer.carrer, Carrer.carrer_score);
+        ResponseDto<SelectCarrerResponseDto> response = companyselectcomponentservice.select_Carrer_Score(Carrer.getCompanyTelNumber(),Carrer.getCarrer(), Carrer.getCarrer_score());
 
         return response;
 
 
     }
 
-    @PostMapping(SELECT_LICENSE)
+    @PostMapping(COMPANY_SELECT_LICENSE)
     public ResponseDto<SelectLicenseResponseDto> selectLicense(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody License_Dto License
     ){
-        ResponseDto<SelectLicenseResponseDto> response = companyselectcomponentservice.select_License_Score(License.license, License.license_score);
+        ResponseDto<SelectLicenseResponseDto> response = companyselectcomponentservice.select_License_Score(License.getCompanyTelNumber(),License.getLicense(), License.getLicense_score());
 
         return response;
     }

@@ -12,6 +12,7 @@ public class DatabaseJson {
         return result;
     }
 
+    // ! String 형태를 배열의 형태로 바꿔주는 
     public static String[] stringToArray(String string) {
         string = string.replace("\"[", "").replace("]\"", "").replace("'", "");
         return string.split(",");

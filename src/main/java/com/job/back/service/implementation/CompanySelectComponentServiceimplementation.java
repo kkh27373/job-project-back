@@ -21,7 +21,7 @@ import io.swagger.models.Response;
 @Service
 public class CompanySelectComponentServiceimplementation implements CompanySelectComponentService {
     @Autowired
-    CompanySelectComponent_University_Repository companySelectComponentRepository;
+    CompanySelectComponent_University_Repository companyselectcomponentuniversityrepository;
     @Autowired
     CompanySelectComponent_Carrer_Repository companyselectcomponentcarrerrepository;
     @Autowired
@@ -42,7 +42,7 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
                                                                                                                                     University_grade_two,second_grade_score,
                                                                                                                                     University_grade_three,third_grade_score,
                                                                                                                                     University_grade_etc,etc_grade_score);
-            companySelectComponentRepository.save(companyselectcomponentuniversityentity);
+            companyselectcomponentuniversityrepository.save(companyselectcomponentuniversityentity);
 
 
             
@@ -60,7 +60,7 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
     }
     
 
-    public ResponseDto<SelectCarrerResponseDto> select_Carrer_Score(String[] Carrer,int score){
+    public ResponseDto<SelectCarrerResponseDto> select_Carrer_Score(String companyTelNumber, String[] Carrer,int score){
 
         
 
@@ -68,11 +68,13 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
 
         try{
 
-            CompanySelectComponent_Carrer_Entity companyselectcomponentcarrerentity = new CompanySelectComponent_Carrer_Entity(Carrer,score);
+            CompanySelectComponent_Carrer_Entity companyselectcomponentcarrerentity = new CompanySelectComponent_Carrer_Entity(companyTelNumber,Carrer,score);
+            
+            
             companyselectcomponentcarrerrepository.save(companyselectcomponentcarrerentity);
 
 
-            data = new SelectCarrerResponseDto(null);
+            data = new SelectCarrerResponseDto(companyselectcomponentcarrerentity);
 
 
         }catch(Exception exception){
@@ -85,14 +87,14 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
     }
 
 
-    public ResponseDto<SelectLicenseResponseDto> select_License_Score(String[] License,int score){
+    public ResponseDto<SelectLicenseResponseDto> select_License_Score(String companyTelNumber,String[] License,int score){
 
         SelectLicenseResponseDto data = null;
 
 
             try{
 
-                CompanySelectComponent_License_Entity companySelectComponent_License_Entity = new CompanySelectComponent_License_Entity(License,score);
+                CompanySelectComponent_License_Entity companySelectComponent_License_Entity = new CompanySelectComponent_License_Entity(companyTelNumber,License,score);
                 companyselectcomponentlicenserepository.save(companySelectComponent_License_Entity);
 
                 data = new SelectLicenseResponseDto(companySelectComponent_License_Entity);

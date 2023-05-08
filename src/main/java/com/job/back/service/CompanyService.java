@@ -12,7 +12,6 @@ import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 
 public interface CompanyService {
-    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(String companyEmail, @Valid PatchCompanyProfileDto requestBody);
     public ResponseDto<GetCompanyResponseDto> getCompany(String email);
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto);
     public ResponseDto<ValidateCompanyTelNumberResponseDto> validateCompanyTelNumber(ValidateCompanyTelNumberDto dto);

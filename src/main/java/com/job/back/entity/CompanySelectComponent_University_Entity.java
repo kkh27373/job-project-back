@@ -1,8 +1,6 @@
 package com.job.back.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,25 +15,26 @@ import lombok.NoArgsConstructor;
 @Entity(name = "Company_University_Select_Component")
 @Table(name = "Company_University_Select_Component")
 public class CompanySelectComponent_University_Entity {
+    
     @Id
     private String companyTelNumber;
     
 
    
-    public String first_grade_university;
-     public int first_grade_university_score;
+    private String first_grade_university;
+    private int first_grade_university_score;
 
     
-    public String second_grade_university;
-    public int second_grade_university_score;
+    private String second_grade_university;
+    private int second_grade_university_score;
 
     
-    public String third_grade_university;
-     public int third_grade_university_score;
+    private String third_grade_university;
+    private int third_grade_university_score;
 
     
-    public String etc_grade_university;
-    public int etc_grade_university_score;
+    private String etc_grade_university;
+    private int etc_grade_university_score;
 
     
 

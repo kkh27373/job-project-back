@@ -1,7 +1,5 @@
 package com.job.back.dto;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Carrer_Dto {
+public class Applicant_Total_Score_Dto {
 
-    private  String companyTelNumber;
-
-    private String[] carrer;
-    private int carrer_score;
+    private String applicant_Email;
+    private int applicant_Total_Score;
     
 }
