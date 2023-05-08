@@ -15,6 +15,7 @@ import com.job.back.dto.User_Select_Component_Dto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
+import com.job.back.dto.response.user.AddUserWishListResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
 import com.job.back.dto.response.user.PatchUserComponentResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
@@ -33,6 +34,7 @@ public class UserController {
      private final String VALIDATE_USER_EMAIL = "/validte/user-email";
      private final String VALIDATE_USER_TEL_NUMBER = "/validte/user-tel-number";
      private final String USER_SELECT_COMPONENT = "/select-component";
+     private final String ADD_USER_WISH_LIST = "/user/user-wish-list";
 
      @ApiOperation(value = "유저 정보 불러오기", notes = "Request Header Authorization에 Bearer Token을 포함하여 요청을 하면, 성공시 유저 정보를 반환하고 실패시 실패 메세지를 반환")
      @GetMapping(GET_USER)
@@ -70,6 +72,8 @@ public class UserController {
 
       return response;
 
+      
+
 
             
 
@@ -87,4 +91,20 @@ public class UserController {
       
       
       }
-}
+
+
+      @PostMapping(ADD_USER_WISH_LIST)
+      public ResponseDto<AddUserWishListResponseDto> addUserWishList(
+         @AuthenticationPrincipal String email,
+         @Valid @RequestBody String company_tel_number
+      ){
+
+         ResponseDto<AddUserWishListResponseDto> response  = userService.addUserWishList(email,company_tel_number);
+
+         return response;
+
+      }
+
+
+
+   }
