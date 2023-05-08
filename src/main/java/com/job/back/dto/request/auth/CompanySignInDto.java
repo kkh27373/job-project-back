@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class CompanySignInDto {
     @NotBlank
     @Email
-    @Length(max = 20)
+    @Length(max = 50)
     private String CompanyEmail;
     @NotBlank
-    @Length(min = 8, max = 20)
+    @Length(min = 5, max = 50)
     private String CompanyPassword;
 }
 
