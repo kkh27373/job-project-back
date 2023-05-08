@@ -1,7 +1,16 @@
 package com.job.back.dto.response.company;
 
+import com.job.back.common.util.DatabaseJson;
 import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SelectCarrerResponseDto {
 
 
@@ -15,7 +24,7 @@ public class SelectCarrerResponseDto {
     public SelectCarrerResponseDto(CompanySelectComponent_Carrer_Entity companyselectcomponentcarrerentity){
 
         this.companyTelNumber = companyselectcomponentcarrerentity.getCompanyTelNumber();
-        this.carrer = companyselectcomponentcarrerentity.getCarrer();
+        this.carrer = DatabaseJson.stringToArray(companyselectcomponentcarrerentity.getCarrer());
         this.carrer_score = companyselectcomponentcarrerentity.getCarrer_score();
 
     }

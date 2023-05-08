@@ -1,7 +1,7 @@
 package com.job.back.dto.response.user;
 
+import com.job.back.common.util.DatabaseJson;
 import com.job.back.entity.UserEntity;
-import com.job.back.entity.UserSelectComponentEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PatchUserComponentResponseDto {
     private String userEmail;
-    private String userFinalEducation;
-    private String userCarrer;
-    private String userLicense;
+    private String[] userFinalEducation;
+    private String[] userCarrer;
+    private String[] userLicense;
 
-    public PatchUserComponentResponseDto(UserSelectComponentEntity userSelectComponentEntity) {
-        this.userFinalEducation = userSelectComponentEntity.getUserFinalEducation();
-        this.userCarrer = userSelectComponentEntity.getUserCarrer();
-        this.userLicense = userSelectComponentEntity.getUserLicense();
-        this.userEmail = userSelectComponentEntity.getUserUserEmail();
+    public PatchUserComponentResponseDto(UserEntity userEntity) {
+        this.userFinalEducation = DatabaseJson.stringToArray(userEntity.getUserFinalEducation());
+        this.userCarrer = DatabaseJson.stringToArray(userEntity.getUserCarrer());
+        this.userLicense = DatabaseJson.stringToArray(userEntity.getUserLicense());
+        this.userEmail = userEntity.getUserEmail();
     }
 }

@@ -38,6 +38,7 @@ public class AuthController {
 
     @PostMapping(COMPANY_SIGN_UP)
     public ResponseDto<CompanySignUpResponseDto> companySignUp(@Valid @RequestBody CompanySignUpDto requestBody){
+        System.out.println("API companySignUp Request body :" + requestBody.toString());
         ResponseDto<CompanySignUpResponseDto> response = authService.companySignUp(requestBody);
         return response;
     }
