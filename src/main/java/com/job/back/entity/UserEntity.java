@@ -35,6 +35,7 @@ public class UserEntity {
     private String userFinalEducation;
     private String userCarrer;
     private String userLicense;
+    private String user_Wish_List;
     
     public UserEntity(UserSignUpDto dto){
         this.userEmail = dto.getUserEmail();

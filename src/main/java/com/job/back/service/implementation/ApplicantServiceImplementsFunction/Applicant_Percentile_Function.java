@@ -38,6 +38,7 @@ public class Applicant_Percentile_Function {
         System.out.println("arr가 null이 아닙니다");
     }
 
+    System.out.println("이거부터"+my_applicantEntity);
     int k = my_applicantEntity.getApplicantTotalScore();
     double better_than_k =0;
 

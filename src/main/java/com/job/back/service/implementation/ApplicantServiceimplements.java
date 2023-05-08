@@ -52,7 +52,11 @@ public class ApplicantServiceimplements implements ApplicantService{
                                                                        Applicant_Content_Dto applicantContentDto){
                                                                         
         ApplicantScoreResponseDto data = null; 
-        data = new ApplicantScoreResponseDto();                                                       
+        data = new ApplicantScoreResponseDto();  
+        
+        List<Integer> arr = new ArrayList<>();
+        
+        double my_Percentile;
         
 
         try{
@@ -66,7 +70,8 @@ public class ApplicantServiceimplements implements ApplicantService{
             
             
             
-            
+            System.out.println("여길 보세요"+applicantContentDto);
+            System.out.println("여기를 보시오2"+applicantContentDto.getApplicant_FinalEducation());
             // ! 여기 지원자의 대학교를 보고 회사측에서 지정한 점수를 return 하는 함수 
             data.setApplicant_university_score(Applicant_Total_Score_Function.University_Matching_Function(company_university_info,applicantContentDto));    
 
@@ -95,16 +100,37 @@ public class ApplicantServiceimplements implements ApplicantService{
             
             data.setApplicant_total_score(applicant_total_score);
 
+
+
+
+
+
+
+            
+
+            
+            
+            
+
+
+
+
+
+
+
+
+
+
+
             ApplicantEntity for_Repository_saving = new ApplicantEntity(applicantContentDto.getApplicantEmail(),
                                                                         company_Tel_Number,
                                                                         DatabaseJson.arrayToString(applicantContentDto.getApplicant_FinalEducation()),
                                                                         DatabaseJson.arrayToString(applicantContentDto.getApplicant_Carrer()),
                                                                         DatabaseJson.arrayToString(applicantContentDto.getApplicant_License()),
-                                                                        data.getApplicant_total_score());
+                                                                        data.getApplicant_total_score()
+                                                                        );
 
-            System.out.println(for_Repository_saving.getApplicantLicense());  
-            System.out.println(data.getApplicant_total_score());
-            System.out.println(for_Repository_saving.getApplicantTotalScore());                                                          
+                                                                      
             
             // !  Matching 된 정보를 applicantRepository에 save한다 
             applicant_Repository.save(for_Repository_saving);
@@ -122,6 +148,9 @@ public class ApplicantServiceimplements implements ApplicantService{
 
 
     }
+
+
+
 
 
 
@@ -148,16 +177,28 @@ public class ApplicantServiceimplements implements ApplicantService{
             // List<ApplicantEntity> applicantEntity_arr=
             // applicant_Repository.findByApplicantCompanyTelNumber(company_Tel_Number);
             // ! 나의 백분위를 알고싶은 지원자의 entity
-            ApplicantEntity my_aApplicantEntity = applicant_Repository
+            ApplicantEntity my_applicantEntity = applicant_Repository
                     .findByApplicantUserEmail(my_dto.getApplicant_Email());
 
-            my_Percentile = Applicant_Percentile_Function.Percentile_Function(applicantEntity_arr_OrderBy_Applicant_Total_Score, arr,my_aApplicantEntity);
+            my_Percentile = Applicant_Percentile_Function.Percentile_Function(applicantEntity_arr_OrderBy_Applicant_Total_Score, arr,my_applicantEntity);
 
             System.out.println("당신은 상위 : "+my_Percentile + "% 입니다.");
 
+
+            //? applicantRepository에 들어가서 column값 하나만 더하면 되는데 굳이 새로운 객체 만들어서 덮어씌우기?
+            // ? ==> 너무 비효율적인데 
+
+
+            ApplicantEntity applicantEntity = new ApplicantEntity(my_applicantEntity.getApplicantUserEmail(), 
+                                                                  company_Tel_Number, 
+                                                                  my_applicantEntity.getApplicantFinalEducation(), 
+                                                                  my_applicantEntity.getApplicantCarrer(), 
+                                                                  my_applicantEntity.getApplicantLicense(), 
+                                                                  my_dto.getApplicant_Total_Score(), my_Percentile);
+
             
             
-            
+            applicant_Repository.save(applicantEntity);
 
 
 

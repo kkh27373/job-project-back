@@ -18,11 +18,7 @@ public class Applicant_Content_Dto {
     
 
 
-    public String[] getApplicant_FinalEducation(){
-
-        return applicant_FinalEducation;
-
-    }
+    
     
 
     

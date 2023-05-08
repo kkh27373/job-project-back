@@ -1,6 +1,7 @@
 package com.job.back.service.implementation;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,18 +21,25 @@ import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
+import com.job.back.dto.response.user.AddUserWishListResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
 import com.job.back.dto.response.user.PatchUserComponentResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
+import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.UserEntity;
+import com.job.back.entity.UserWishListEntity;
+import com.job.back.repository.ApplicantRepositroy;
 import com.job.back.repository.UserReposiotory;
+import com.job.back.repository.UserWishListRepository;
 import com.job.back.service.UserService;
 
 @Service
 public class UserServiceImplement implements UserService {
 
     @Autowired UserReposiotory userRepository;
+    @Autowired ApplicantRepositroy applicantRepository;
+    @Autowired UserWishListRepository userwishlistRepository;
 
 
 
@@ -146,7 +154,32 @@ public class UserServiceImplement implements UserService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
         
     }
+    public ResponseDto<AddUserWishListResponseDto> addUserWishList(String userEmail,String company_tel_number){
+        
+        AddUserWishListResponseDto data = null;
+        
+        try{
+            // ? 일차적으로 내가 원하는 회사의 전화번호를 통해 내가 원하는 회사가 맞는지 회사 확인 ==> 1차 정재 작업 
+            // List<ApplicantEntity>  applicantList =applicantRepositroy.findByApplicantCompanyTelNumber(company_tel_number);
+            // ? 2차적으로 내가 userEmail이 맞는지 확인 ==>2차 정재 작업 
 
+            // UserWishListEntity userWishListEntity = new UserWishListEntity(company_tel_number,userEmail,);
+
+            ApplicantEntity applicantEntity = applicantRepository.findByApplicantCompanyTelNumberAndApplicantUserEmail(company_tel_number,userEmail);
+            System.out.println(applicantEntity);
+            
+            
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+
+    }
 
         
 

@@ -12,9 +12,13 @@ public class Applicant_Total_Score_Function {
                                                    Applicant_Content_Dto applicant_content_dto){
 
     String[] company_select_uni_arr = DatabaseJson.stringToArray(companyselect_University.getFirst_grade_university());
+
+    System.out.println("오늘은 여기 1 "+company_select_uni_arr);
     
     
     String [] applicant_finalEducation_arr= applicant_content_dto.getApplicant_FinalEducation();
+
+    System.out.println("오늘은 여기"+applicant_finalEducation_arr);
     
 
     // ! for 문을 돌면서 해당 문자열에 지원자의 학교가 있는지 없는지 확인 

@@ -34,4 +34,22 @@ public class ApplicantEntity {
     private String applicantLicense;
     // 지원자 최종 점수
     private int applicantTotalScore;
+    // 지원자의 특정회사에서의 백분위
+    private double applicantPercentile;
+
+    public ApplicantEntity(String applicantUserEmail,
+                           String applicantCompanyTelNumber,
+                           String applicantFinalEducation,
+                           String applicantCarrer,
+                           String applicantLicense,
+                           int applicantTotalScore){
+
+                            this.applicantUserEmail = applicantUserEmail;
+                            this.applicantCompanyTelNumber = applicantCompanyTelNumber;
+                            this.applicantFinalEducation = applicantFinalEducation;
+                            this.applicantCarrer = applicantCarrer;
+                            this.applicantLicense = applicantLicense;
+                            this.applicantTotalScore = applicantTotalScore;
+
+    }
 }

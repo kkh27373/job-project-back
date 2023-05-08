@@ -13,4 +13,5 @@ public interface ApplicantRepositroy extends JpaRepository<ApplicantEntity, Stri
     public List<ApplicantEntity> findByApplicantCompanyTelNumber(String company_Tel_Number);
     public ApplicantEntity findByApplicantUserEmail(String applicantUserEmail);
     public List<ApplicantEntity> findByApplicantCompanyTelNumberOrderByApplicantTotalScoreDesc(String company_Tel_Number);
+    public ApplicantEntity findByApplicantCompanyTelNumberAndApplicantUserEmail(String company_tel_number,String applicantUserEmail);
 }
