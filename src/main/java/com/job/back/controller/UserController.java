@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.job.back.common.constant.ApiPattern;
+import com.job.back.dto.Add_User_Wish_List_Dto;
 import com.job.back.dto.User_Select_Component_Dto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
@@ -34,7 +35,7 @@ public class UserController {
      private final String VALIDATE_USER_EMAIL = "/validte/user-email";
      private final String VALIDATE_USER_TEL_NUMBER = "/validte/user-tel-number";
      private final String USER_SELECT_COMPONENT = "/select-component";
-     private final String ADD_USER_WISH_LIST = "/user/user-wish-list";
+     private final String ADD_USER_WISH_LIST = "/user-wish-list";
 
      @ApiOperation(value = "유저 정보 불러오기", notes = "Request Header Authorization에 Bearer Token을 포함하여 요청을 하면, 성공시 유저 정보를 반환하고 실패시 실패 메세지를 반환")
      @GetMapping(GET_USER)
@@ -96,10 +97,10 @@ public class UserController {
       @PostMapping(ADD_USER_WISH_LIST)
       public ResponseDto<AddUserWishListResponseDto> addUserWishList(
          @AuthenticationPrincipal String email,
-         @Valid @RequestBody String company_tel_number
+         @Valid @RequestBody Add_User_Wish_List_Dto dto
       ){
 
-         ResponseDto<AddUserWishListResponseDto> response  = userService.addUserWishList(email,company_tel_number);
+         ResponseDto<AddUserWishListResponseDto> response  = userService.addUserWishList(email,dto.getCompany_Tel_Number());
 
          return response;
 
