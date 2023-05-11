@@ -122,9 +122,28 @@ public class UserServiceImplement implements UserService {
     public ResponseDto<ValidateEmailResponseDto> validateEmail(ValidateUserEmailDto dto){
 
         ValidateEmailResponseDto data = null;
+        data = new ValidateEmailResponseDto();
 
 
         try{
+
+            Boolean result = userRepository.existsByUserEmail(dto.getUserEmail());
+            if(result){
+                data.setResult(false);
+                System.out.println("false를 보냄"+data);
+                
+                
+
+            }
+
+            else{
+                data.setResult(true);
+                System.out.println("true를 보냄"+data);
+            
+            }
+
+
+
 
 
 
@@ -140,9 +159,21 @@ public class UserServiceImplement implements UserService {
 
 
         ValidateTelNumberResponseDto data = null;
+        data = new ValidateTelNumberResponseDto();
 
 
         try{
+            boolean result = userRepository.existsByUserTelNumber(dto.getUserTelNumber());
+
+            if(result){
+                data.setResult(false);
+            }
+
+            else{
+                data.setResult(true);
+            }
+
+            
 
 
 

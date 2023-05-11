@@ -30,6 +30,8 @@ import com.job.back.service.ApplicantService;
 import com.job.back.service.implementation.ApplicantServiceImplementsFunction.Applicant_Percentile_Function;
 import com.job.back.service.implementation.ApplicantServiceImplementsFunction.Applicant_Total_Score_Function;
 
+
+
 @Service
 public class ApplicantServiceimplements implements ApplicantService{
 
@@ -48,6 +50,7 @@ public class ApplicantServiceimplements implements ApplicantService{
 
 
     // ! 지원자의 점수를 계산하고 보여주는 ServiceImplemnts
+    @Override
     public ResponseDto<ApplicantScoreResponseDto> show_Applicant_Total_Score(String company_Tel_Number,
                                                                        Applicant_Content_Dto applicantContentDto){
                                                                         
@@ -57,9 +60,14 @@ public class ApplicantServiceimplements implements ApplicantService{
         List<Integer> arr = new ArrayList<>();
         
         double my_Percentile;
+
+        
+       
+        
         
 
         try{
+        
 
             
 
@@ -67,6 +75,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             // ? Repository는 매개변수로 받은 전화번호에 해당하는 instance를 반환한다 
             CompanySelectComponent_University_Entity company_university_info = companySelectComponent_University_Repository.findByCompanyTelNumber(company_Tel_Number);
             if(company_university_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+            
             
             
             
@@ -130,10 +139,12 @@ public class ApplicantServiceimplements implements ApplicantService{
                                                                         data.getApplicant_total_score()
                                                                         );
 
-                                                                      
+                                                                    
             
             // !  Matching 된 정보를 applicantRepository에 save한다 
             applicant_Repository.save(for_Repository_saving);
+
+            
             
 
 
@@ -153,7 +164,7 @@ public class ApplicantServiceimplements implements ApplicantService{
 
 
 
-
+    @Override
     public ResponseDto<ApplicantPercentileResponseDto> show_Applicant_Percentile(String company_Tel_Number,Applicant_Total_Score_Dto my_dto){
 
         ApplicantPercentileResponseDto data =null;
@@ -177,8 +188,9 @@ public class ApplicantServiceimplements implements ApplicantService{
             // List<ApplicantEntity> applicantEntity_arr=
             // applicant_Repository.findByApplicantCompanyTelNumber(company_Tel_Number);
             // ! 나의 백분위를 알고싶은 지원자의 entity
+            // ! 지원자의 이메일과 지원회사의 전화번호를 이용해서 두가지 모두를 매개변수로 받아서 사용한다
             ApplicantEntity my_applicantEntity = applicant_Repository
-                    .findByApplicantUserEmail(my_dto.getApplicant_Email());
+                    .findByApplicantUserEmailAndApplicantCompanyTelNumber(my_dto.getApplicant_Email(),company_Tel_Number);
 
             my_Percentile = Applicant_Percentile_Function.Percentile_Function(applicantEntity_arr_OrderBy_Applicant_Total_Score, arr,my_applicantEntity);
 
