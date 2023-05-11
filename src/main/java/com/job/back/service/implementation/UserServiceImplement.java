@@ -122,9 +122,28 @@ public class UserServiceImplement implements UserService {
     public ResponseDto<ValidateEmailResponseDto> validateEmail(ValidateUserEmailDto dto){
 
         ValidateEmailResponseDto data = null;
+        data = new ValidateEmailResponseDto();
 
 
         try{
+
+            Boolean result = userRepository.existsByUserEmail(dto.getUserEmail());
+            if(result){
+                data.setResult(false);
+                System.out.println("false를 보냄"+data);
+                
+                
+
+            }
+
+            else{
+                data.setResult(true);
+                System.out.println("true를 보냄"+data);
+            
+            }
+
+
+
 
 
 
@@ -140,9 +159,21 @@ public class UserServiceImplement implements UserService {
 
 
         ValidateTelNumberResponseDto data = null;
+        data = new ValidateTelNumberResponseDto();
 
 
         try{
+            boolean result = userRepository.existsByUserTelNumber(dto.getUserTelNumber());
+
+            if(result){
+                data.setResult(false);
+            }
+
+            else{
+                data.setResult(true);
+            }
+
+            
 
 
 
@@ -156,7 +187,8 @@ public class UserServiceImplement implements UserService {
     }
     public ResponseDto<AddUserWishListResponseDto> addUserWishList(String userEmail,String company_tel_number){
         
-        AddUserWishListResponseDto data = null;
+        AddUserWishListResponseDto data = new AddUserWishListResponseDto();
+        
         
         try{
             // ? 일차적으로 내가 원하는 회사의 전화번호를 통해 내가 원하는 회사가 맞는지 회사 확인 ==> 1차 정재 작업 
@@ -168,7 +200,13 @@ public class UserServiceImplement implements UserService {
             ApplicantEntity applicantEntity = applicantRepository.findByApplicantCompanyTelNumberAndApplicantUserEmail(company_tel_number,userEmail);
             System.out.println(applicantEntity);
             
-            
+            data.setWish_company_my_total_score(applicantEntity.getApplicantTotalScore());
+            data.setWish_company_my_percentile(applicantEntity.getApplicantPercentile());
+
+            UserWishListEntity userwishlistentity = new UserWishListEntity(company_tel_number,userEmail,applicantEntity.getApplicantTotalScore(),applicantEntity.getApplicantPercentile());
+
+
+            userwishlistRepository.save(userwishlistentity);
 
 
         }catch(Exception e){

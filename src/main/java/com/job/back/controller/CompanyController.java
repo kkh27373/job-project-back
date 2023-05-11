@@ -4,8 +4,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.job.back.common.constant.ApiPattern;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
@@ -21,6 +25,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(description = "회사 모듈")
+@RestController
+@RequestMapping(ApiPattern.COMPANY)
 public class CompanyController {
     @Autowired private CompanyServiceImplements companyService;
 
@@ -46,6 +52,11 @@ public class CompanyController {
         ResponseDto<ValidateCompanyTelNumberResponseDto> response = companyService.validateCompanyTelNumber(requestBody);
         return response;
     }
+
+
+    
+
+
 
     
 

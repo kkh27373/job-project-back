@@ -22,7 +22,7 @@ public class UserWishListEntity {
     private String wish_company_tel_number;
     @Id
     private String wish_user_email;
-    private String wish_company_my_total_score;
-    private String wish_company_my_percentile;
+    private int wish_company_my_total_score;
+    private double wish_company_my_percentile;
     
 }

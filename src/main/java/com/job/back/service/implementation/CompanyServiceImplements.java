@@ -1,5 +1,7 @@
 package com.job.back.service.implementation;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,23 @@ import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
+import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
+import com.job.back.repository.ApplicantRepositroy;
 import com.job.back.repository.CompanyReposiotry;
 import com.job.back.service.CompanyService;
 
 @Service
 public class CompanyServiceImplements implements CompanyService {
-    @Autowired private CompanyReposiotry companyReposiotry;
+    @Autowired 
+    CompanyReposiotry companyReposiotry;
+    @Autowired
+    ApplicantRepositroy applicantRepositroy;
+
 
    
     @Override
@@ -79,4 +88,31 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
     }
+
+    @Override
+    public ResponseDto<ListUpApplicantResponseDto> ListUpApplicant(String companyTelNumber){
+
+        ListUpApplicantResponseDto data =null;
+
+        try{
+            
+
+            List<ApplicantEntity> applicant_List = applicantRepositroy.findByApplicantCompanyTelNumber(companyTelNumber);
+
+
+
+
+            data = new ListUpApplicantResponseDto(applicant_List);
+            
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+
 }
