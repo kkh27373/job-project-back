@@ -34,7 +34,6 @@ public class CompanySignUpDto {
     @Email
     private String companyEmail;
 
-    @NotBlank
     private String companyCategory;
 
     

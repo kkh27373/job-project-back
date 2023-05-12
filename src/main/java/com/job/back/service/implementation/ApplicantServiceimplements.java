@@ -192,7 +192,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             ApplicantEntity my_applicantEntity = applicant_Repository
                     .findByApplicantUserEmailAndApplicantCompanyTelNumber(my_dto.getApplicant_Email(),company_Tel_Number);
 
-            my_Percentile = Applicant_Percentile_Function.Percentile_Function(applicantEntity_arr_OrderBy_Applicant_Total_Score, arr,my_applicantEntity);
+            my_Percentile = Applicant_Percentile_Function.Percentile_Function(applicantEntity_arr_OrderBy_Applicant_Total_Score, arr, my_applicantEntity);
 
             System.out.println("당신은 상위 : "+my_Percentile + "% 입니다.");
 
