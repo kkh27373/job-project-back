@@ -32,8 +32,8 @@ public class UserController {
     
      @Autowired private UserService userService;
      private final String GET_USER = "/";
-     private final String VALIDATE_USER_EMAIL = "/validte/user-email";
-     private final String VALIDATE_USER_TEL_NUMBER = "/validte/user-tel-number";
+     private final String VALIDATE_USER_EMAIL = "/validate/userEmail";
+     private final String VALIDATE_USER_TEL_NUMBER = "/validate/userTelNumber";
      private final String USER_SELECT_COMPONENT = "/select-component";
      private final String ADD_USER_WISH_LIST = "/user-wish-list";
 
@@ -46,7 +46,7 @@ public class UserController {
      }
 
      @ApiOperation(value = "유저 이메일 중복 체크")
-     @GetMapping(VALIDATE_USER_EMAIL)
+     @PostMapping(VALIDATE_USER_EMAIL)
      public ResponseDto<ValidateEmailResponseDto> validateEmail
      (@Valid @RequestBody ValidateUserEmailDto requsetBody
      ) {
@@ -55,7 +55,7 @@ public class UserController {
      };
 
      @ApiOperation(value = "유저 전화번호 중복 체크")
-     @GetMapping(VALIDATE_USER_TEL_NUMBER)
+     @PostMapping(VALIDATE_USER_TEL_NUMBER)
      public ResponseDto<ValidateTelNumberResponseDto> validateTelNumber
      (@Valid @RequestBody ValidateUserTelNumberDto requsetBody
      ) {

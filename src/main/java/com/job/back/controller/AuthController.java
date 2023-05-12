@@ -25,10 +25,10 @@ import com.job.back.service.AuthService;
 public class AuthController {
     @Autowired private AuthService authService;
     
-    private final String USER_SIGN_UP = "/user-sign-up";
-    private final String USER_SIGN_IN = "/user-sign-in";
-    private final String COMPANY_SIGN_UP = "/company-sign-up";
-    private final String COMPANY_SIGN_IN = "/company-sign-in";
+    private final String USER_SIGN_UP = "/signup/user";
+    private final String USER_SIGN_IN = "/login/user";
+    private final String COMPANY_SIGN_UP = "/signup/company";
+    private final String COMPANY_SIGN_IN = "/login/company";
 
     @PostMapping(USER_SIGN_UP)
     public ResponseDto<UserSignUpResonseDto> userSignUp(@Valid @RequestBody UserSignUpDto requestBody){
