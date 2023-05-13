@@ -17,5 +17,6 @@ public interface CompanyService {
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto);
     public ResponseDto<ValidateCompanyTelNumberResponseDto> validateCompanyTelNumber(ValidateCompanyTelNumberDto dto);
     public ResponseDto<ListUpApplicantResponseDto> ListUpApplicant(String companyTelNumber);
+    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(PatchCompanyProfileDto patchCompanyProfileDto);
 
 }
