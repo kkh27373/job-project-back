@@ -31,23 +31,23 @@ public class CompanyController {
     @Autowired private CompanyServiceImplements companyService;
 
     private final String GET_COMPANY = "/";
-    private final String VALIDATE_COMPANY_EMAIL = "validate/company-email";
-    private final String VALIDATE_COMPANY_TEL_NUMBER = "validate/company-tel-number";
-    private final String PATCH_COMPANY_PROFILE = "validate/company-profile";
+    private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
+    private final String VALIDATE_COMPANY_TEL_NUMBER = "/validate/companyTelNumber";
+    private final String PATCH_COMPANY_PROFILE = "/validate/companyProfile";
 
-    @ApiOperation(GET_COMPANY)
+    @PostMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyResponseDto> response = companyService.getCompany(companyEmail);
         return response;
     }
 
-    @ApiOperation(VALIDATE_COMPANY_EMAIL)
+    @PostMapping(VALIDATE_COMPANY_EMAIL)
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(@Valid @RequestBody ValidateCompanyEmailDto requestBody){
         ResponseDto<ValidateCompanyEmailResponseDto> response = companyService.validateCompanyEmail(requestBody);
         return response;
     }
 
-    @ApiOperation(VALIDATE_COMPANY_TEL_NUMBER)
+    @PostMapping(VALIDATE_COMPANY_TEL_NUMBER)
     public ResponseDto<ValidateCompanyTelNumberResponseDto> validateCompanyTelNumber(@Valid @RequestBody ValidateCompanyTelNumberDto requestBody){
         ResponseDto<ValidateCompanyTelNumberResponseDto> response = companyService.validateCompanyTelNumber(requestBody);
         return response;
