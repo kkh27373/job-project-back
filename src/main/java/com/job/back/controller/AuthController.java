@@ -26,9 +26,9 @@ public class AuthController {
     @Autowired private AuthService authService;
     
     private final String USER_SIGN_UP = "/signup/user";
-    private final String USER_SIGN_IN = "/login/user";
+    private final String USER_LOG_IN = "/login/user";
     private final String COMPANY_SIGN_UP = "/signup/company";
-    private final String COMPANY_SIGN_IN = "/login/company";
+    private final String COMPANY_LOG_IN = "/login/company";
 
     @PostMapping(USER_SIGN_UP)
     public ResponseDto<UserSignUpResonseDto> userSignUp(@Valid @RequestBody UserSignUpDto requestBody){
@@ -43,13 +43,13 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping(USER_SIGN_IN)
+    @PostMapping(USER_LOG_IN)
     public ResponseDto<UserSignInResponseDto> userSignIn(@Valid @RequestBody UserSignInDto requestBody){
         ResponseDto<UserSignInResponseDto> response = authService.userSignIn(requestBody);
         return response;
     }
 
-    @PostMapping(COMPANY_SIGN_IN)
+    @PostMapping(COMPANY_LOG_IN)
     public ResponseDto<CompanySignInResponseDto> companySignIn(@Valid @RequestBody CompanySignInDto requestBody){
         ResponseDto<CompanySignInResponseDto> response = authService.companySignIn(requestBody);
         return response;

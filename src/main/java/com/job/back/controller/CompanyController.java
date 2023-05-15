@@ -4,16 +4,19 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.job.back.common.constant.ApiPattern;
+import com.job.back.dto.request.company.GetCompanyListMainDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
+import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
@@ -31,26 +34,42 @@ public class CompanyController {
     @Autowired private CompanyServiceImplements companyService;
 
     private final String GET_COMPANY = "/";
-    private final String VALIDATE_COMPANY_EMAIL = "validate/company-email";
-    private final String VALIDATE_COMPANY_TEL_NUMBER = "validate/company-tel-number";
-    private final String PATCH_COMPANY_PROFILE = "validate/company-profile";
+    private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
+    private final String VALIDATE_COMPANY_TEL_NUMBER = "/validate/companyTelNumber";
+    private final String PATCH_COMPANY_PROFILE = "/patch/companyProfile";
+    private final String Main_list_company_info = "/list";
 
-    @ApiOperation(GET_COMPANY)
+    @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyResponseDto> response = companyService.getCompany(companyEmail);
         return response;
     }
 
-    @ApiOperation(VALIDATE_COMPANY_EMAIL)
+    
+    @PostMapping(VALIDATE_COMPANY_EMAIL)
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(@Valid @RequestBody ValidateCompanyEmailDto requestBody){
         ResponseDto<ValidateCompanyEmailResponseDto> response = companyService.validateCompanyEmail(requestBody);
         return response;
     }
 
-    @ApiOperation(VALIDATE_COMPANY_TEL_NUMBER)
+    @PostMapping(VALIDATE_COMPANY_TEL_NUMBER)
     public ResponseDto<ValidateCompanyTelNumberResponseDto> validateCompanyTelNumber(@Valid @RequestBody ValidateCompanyTelNumberDto requestBody){
         ResponseDto<ValidateCompanyTelNumberResponseDto> response = companyService.validateCompanyTelNumber(requestBody);
         return response;
+    }
+
+    @PostMapping(PATCH_COMPANY_PROFILE)
+    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(@Valid @RequestBody PatchCompanyProfileDto requestBody){
+        ResponseDto<PatchCompanyProfileResponseDto> response = companyService.patchCompanyProfile(requestBody);
+        return response;
+
+    }
+
+    @GetMapping(Main_list_company_info)
+    public ResponseDto<GetCompanyListMainResponseDto> getCompanyListMain(@AuthenticationPrincipal String companyEmail){
+        ResponseDto<GetCompanyListMainResponseDto> response  = companyService.getCompanyListMain(companyEmail);
+        return response;
+
     }
 
 

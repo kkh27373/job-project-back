@@ -20,10 +20,10 @@ public class CompanySignInResponseDto {
     private String companyAddress;
     // 회사 업종
     private String companyCategory;
-    // 패스워드
-    private String companyPassword;
-    //이메일
+    // 이메일 
     private String companyEmail;
+    //패스워드
+    private String companyPassword;
     //로그인시 받을 토큰
     private String token;
     // 토큰 만료기간

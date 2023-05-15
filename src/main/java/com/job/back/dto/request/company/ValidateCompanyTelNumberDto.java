@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ValidateCompanyTelNumberDto {
     @NotBlank
-    @Email
     private String companyTelNumber;
 }
