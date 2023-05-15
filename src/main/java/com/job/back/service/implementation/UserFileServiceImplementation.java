@@ -20,11 +20,11 @@ public class UserFileServiceImplementation implements UserFileService {
    private String USER_FILE_URL;
 
 
-   public String userUpload(MultipartFile file) {
+   public String userUpload(MultipartFile userFile) {
 
-        if(file.isEmpty()) return null;
+        if(userFile.isEmpty()) return null;
 
-        String originalFileName = file.getOriginalFilename();
+        String originalFileName = userFile.getOriginalFilename();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 
         String uuid = UUID.randomUUID().toString();
@@ -33,7 +33,7 @@ public class UserFileServiceImplementation implements UserFileService {
         String savePath = USER_FILE_PATH + saveName;
 
         try {
-            file.transferTo(new File(savePath));
+            userFile.transferTo(new File(savePath));
         } catch (Exception exception){
             exception.printStackTrace();
             return null;
@@ -44,12 +44,12 @@ public class UserFileServiceImplementation implements UserFileService {
 
     }
 
-    public Resource getUserFile(String fileName) {
+    public Resource getUserFile(String userFileName) {
 
         Resource resource = null;
 
         try{
-            resource = new UrlResource("file:" + USER_FILE_PATH + fileName);
+            resource = new UrlResource("file:" + USER_FILE_PATH + userFileName);
         } catch(Exception exception){
             exception.printStackTrace();
             return null;

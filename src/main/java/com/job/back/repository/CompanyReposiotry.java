@@ -1,5 +1,7 @@
 package com.job.back.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,7 @@ public interface CompanyReposiotry extends JpaRepository<CompanyEntity, String> 
 
     public boolean existsByCompanyEmail(String companyEmail);
     public boolean existsByCompanyTelNumber(String companyTelNumber);
+    public List<CompanyEntity> findAll();
     
 }
 
