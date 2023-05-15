@@ -13,7 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetCompanyListMainResponseDto {
 
-    private List<CompanyEntity> companyentity;
+    private String companyTelNumber;
+    private String companyName;
+    private String companyProfileUrl;
+    private String companyAddress;
+    private String companyCategory;
+    private String companyPassword;
+    
 
     
     

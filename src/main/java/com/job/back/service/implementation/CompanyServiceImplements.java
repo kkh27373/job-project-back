@@ -145,12 +145,22 @@ public class CompanyServiceImplements implements CompanyService {
         
         
         GetCompanyListMainResponseDto data =null;
+        data = new GetCompanyListMainResponseDto();
 
         try{
 
             List<CompanyEntity>  companyentities = companyReposiotry.findAll();
 
-            data = new GetCompanyListMainResponseDto(companyentities);
+            for(CompanyEntity i : companyentities){
+                data.setCompanyAddress(i.getCompanyAddress());
+                data.setCompanyCategory(i.getCompanyCategory());
+                data.setCompanyName(i.getCompanyName());
+                data.setCompanyPassword(i.getCompanyPassword());
+                data.setCompanyProfileUrl(i.getCompanyProfileUrl());
+                data.setCompanyTelNumber(i.getCompanyTelNumber());
+            }
+
+            
 
 
 
