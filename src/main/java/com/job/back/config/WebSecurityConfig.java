@@ -38,7 +38,13 @@ public class WebSecurityConfig {
                                         //^ authenticated()는 권한이 있는 authorized 된 사람만 사용 가능하다는 뜻 
             .antMatchers("/api/board/my-list").authenticated()
                                         // ^auth : 로그인 이나 회원가입은 누구나 할 수 있어야 하니 
+<<<<<<< HEAD
             .antMatchers("/auth/**","/file/**","/web-socket/**","/api/send-mail","/user/validate/**", "/company/validate/**").permitAll()
+=======
+            .antMatchers("/auth/**","/file/**","/web-socket/**","/api/send-mail",
+            "/user/validate/**",
+            "/company/validate/**").permitAll()
+>>>>>>> 424c6f6887fd9fc748b41ef981350e7c88e80460
                                                         // ! 공통된 부분이 있으면 범위가 넓은 놈들이 뒤로 가게 상세한 놈들이 앞으로  
             .antMatchers(HttpMethod.GET,"/api/board/**").permitAll()
             .anyRequest().authenticated().and()

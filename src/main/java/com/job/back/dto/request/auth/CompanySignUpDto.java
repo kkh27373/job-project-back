@@ -1,4 +1,5 @@
 package com.job.back.dto.request.auth;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 

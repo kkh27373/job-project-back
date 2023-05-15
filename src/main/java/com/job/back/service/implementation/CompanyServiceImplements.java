@@ -12,6 +12,7 @@ import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
+import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
@@ -114,5 +115,54 @@ public class CompanyServiceImplements implements CompanyService {
 
     }
 
+    @Override
+    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(PatchCompanyProfileDto patchCompanyProfileDto){
 
+        PatchCompanyProfileResponseDto data = null;
+
+        try{
+
+            CompanyEntity companyentity = companyReposiotry.findByCompanyTelNumber(patchCompanyProfileDto.getCompanyTelNumber());
+
+            companyentity.setCompanyName(patchCompanyProfileDto.getCompanyName());
+            companyentity.setCompanyAddress(patchCompanyProfileDto.getCompanyAddress());
+            companyentity.setCompanyProfileUrl(patchCompanyProfileDto.getCompanyProfileUrl());
+
+            companyReposiotry.save(companyentity);
+            data = new PatchCompanyProfileResponseDto(companyentity);
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    }
+
+    @Override
+    public ResponseDto<GetCompanyListMainResponseDto> getCompanyListMain(String companyEmail){
+        
+        
+        GetCompanyListMainResponseDto data =null;
+
+        try{
+
+            List<CompanyEntity>  companyentities = companyReposiotry.findAll();
+
+            data = new GetCompanyListMainResponseDto(companyentities);
+
+
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+        
+    }
 }
