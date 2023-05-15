@@ -7,5 +7,6 @@ public interface ApiPattern {
     public static final String SELECT_COMPONENT = "/select";
     public static final String AUTH = "/auth";
     public static final String APPLICANT = "/applicant";
+    public static final String USER_FILE = "/user-file";
     
 }
