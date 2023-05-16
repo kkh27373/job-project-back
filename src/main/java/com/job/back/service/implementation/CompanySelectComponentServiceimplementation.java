@@ -42,6 +42,8 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
                                                                                                                                     University_grade_two,second_grade_score,
                                                                                                                                     University_grade_three,third_grade_score,
                                                                                                                                     University_grade_etc,etc_grade_score);
+
+            System.out.println(companyselectcomponentuniversityentity.getEtc_grade_university());                                                                                                                        
             companyselectcomponentuniversityrepository.save(companyselectcomponentuniversityentity);
 
 
