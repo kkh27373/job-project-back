@@ -39,7 +39,7 @@ public class UserFileServiceImplementation implements UserFileService {
             return null;
         }
 
-        String url = USER_FILE_PATH + saveName;
+        String url = USER_FILE_URL + saveName;
         return url;
 
     }

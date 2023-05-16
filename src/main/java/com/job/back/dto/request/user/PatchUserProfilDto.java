@@ -16,5 +16,5 @@ public class PatchUserProfilDto {
     @ApiModelProperty(value="프로필 사진 URL", example = "http://~",required = true)
     @NotBlank
     @URL
-    private String userprfile;
+    private String userProfileUrl;
 }

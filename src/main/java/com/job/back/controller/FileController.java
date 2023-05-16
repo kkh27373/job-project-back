@@ -26,22 +26,22 @@ public class FileController {
     @Autowired private UserFileService userfileService;
 
 
-    private final String USERUPLOAD ="/userUpload";
+    private final String USER_UPLOAD ="/userUpload";
     private final String USER_GET_FILE = "/{userFileName}";
     
     @ApiOperation(value="파일 업로드", notes="Request Body에 100MB 이하의 file을 포함하여 요청을 하면, 성공시 다운로드 URL을 반환, 실패시 null을 반환")
-    @PostMapping(USERUPLOAD)
-    public String upload(
+    @PostMapping(USER_UPLOAD)
+    public String userUpload(
         @ApiParam(value = "업로드할 파일", required = true)
-        @RequestParam("userFile") MultipartFile userFile
-        ) {
+        @RequestParam("file") MultipartFile userFile
+    ) {
         String response = userfileService.userUpload(userFile);
         return response;
     }
 
     @ApiOperation(value="파일 다운로드", notes="Path Variable에 fileName을 포함하여 요청하면, 성공시 해당하는 파일의 Resource를 반환, 실패시 null을 반환")
     @GetMapping(value=USER_GET_FILE, produces = {MediaType.ALL_VALUE})
-    public Resource getFile(
+    public Resource getUserFile(
         @ApiParam(value="파일명", example="example.png", required=true)
         @PathVariable("userFileName") String userFileName
         ) {
