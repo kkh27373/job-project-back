@@ -25,9 +25,10 @@ public class FileController {
 
     @Autowired private UserFileService userfileService;
 
-
     private final String USER_UPLOAD ="/userUpload";
     private final String USER_GET_FILE = "/{userFileName}";
+
+    
     
     @ApiOperation(value="파일 업로드", notes="Request Body에 100MB 이하의 file을 포함하여 요청을 하면, 성공시 다운로드 URL을 반환, 실패시 null을 반환")
     @PostMapping(USER_UPLOAD)
@@ -48,4 +49,5 @@ public class FileController {
         Resource response = userfileService.getUserFile(userFileName);
         return response;
     }
+  
 }

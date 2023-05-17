@@ -14,12 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PatchCompanyProfileDto {
     //프로필 URL 수정
-    @Id
-    private String companyTelNumber;
-    private String companyName;
+    
+    
     private String companyProfileUrl;
-    private String companyAddress;
-    private String companyCategory;
-    private String companyPassword;
-    private String companyEmail;
+    
 }
