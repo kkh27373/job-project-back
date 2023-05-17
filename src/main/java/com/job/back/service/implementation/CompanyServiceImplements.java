@@ -14,12 +14,14 @@ import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
+import com.job.back.entity.SearchWordLogEntity;
 import com.job.back.repository.ApplicantRepositroy;
 import com.job.back.repository.CompanyReposiotry;
 import com.job.back.service.CompanyService;
@@ -179,5 +181,21 @@ public class CompanyServiceImplements implements CompanyService {
 
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
         
+    }
+
+    @Override
+    public ResponseDto<List<GetSearchListResponseDto>> getSearchList(String searchWord, String previousSearchWord) {
+        List<GetSearchListResponseDto> data = null;
+
+        try {
+
+            SearchWordLogEntity searchWordLogEntity = new SearchWordLogEntity(searchWord);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
     }
 }
