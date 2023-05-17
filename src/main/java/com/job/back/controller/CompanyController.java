@@ -36,25 +36,16 @@ public class CompanyController {
     private final String GET_COMPANY = "/";
     private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
     private final String VALIDATE_COMPANY_TEL_NUMBER = "/validate/companyTelNumber";
-<<<<<<< HEAD
-    private final String PATCH_COMPANY_PROFILE = "/validate/companyProfile";
-
-    @PostMapping(GET_COMPANY)
-=======
     private final String PATCH_COMPANY_PROFILE = "/patch/companyProfile";
     private final String Main_list_company_info = "/list";
 
     @GetMapping(GET_COMPANY)
->>>>>>> 424c6f6887fd9fc748b41ef981350e7c88e80460
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyResponseDto> response = companyService.getCompany(companyEmail);
         return response;
     }
 
-<<<<<<< HEAD
-=======
     
->>>>>>> 424c6f6887fd9fc748b41ef981350e7c88e80460
     @PostMapping(VALIDATE_COMPANY_EMAIL)
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(@Valid @RequestBody ValidateCompanyEmailDto requestBody){
         ResponseDto<ValidateCompanyEmailResponseDto> response = companyService.validateCompanyEmail(requestBody);
