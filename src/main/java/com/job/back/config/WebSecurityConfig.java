@@ -40,7 +40,8 @@ public class WebSecurityConfig {
                                         // ^auth : 로그인 이나 회원가입은 누구나 할 수 있어야 하니 
             .antMatchers("/auth/**","/file/**","/web-socket/**","/api/send-mail",
             "/user/validate/**",
-            "/company/validate/**").permitAll()
+            "/company/validate/**",
+            "/company/list").permitAll()
                                                         // ! 공통된 부분이 있으면 범위가 넓은 놈들이 뒤로 가게 상세한 놈들이 앞으로  
             .antMatchers(HttpMethod.GET,"/api/board/**").permitAll()
             .anyRequest().authenticated().and()
