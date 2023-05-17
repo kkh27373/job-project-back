@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                                         //^ authenticated()는 권한이 있는 authorized 된 사람만 사용 가능하다는 뜻 
             .antMatchers("/api/board/my-list").authenticated()
                                         // ^auth : 로그인 이나 회원가입은 누구나 할 수 있어야 하니 
-            .antMatchers("/auth/**","/file/**","/web-socket/**","/api/send-mail",
+            .antMatchers("/auth/**","/user-file/**","/web-socket/**","/api/send-mail",
             "/user/validate/**",
             "/company/validate/**",
             "/company/list").permitAll()
