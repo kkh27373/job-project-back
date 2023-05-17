@@ -27,7 +27,7 @@ import com.job.back.service.CompanyService;
 @Service
 public class CompanyServiceImplements implements CompanyService {
     @Autowired 
-    CompanyReposiotry companyReposiotry;
+    CompanyReposiotry companyRepository;
     @Autowired
     ApplicantRepositroy applicantRepositroy;
 
@@ -40,7 +40,7 @@ public class CompanyServiceImplements implements CompanyService {
         String companyEmail = dto.getCompanyEmail();
 
         try {
-            boolean hasEmail = companyReposiotry.existsByCompanyEmail(companyEmail);
+            boolean hasEmail = companyRepository.existsByCompanyEmail(companyEmail);
             data = new ValidateCompanyEmailResponseDto(!hasEmail);
 
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class CompanyServiceImplements implements CompanyService {
         String companyTelNumber = dto.getCompanyTelNumber();
 
         try {
-            boolean hasTelNumber = companyReposiotry.existsByCompanyTelNumber(companyTelNumber);
+            boolean hasTelNumber = companyRepository.existsByCompanyTelNumber(companyTelNumber);
             data = new ValidateCompanyTelNumberResponseDto(!hasTelNumber);
             
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class CompanyServiceImplements implements CompanyService {
         GetCompanyResponseDto data = null;
         
         try {
-            CompanyEntity companyEntity = companyReposiotry.findByCompanyEmail(companyEmail);
+            CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
             data = new GetCompanyResponseDto(companyEntity);
@@ -122,13 +122,13 @@ public class CompanyServiceImplements implements CompanyService {
 
         try{
 
-            CompanyEntity companyentity = companyReposiotry.findByCompanyTelNumber(patchCompanyProfileDto.getCompanyTelNumber());
+            CompanyEntity companyentity = companyRepository.findByCompanyTelNumber(patchCompanyProfileDto.getCompanyTelNumber());
 
             companyentity.setCompanyName(patchCompanyProfileDto.getCompanyName());
             companyentity.setCompanyAddress(patchCompanyProfileDto.getCompanyAddress());
             companyentity.setCompanyProfileUrl(patchCompanyProfileDto.getCompanyProfileUrl());
 
-            companyReposiotry.save(companyentity);
+            companyRepository.save(companyentity);
             data = new PatchCompanyProfileResponseDto(companyentity);
 
 
@@ -141,19 +141,34 @@ public class CompanyServiceImplements implements CompanyService {
     }
 
     @Override
-    public ResponseDto<GetCompanyListMainResponseDto> getCompanyListMain(String companyEmail){
+    public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(String companyEmail){
         
         
-        GetCompanyListMainResponseDto data =null;
+        GetCompanyListMainResponseDto[] data = null;
 
         try{
 
-            List<CompanyEntity>  companyentities = companyReposiotry.findAll();
+            List<CompanyEntity> companyEntities = companyRepository.findAll();
+            data = new GetCompanyListMainResponseDto[companyEntities.size()];
 
-            data = new GetCompanyListMainResponseDto(companyentities);
+        for (int i = 0; i < companyEntities.size(); i++) {
+
+            CompanyEntity companyEntity = companyEntities.get(i);
+            GetCompanyListMainResponseDto responseDto = new GetCompanyListMainResponseDto();
+
+            responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
+            responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
+            responseDto.setCompanyName(companyEntity.getCompanyName());
+            responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
+            responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
+            responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
+
+            data[i] = responseDto;
+
+            
 
 
-
+        }
 
 
         }catch(Exception e){

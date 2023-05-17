@@ -66,8 +66,8 @@ public class CompanyController {
     }
 
     @GetMapping(Main_list_company_info)
-    public ResponseDto<GetCompanyListMainResponseDto> getCompanyListMain(@AuthenticationPrincipal String companyEmail){
-        ResponseDto<GetCompanyListMainResponseDto> response  = companyService.getCompanyListMain(companyEmail);
+    public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(@AuthenticationPrincipal String companyEmail){
+        ResponseDto<GetCompanyListMainResponseDto[]> response  = companyService.getCompanyListMain(companyEmail);
         return response;
 
     }

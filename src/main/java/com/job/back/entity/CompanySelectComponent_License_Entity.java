@@ -23,7 +23,7 @@ public class CompanySelectComponent_License_Entity {
     private String license;
     private int license_score;
 
-    public CompanySelectComponent_License_Entity(String companyTelNumber, String license[],int license_score){
+    public CompanySelectComponent_License_Entity(String companyTelNumber, String[] license,int license_score){
 
         this.companyTelNumber = companyTelNumber;
         this.license = DatabaseJson.arrayToString(license);
