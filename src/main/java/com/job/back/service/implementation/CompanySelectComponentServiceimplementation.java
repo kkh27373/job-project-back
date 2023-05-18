@@ -37,6 +37,15 @@ public class CompanySelectComponentServiceimplementation implements CompanySelec
 
 
         try{
+            System.out.println(University_grade_one);
+            System.out.println(first_grade_score);
+            System.out.println(University_grade_two);
+            System.out.println(second_grade_score);
+            System.out.println(University_grade_three);
+            System.out.println(third_grade_score);
+            System.out.println(University_grade_etc);
+            System.out.println(etc_grade_score);
+
             CompanySelectComponent_University_Entity companyselectcomponentuniversityentity   =  new CompanySelectComponent_University_Entity(companyTelNumber,
                                                                                                                                     University_grade_one,first_grade_score,
                                                                                                                                     University_grade_two,second_grade_score,
