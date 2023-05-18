@@ -23,9 +23,9 @@ import com.job.back.service.CompanySelectComponentService;
 @RequestMapping(ApiPattern.SELECT_COMPONENT)
 public class ComponentSelectController {
 
-    private final String COMPANY_SELECT_UNIVERSITY = "company/university";
-    private final String COMPANY_SELECT_CARRER = "company/carrer";
-    private final String COMPANY_SELECT_LICENSE = "company/license";
+    private final String COMPANY_SELECT_UNIVERSITY = "/company/university";
+    private final String COMPANY_SELECT_CARRER = "/company/carrer";
+    private final String COMPANY_SELECT_LICENSE = "/company/license";
 
     @Autowired
     CompanySelectComponentService companyselectcomponentservice;
@@ -35,6 +35,8 @@ public class ComponentSelectController {
         @AuthenticationPrincipal String email,
         @Valid @RequestBody University_Grade_Dto University
     ){
+
+        System.out.println("Controller에서 가장 먼저 받는 부분 :"+University.getFirst_grade_university());
         ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University_Score(University.getCompanyTelNumber(),
                                                                                                             University.getFirst_grade_university(),University.getFirst_grade_university_score(),
                                                                                                             University.getSecond_grade_university(),University.getSecond_grade_university_score(),
