@@ -30,12 +30,13 @@ public class AuthController {
     private final String COMPANY_SIGN_UP = "/signup/company";
     private final String COMPANY_LOG_IN = "/login/company";
 
+    // 유저 회원가입
     @PostMapping(USER_SIGN_UP)
     public ResponseDto<UserSignUpResonseDto> userSignUp(@Valid @RequestBody UserSignUpDto requestBody){
         ResponseDto<UserSignUpResonseDto> response = authService.userSignUp(requestBody);
         return response;
     }
-
+    //회사 회원가입
     @PostMapping(COMPANY_SIGN_UP)
     public ResponseDto<CompanySignUpResponseDto> companySignUp(@Valid @RequestBody CompanySignUpDto requestBody){
         System.out.println("API companySignUp Request body :" + requestBody.toString());

@@ -116,24 +116,21 @@ public class CompanyServiceImplements implements CompanyService {
     }
 
     @Override
-    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(PatchCompanyProfileDto patchCompanyProfileDto){
+    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(String companyEmail,PatchCompanyProfileDto dto){
 
         PatchCompanyProfileResponseDto data = null;
 
         try{
 
-            CompanyEntity companyentity = companyRepository.findByCompanyTelNumber(patchCompanyProfileDto.getCompanyTelNumber());
-
-            companyentity.setCompanyName(patchCompanyProfileDto.getCompanyName());
-            companyentity.setCompanyAddress(patchCompanyProfileDto.getCompanyAddress());
-            companyentity.setCompanyProfileUrl(patchCompanyProfileDto.getCompanyProfileUrl());
-
-            companyRepository.save(companyentity);
-            data = new PatchCompanyProfileResponseDto(companyentity);
-
-
-        }catch(Exception e){
-            e.printStackTrace();
+            CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+            companyEntity.setCompanyProfileUrl(dto.getCompanyProfileUrl());
+            companyRepository.save(companyEntity);
+            
+            data = new PatchCompanyProfileResponseDto(companyEntity);
+        
+        }catch(Exception exception){
+            exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
 

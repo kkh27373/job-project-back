@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,29 +14,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.job.back.common.constant.ApiPattern;
 import com.job.back.dto.Add_User_Wish_List_Dto;
 import com.job.back.dto.User_Select_Component_Dto;
+import com.job.back.dto.request.user.PatchUserProfilDto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.user.AddUserWishListResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
 import com.job.back.dto.response.user.PatchUserComponentResponseDto;
+import com.job.back.dto.response.user.PatchUserProfileResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
 import com.job.back.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 @Api(description = "유저 모듈")
 @RestController
 @RequestMapping(ApiPattern.USER)
 public class UserController {
     
      @Autowired private UserService userService;
+
      private final String GET_USER = "/";
      private final String VALIDATE_USER_EMAIL = "/validate/userEmail";
      private final String VALIDATE_USER_TEL_NUMBER = "/validate/userTelNumber";
      private final String USER_SELECT_COMPONENT = "/select-component";
      private final String ADD_USER_WISH_LIST = "/user-wish-list";
+     private final String PATH_PROFILE = "/profile";
+
+    
 
      @ApiOperation(value = "유저 정보 불러오기", notes = "Request Header Authorization에 Bearer Token을 포함하여 요청을 하면, 성공시 유저 정보를 반환하고 실패시 실패 메세지를 반환")
      @GetMapping(GET_USER)
@@ -72,24 +80,6 @@ public class UserController {
       ResponseDto<PatchUserComponentResponseDto> response = userService.patchUserSelectComponent(email,user_Select_Component_Dto );
 
       return response;
-
-      
-
-
-            
-
-
-
-         
-         
-         
-         
-                                                                                                
-
-
-
-
-      
       
       }
 
@@ -104,6 +94,17 @@ public class UserController {
 
          return response;
 
+      }
+
+      @ApiOperation(value = "유저 프로필")
+      @PatchMapping(PATH_PROFILE)
+      public ResponseDto<PatchUserProfileResponseDto> patchUserProfile(
+         @ApiParam(hidden = true)
+         @AuthenticationPrincipal String userEmail,
+         @Valid @RequestBody PatchUserProfilDto requestBody
+      ) {
+         ResponseDto<PatchUserProfileResponseDto> response = userService.patchUserProfile(userEmail,requestBody);
+         return response;
       }
 
 

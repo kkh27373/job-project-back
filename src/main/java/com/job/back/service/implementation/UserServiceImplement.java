@@ -11,19 +11,14 @@ import org.springframework.stereotype.Service;
 import com.job.back.common.constant.ResponseMessage;
 import com.job.back.common.util.DatabaseJson;
 import com.job.back.dto.User_Select_Component_Dto;
-import com.job.back.dto.request.company.PatchCompanyProfileDto;
-import com.job.back.dto.request.company.ValidateCompanyEmailDto;
-import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
-import com.job.back.dto.request.user.PatchUserComponentDto;
+import com.job.back.dto.request.user.PatchUserProfilDto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
-import com.job.back.dto.response.company.GetCompanyResponseDto;
-import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
-import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.dto.response.user.AddUserWishListResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
 import com.job.back.dto.response.user.PatchUserComponentResponseDto;
+import com.job.back.dto.response.user.PatchUserProfileResponseDto;
 import com.job.back.dto.response.user.ValidateEmailResponseDto;
 import com.job.back.dto.response.user.ValidateTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
@@ -41,6 +36,29 @@ public class UserServiceImplement implements UserService {
     @Autowired ApplicantRepositroy applicantRepository;
     @Autowired UserWishListRepository userwishlistRepository;
 
+    
+    public ResponseDto<PatchUserProfileResponseDto> patchUserProfile (String userEmail, PatchUserProfilDto dto) {
+        PatchUserProfileResponseDto data = null;
+
+        String profile = dto.getUserProfileUrl();
+
+        try {
+
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+            if (userEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
+
+            userEntity.setUserProfileUrl(profile);
+            
+            userRepository.save(userEntity);
+
+            data = new PatchUserProfileResponseDto(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    }
 
 
     // ! UserSelectComponent(FinalEducation,Carrer,License) 만 수정 할 수 있는 함수 
@@ -143,10 +161,6 @@ public class UserServiceImplement implements UserService {
             }
 
 
-
-
-
-
         }catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
@@ -218,6 +232,8 @@ public class UserServiceImplement implements UserService {
 
 
     }
+
+
 
         
 
