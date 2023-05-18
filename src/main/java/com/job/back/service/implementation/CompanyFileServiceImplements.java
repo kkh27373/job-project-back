@@ -47,7 +47,7 @@ public class CompanyFileServiceImplements implements CompanyFileService   {
         Resource resource = null;
 
         try{
-            resource = new UrlResource("file" + COMPANY_FILE_PATH + companyFileName);
+            resource = new UrlResource("file:" + COMPANY_FILE_PATH + companyFileName);
         }catch (Exception exception) {
             exception.printStackTrace();
             return null;

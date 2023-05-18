@@ -119,17 +119,16 @@ public class CompanyServiceImplements implements CompanyService {
     public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(String companyEmail,PatchCompanyProfileDto dto){
 
         PatchCompanyProfileResponseDto data = null;
-        data = new PatchCompanyProfileResponseDto();
-        
 
         try{
 
             CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
             companyEntity.setCompanyProfileUrl(dto.getCompanyProfileUrl());
-            data.setCompanyProfileUrl(dto.getCompanyProfileUrl());
             companyRepository.save(companyEntity);
             
-
+            data = new PatchCompanyProfileResponseDto(companyEntity);
+        
         }catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);

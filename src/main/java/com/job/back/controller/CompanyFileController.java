@@ -26,7 +26,7 @@ public class CompanyFileController {
     @Autowired private CompanyFileService compantfileService;
     
     private final String COPANY_UPLOAD = "/companyUpload";
-    private final String COMPANY_GET_FILE = "/{companyFilName}";
+    private final String COMPANY_GET_FILE = "/{companyFileName}";
 
     @ApiOperation(value = "회사 업로드")
     @PostMapping(COPANY_UPLOAD)
