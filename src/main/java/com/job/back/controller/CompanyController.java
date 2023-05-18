@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
+import com.job.back.service.CompanyFileService;
 import com.job.back.service.implementation.CompanyServiceImplements;
 
 import io.swagger.annotations.Api;
@@ -32,11 +34,12 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping(ApiPattern.COMPANY)
 public class CompanyController {
     @Autowired private CompanyServiceImplements companyService;
+    @Autowired private CompanyFileService companyFileService;
 
     private final String GET_COMPANY = "/";
     private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
     private final String VALIDATE_COMPANY_TEL_NUMBER = "/validate/companyTelNumber";
-    private final String PATCH_COMPANY_PROFILE = "/patch/companyProfile";
+    private final String PATCH_COMPANY_PROFILE = "/companyProfile";
     private final String Main_list_company_info = "/list";
 
     @GetMapping(GET_COMPANY)
@@ -58,9 +61,14 @@ public class CompanyController {
         return response;
     }
 
-    @PostMapping(PATCH_COMPANY_PROFILE)
-    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(@Valid @RequestBody PatchCompanyProfileDto requestBody){
-        ResponseDto<PatchCompanyProfileResponseDto> response = companyService.patchCompanyProfile(requestBody);
+    @ApiOperation(value = "회사 프로필")
+    @PatchMapping(PATCH_COMPANY_PROFILE)
+    public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(
+        @ApiParam(hidden = true)
+        @AuthenticationPrincipal String companyEmail,
+        @Valid @RequestBody PatchCompanyProfileDto requestBody
+    ){
+        ResponseDto<PatchCompanyProfileResponseDto> response = companyService.patchCompanyProfile(companyEmail,requestBody);
         return response;
 
     }
