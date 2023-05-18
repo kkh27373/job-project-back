@@ -22,6 +22,7 @@ import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
 import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
@@ -46,6 +47,7 @@ public class CompanyController {
     private final String Main_list_company_info = "/list";
     private final String GET_SEARCH_LIST = "/search-list/{searchWord}";
     private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
+    private final String GET_RELATED_SEARCH_WORD = "/related-search-word/{searchWord}";
 
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
@@ -86,6 +88,12 @@ public class CompanyController {
         @PathVariable(name = "previousSearchWord", required = false) String previousSearchWord
     ){
         ResponseDto<List<GetSearchListResponseDto>> response = companyService.getSearchList(searchWord, previousSearchWord);
+        return response;
+    }
+
+    @GetMapping(GET_RELATED_SEARCH_WORD)
+    public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(@PathVariable("searchWord") String searchWord){
+        ResponseDto<GetRelatedSearchWordResponseDto> response = companyService.getRelatedSearchWord(searchWord);
         return response;
     }
 

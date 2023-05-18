@@ -11,6 +11,7 @@ import com.job.back.entity.CompanyEntity;
 public interface CompanyReposiotry extends JpaRepository<CompanyEntity, String> {
     public CompanyEntity findByCompanyTelNumber(String companyTelNumber);
     public CompanyEntity findByCompanyEmail(String companyEmail);
+    public List<CompanyEntity> findByCompanyNameContainsOrCompanyCategory(String companyName, String companyCategory);
 
     public boolean existsByCompanyEmail(String companyEmail);
     public boolean existsByCompanyTelNumber(String companyTelNumber);
