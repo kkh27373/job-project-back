@@ -47,10 +47,7 @@ public class UserServiceImplement implements UserService {
             UserEntity userEntity = userRepository.findByUserEmail(userEmail);
             if (userEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
 
-            System.out.println(userEntity.toString());
-
             userEntity.setUserProfileUrl(profile);
-            System.out.println(userEntity.toString());
             
             userRepository.save(userEntity);
 

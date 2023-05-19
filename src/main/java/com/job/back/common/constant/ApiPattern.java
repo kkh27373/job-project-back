@@ -9,5 +9,6 @@ public interface ApiPattern {
     public static final String APPLICANT = "/applicant";
     public static final String USER_FILE = "/user-file";
     public static final String SEARCH = "/search";
+    public static final String COMPANY_FILE = "/company-file";
     
 }
