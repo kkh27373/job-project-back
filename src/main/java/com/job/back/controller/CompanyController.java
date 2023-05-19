@@ -45,9 +45,6 @@ public class CompanyController {
     private final String VALIDATE_COMPANY_TEL_NUMBER = "/validate/companyTelNumber";
     private final String PATCH_COMPANY_PROFILE = "/patch/companyProfile";
     private final String Main_list_company_info = "/list";
-    private final String GET_SEARCH_LIST = "/search-list/{searchWord}";
-    private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
-    private final String GET_RELATED_SEARCH_WORD = "/related-search-word/{searchWord}";
 
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
@@ -82,20 +79,7 @@ public class CompanyController {
 
     }
 
-    @GetMapping(value = {GET_SEARCH_LIST, GET_SEARCH_LIST_PREVIOUS})
-    public ResponseDto<List<GetSearchListResponseDto>> getSearchList(
-        @PathVariable("searchWord") String searchWord,
-        @PathVariable(name = "previousSearchWord", required = false) String previousSearchWord
-    ){
-        ResponseDto<List<GetSearchListResponseDto>> response = companyService.getSearchList(searchWord, previousSearchWord);
-        return response;
-    }
-
-    @GetMapping(GET_RELATED_SEARCH_WORD)
-    public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(@PathVariable("searchWord") String searchWord){
-        ResponseDto<GetRelatedSearchWordResponseDto> response = companyService.getRelatedSearchWord(searchWord);
-        return response;
-    }
+    
 
 
 

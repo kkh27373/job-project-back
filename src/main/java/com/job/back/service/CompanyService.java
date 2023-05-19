@@ -10,8 +10,6 @@ import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
-import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
-import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
@@ -24,6 +22,5 @@ public interface CompanyService {
     public ResponseDto<ListUpApplicantResponseDto> ListUpApplicant(String companyTelNumber);
     public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(PatchCompanyProfileDto patchCompanyProfileDto);
     public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(String companyEmail);
-    public ResponseDto<List<GetSearchListResponseDto>> getSearchList(String searchWord, String previousSearchWord);
-    public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(String searchWord);
+
 }

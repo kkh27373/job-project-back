@@ -41,7 +41,8 @@ public class WebSecurityConfig {
             .antMatchers("/auth/**","/user-file/**","/web-socket/**","/api/send-mail",
             "/user/validate/**",
             "/company/validate/**",
-            "/company/list").permitAll()
+            "/company/list",
+            "/search/**").permitAll()
                                                         // ! 공통된 부분이 있으면 범위가 넓은 놈들이 뒤로 가게 상세한 놈들이 앞으로  
             .antMatchers(HttpMethod.GET,"/api/board/**").permitAll()
             .anyRequest().authenticated().and()

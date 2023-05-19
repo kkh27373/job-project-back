@@ -35,8 +35,6 @@ import com.job.back.service.CompanyService;
 public class CompanyServiceImplements implements CompanyService {
     @Autowired private CompanyReposiotry companyRepository;
     @Autowired private ApplicantRepositroy applicantRepositroy;
-    @Autowired private SearchWordLogRepository searchWordLogRepository;
-    @Autowired private RelatedSearchWordRepository relatedSearchWordRepository;
 
 
 
@@ -189,46 +187,5 @@ public class CompanyServiceImplements implements CompanyService {
         
     }
 
-    @Override
-    public ResponseDto<List<GetSearchListResponseDto>> getSearchList(String searchWord, String previousSearchWord) {
-        List<GetSearchListResponseDto> data = null;
-
-        try {
-
-            SearchWordLogEntity searchWordLogEntity = new SearchWordLogEntity(searchWord);
-            searchWordLogRepository .save(searchWordLogEntity);
-
-            if(previousSearchWord != null && previousSearchWord.isBlank()){
-                RelatedSearchWordEntity relatedSearchWordEntity = new RelatedSearchWordEntity(searchWord, previousSearchWord);
-                relatedSearchWordRepository.save(relatedSearchWordEntity);
-            }
-
-            List<CompanyEntity> companyList = companyRepository.findByCompanyNameContainsOrCompanyCategory(searchWord, searchWord);
-            data = GetSearchListResponseDto.copyList(companyList);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-        }
-
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
-    }
-
-    @Override
-    public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(String searchWord) {
-        GetRelatedSearchWordResponseDto data = null;
-
-        try {
-
-            List<RelatedSearchWordResultSet> relatedSearchWordList = relatedSearchWordRepository.findTop15(searchWord);
-
-            data = GetRelatedSearchWordResponseDto.copyList(relatedSearchWordList);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-        }
-
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
-    }
+    
 }
