@@ -8,19 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
+import com.job.back.dto.request.company.CompanyInfoDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.CompanyInfoResponseDto;
+import com.job.back.dto.response.company.GetCompanyInfoResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
+import com.job.back.entity.CompanyInformationEntity;
 import com.job.back.repository.ApplicantRepositroy;
+import com.job.back.repository.CompanyInformationRepository;
 import com.job.back.repository.CompanyReposiotry;
 import com.job.back.service.CompanyService;
 
@@ -30,7 +35,10 @@ public class CompanyServiceImplements implements CompanyService {
     CompanyReposiotry companyRepository;
     @Autowired
     ApplicantRepositroy applicantRepositroy;
+    @Autowired
+    CompanyInformationRepository companyInformationRepository;
 
+     
 
    
     @Override
@@ -138,8 +146,7 @@ public class CompanyServiceImplements implements CompanyService {
     }
 
     @Override
-    public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(String companyEmail){
-        
+    public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(String companyEmail){  
         
         GetCompanyListMainResponseDto[] data = null;
 
@@ -161,20 +168,71 @@ public class CompanyServiceImplements implements CompanyService {
             responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
 
             data[i] = responseDto;
-
-            
-
-
         }
-
-
         }catch(Exception e){
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);     
+    }
 
+    @Override
+    public ResponseDto<CompanyInfoResponseDto>insertCompanyInfo( CompanyInfoDto requestBody) {
+        CompanyInfoResponseDto data = null;
+
+        CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
+
+        try {
+            companyInformationRepository.save(companyInformationEntity);
+ 
+            data = new CompanyInfoResponseDto(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
 
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+    }
+
+    @Override
+    public ResponseDto<CompanyInfoResponseDto> updataCompanyInfo(CompanyInfoDto requestBody) {
+        CompanyInfoResponseDto data = null;
+
+        CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
+
+        try {
+            companyInformationEntity.patchCompany(requestBody); 
+            
+            companyInformationRepository.save(companyInformationEntity);
+ 
+            data = new CompanyInfoResponseDto(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+    }
+
+    @Override
+    public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
         
+        GetCompanyInfoResponseDto data = null;
+
+        try{
+            CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
+            if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+
+            companyInformationRepository.save(companyInformationEntity);
+
+            data = new GetCompanyInfoResponseDto(companyInformationEntity);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
     }
 }
