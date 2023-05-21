@@ -66,7 +66,7 @@ public class ComponentSelectController {
         @Valid @RequestBody License_Dto License
     ){
         ResponseDto<SelectLicenseResponseDto> response = companyselectcomponentservice.select_License_Score(License.getCompanyTelNumber(),License.getLicense(), License.getLicense_score());
-
+        
         return response;
     }
 
