@@ -42,7 +42,13 @@ public class WebSecurityConfig {
             "/user/validate/**",
             "/company/validate/**",
             "/company/list",
+<<<<<<< HEAD
             "/search/**",
+=======
+            "/company/insertCompanyInfo",
+            "/company/updateCompanyInfo",
+            "/company/getCompanyInfo",
+>>>>>>> 24f6d0a53bc1f85ca8c245635e54902641799696
             "/select/**").permitAll()
                                                         // ! 공통된 부분이 있으면 범위가 넓은 놈들이 뒤로 가게 상세한 놈들이 앞으로  
             .antMatchers(HttpMethod.GET,"/api/board/**").permitAll()
