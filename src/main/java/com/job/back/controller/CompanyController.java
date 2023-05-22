@@ -27,6 +27,7 @@ import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
+import com.job.back.service.CompanyService;
 import com.job.back.service.CompanyFileService;
 import com.job.back.service.implementation.CompanyServiceImplements;
 
