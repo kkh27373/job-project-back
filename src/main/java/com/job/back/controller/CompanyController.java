@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.job.back.common.constant.ApiPattern;
-import com.job.back.dto.request.company.CompanyInfoDto;
+import com.job.back.dto.request.company.CompanyAdditionalInfoDto;
 import com.job.back.dto.request.company.GetCompanyListMainDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
-import com.job.back.dto.response.company.GetCompanyInfoResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
@@ -44,6 +44,7 @@ public class CompanyController {
     private final String VALIDATE_COMPANY_TEL_NUMBER = "/validate/companyTelNumber";
     private final String PATCH_COMPANY_PROFILE = "/companyProfile";
     private final String Main_list_company_info = "/list";
+    private final String MAIN_HEAD_TOP3_LIST = "/top3-company-list";
     private final String INSERT_COMPANY_INFO = "/insertCompanyInfo";
     private final String UPDATE_COMPANY_INFO = "/updateCompanyInfo";
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
@@ -85,25 +86,34 @@ public class CompanyController {
         return response;
 
     }
+
+    // @GetMapping(MAIN_HEAD_TOP3_LIST)
+    // public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
+    //     ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
+    //     return response;
+
+    // }
+
+
     @ApiOperation(value = "회사 추가 정보 저장")
     @PostMapping(INSERT_COMPANY_INFO)
-    public ResponseDto<CompanyInfoResponseDto>insertCompanyInfo(@Valid @RequestBody CompanyInfoDto requestBody){
-        ResponseDto<CompanyInfoResponseDto> response = companyService.insertCompanyInfo(requestBody);
+    public ResponseDto<CompanyInfoResponseDto>insertCompanyInfo(@Valid @RequestBody CompanyAdditionalInfoDto requestBody){
+        ResponseDto<CompanyInfoResponseDto> response = companyService.insertCompanyAdditionalInfo(requestBody);
         return response;
     }
-    @ApiOperation(value = "회사 추가 정보 수정")
-    @PostMapping(UPDATE_COMPANY_INFO)
-    public ResponseDto<CompanyInfoResponseDto>updataCompanyInfo(@Valid @RequestBody CompanyInfoDto requestBody) {
-        ResponseDto<CompanyInfoResponseDto> response = companyService.updataCompanyInfo(requestBody);
-        return response;
-    }
+    // @ApiOperation(value = "회사 추가 정보 수정")
+    // @PostMapping(UPDATE_COMPANY_INFO)
+    // public ResponseDto<CompanyInfoResponseDto>updataCompanyInfo(@Valid @RequestBody CompanyAdditionalInfoDto requestBody) {
+    //     ResponseDto<CompanyInfoResponseDto> response = companyService.updateCompanyInfo(requestBody);
+    //     return response;
+    // }
 
-    @ApiOperation(value = "회사 추가정보 조회")
-    @GetMapping(GET_COMPANY_INFO)
-    public ResponseDto<GetCompanyInfoResponseDto>getComapnyInfo(@Valid @RequestBody String compantTelNumber) {
-        ResponseDto<GetCompanyInfoResponseDto> response = companyService.getComapnyInfo(compantTelNumber);
-        return response;
-    }
+    // @ApiOperation(value = "회사 추가정보 조회")
+    // @GetMapping(GET_COMPANY_INFO)
+    // public ResponseDto<GetCompanyInfoResponseDto>getComapnyInfo(@Valid @RequestBody String companyTelNumber) {
+    //     ResponseDto<GetCompanyInfoResponseDto> response = companyService.getComapnyInfo(companyTelNumber);
+    //     return response;
+    // }
 
 
     

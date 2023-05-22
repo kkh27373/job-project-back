@@ -8,24 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
-import com.job.back.dto.request.company.CompanyInfoDto;
+import com.job.back.dto.request.company.CompanyAdditionalInfoDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
-import com.job.back.dto.response.company.GetCompanyInfoResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
-import com.job.back.entity.CompanyInformationEntity;
 import com.job.back.repository.ApplicantRepositroy;
-import com.job.back.repository.CompanyInformationRepository;
 import com.job.back.repository.CompanyReposiotry;
 import com.job.back.service.CompanyService;
 
@@ -35,8 +33,7 @@ public class CompanyServiceImplements implements CompanyService {
     CompanyReposiotry companyRepository;
     @Autowired
     ApplicantRepositroy applicantRepositroy;
-    @Autowired
-    CompanyInformationRepository companyInformationRepository;
+    
 
      
 
@@ -176,35 +173,59 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);     
     }
 
-    @Override
-    public ResponseDto<CompanyInfoResponseDto>insertCompanyInfo( CompanyInfoDto requestBody) {
-        CompanyInfoResponseDto data = null;
+    // @Override
+    // public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail){
 
-        CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
+    //     GetCompanyTop3ListResponseDto[] data = null;
 
-        try {
-            companyInformationRepository.save(companyInformationEntity);
- 
-            data = new CompanyInfoResponseDto(true);
+    //     try{
+    //         // ! 기준을 정하면 기준에 따라 디스플레이 되는 회사들의 순번이 정해진다 
+    //         List<CompanyEntity> companyEntities = companyRepository.findAll();
+    //         data = new GetCompanyTop3ListResponseDto[companyEntities.size()];
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-        }
+    //     for (int i = 0; i < companyEntities.size(); i++) {
 
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
-    }
+    //         CompanyEntity companyEntity = companyEntities.get(i);
+    //         GetCompanyListMainResponseDto responseDto = new GetCompanyListMainResponseDto();
 
-    @Override
-    public ResponseDto<CompanyInfoResponseDto> updataCompanyInfo(CompanyInfoDto requestBody) {
-        CompanyInfoResponseDto data = null;
+    //         responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
+    //         responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
+    //         responseDto.setCompanyName(companyEntity.getCompanyName());
+    //         responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
+    //         responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
+    //         responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
 
-        CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
-
-        try {
-            companyInformationEntity.patchCompany(requestBody); 
+    //         data[i] = responseDto;
+    //     }
             
-            companyInformationRepository.save(companyInformationEntity);
+    //     }catch(Exception e){
+    //         e.printStackTrace();
+    //         return ResponseDto.setFailed((ResponseMessage.DATABASE_ERROR));
+    //     }
+    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);  
+
+    // }
+
+    @Override
+    public ResponseDto<CompanyInfoResponseDto>insertCompanyAdditionalInfo( CompanyAdditionalInfoDto requestBody) {
+        
+        CompanyInfoResponseDto data = null;
+
+        CompanyEntity companyInformationEntity = new CompanyEntity(requestBody);
+
+        try {
+            // ? 기존의 정보
+            CompanyEntity companyentity_old =companyRepository.findByCompanyTelNumber(requestBody.getCompanyTelNumber());
+            
+            // ?새로운 정보
+            CompanyEntity companyentity_new = new CompanyEntity(requestBody);
+
+            companyentity_old.setCompanyEmployee(companyentity_new.getCompanyEmployee());
+            
+
+
+            // ? Repository에 저장 
+            companyRepository.save(companyentity_old);
  
             data = new CompanyInfoResponseDto(true);
 
@@ -216,23 +237,44 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
     }
 
-    @Override
-    public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
+    // @Override
+    // public ResponseDto<CompanyInfoResponseDto> updateCompanyInfo(CompanyAdditionalInfoDto requestBody) {
+    //     CompanyInfoResponseDto data = null;
+
+    //     CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
+
+    //     try {
+    //         companyInformationEntity.patchCompany(requestBody); 
+            
+    //         companyInformationRepository.save(companyInformationEntity);
+ 
+    //         data = new CompanyInfoResponseDto(true);
+
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+    //     }
+
+    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+    // }
+
+//     @Override
+//     public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
         
-        GetCompanyInfoResponseDto data = null;
+//         GetCompanyInfoResponseDto data = null;
 
-        try{
-            CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
-            if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+//         try{
+//             CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
+//             if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
-            companyInformationRepository.save(companyInformationEntity);
+//             companyInformationRepository.save(companyInformationEntity);
 
-            data = new GetCompanyInfoResponseDto(companyInformationEntity);
+//             data = new GetCompanyInfoResponseDto(companyInformationEntity);
 
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-        }
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
-    }
+//         }catch (Exception e) {
+//             e.printStackTrace();
+//             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+//         }
+//         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+//     }
 }

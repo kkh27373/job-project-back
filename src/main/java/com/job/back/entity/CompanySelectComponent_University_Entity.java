@@ -44,7 +44,7 @@ public class CompanySelectComponent_University_Entity {
                                         String[] third_grade_university, int third_grade_university_score,
                                         String[] etc_grade_university,int etc_grade_university_score){
 
-                                            System.out.println(DatabaseJson.arrayToString(first_grade_university));
+                                            
                                             this.companyTelNumber = companyTelNumber;
                                             this.first_grade_university = DatabaseJson.arrayToString(first_grade_university);
                                             this.first_grade_university_score = first_grade_university_score;
