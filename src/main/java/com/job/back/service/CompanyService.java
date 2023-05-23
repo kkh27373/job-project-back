@@ -23,7 +23,7 @@ public interface CompanyService {
     public ResponseDto<ListUpApplicantResponseDto> ListUpApplicant(String companyTelNumber);
     public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(String companyEmail, PatchCompanyProfileDto dto);
     public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(String companyEmail);
-    // public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail);
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail);
     public ResponseDto<CompanyInfoResponseDto> insertCompanyAdditionalInfo( CompanyAdditionalInfoDto requestBody);
     // public ResponseDto<CompanyInfoResponseDto> updateCompanyInfo(CompanyAdditionalInfoDto requestBody);
     // public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber);

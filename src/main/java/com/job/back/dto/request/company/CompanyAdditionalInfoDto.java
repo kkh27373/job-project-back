@@ -13,11 +13,9 @@ public class CompanyAdditionalInfoDto {
     
     private String companyTelNumber; 
 
-    private String companyProfileUrl;
-
     private String companyCategory; 
     
-    private String companyHomepage;
+    private String companyHomePage;
 
     private String companyContents;
     

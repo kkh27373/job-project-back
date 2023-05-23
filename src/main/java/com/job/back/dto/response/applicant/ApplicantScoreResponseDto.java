@@ -17,7 +17,7 @@ public class ApplicantScoreResponseDto {
 
     private int applicant_total_score;
 
-    private double applicant_percentile;
+    
 
 
 
