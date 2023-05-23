@@ -22,9 +22,11 @@ import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
+import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
+import com.job.back.service.ApplicantService;
 import com.job.back.service.CompanyFileService;
 import com.job.back.service.implementation.CompanyServiceImplements;
 
@@ -38,6 +40,7 @@ import io.swagger.annotations.ApiParam;
 public class CompanyController {
     @Autowired private CompanyServiceImplements companyService;
     @Autowired private CompanyFileService companyFileService;
+    @Autowired private ApplicantService applicantService;
 
     private final String GET_COMPANY = "/";
     private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
@@ -48,6 +51,7 @@ public class CompanyController {
     private final String INSERT_COMPANY_INFO = "/insertCompanyInfo";
     private final String UPDATE_COMPANY_INFO = "/updateCompanyInfo";
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
+    private final String GET_MY_APPLY_COMPANY_LIST_URL = "/my-list";
 
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
@@ -114,6 +118,17 @@ public class CompanyController {
     //     ResponseDto<GetCompanyInfoResponseDto> response = companyService.getComapnyInfo(companyTelNumber);
     //     return response;
     // }
+
+
+    @GetMapping(GET_MY_APPLY_COMPANY_LIST_URL)
+    public ResponseDto<GetMyApplyCompanyResponseDto> getMyCompanyListUrl(@AuthenticationPrincipal String companyEmail,
+                                                                         @Valid @RequestBody String applicantEmail   ){
+
+        ResponseDto<GetMyApplyCompanyResponseDto> response = applicantService.getMyApplyCompanyList(companyEmail,applicantEmail);
+        return response;
+
+
+    }
 
 
     

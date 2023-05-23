@@ -17,4 +17,6 @@ public class DatabaseJson {
         string = string.replace("\"[", "").replace("]\"", "").replace("'", "");
         return string.split(",");
     }
+
+    
 }

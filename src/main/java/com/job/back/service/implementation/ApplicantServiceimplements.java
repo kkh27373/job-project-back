@@ -16,11 +16,14 @@ import com.job.back.dto.University_Grade_Dto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.applicant.ApplicantPercentileResponseDto;
 import com.job.back.dto.response.applicant.ApplicantScoreResponseDto;
+import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.entity.ApplicantEntity;
+import com.job.back.entity.CompanyEntity;
 import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 import com.job.back.entity.CompanySelectComponent_License_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.repository.ApplicantRepositroy;
+import com.job.back.repository.CompanyReposiotry;
 import com.job.back.repository.CompanySelectComponent_Carrer_Repository;
 import com.job.back.repository.CompanySelectComponent_License_Repository;
 import com.job.back.repository.CompanySelectComponent_University_Repository;
@@ -41,6 +44,8 @@ public class ApplicantServiceimplements implements ApplicantService{
     CompanySelectComponent_License_Repository companySelectComponent_License_Repository;
     @Autowired
     ApplicantRepositroy applicant_Repository;
+    @Autowired 
+    CompanyReposiotry company_Reposiotry;
     
 
     
@@ -56,8 +61,20 @@ public class ApplicantServiceimplements implements ApplicantService{
         data = new ApplicantScoreResponseDto();  
         
         List<Integer> arr = new ArrayList<>();
+
+        for(int i=0;i<applicantContentDto.getApplicant_FinalEducation().length;i++){
+            System.out.println("for문 돈다"+applicantContentDto.getApplicant_FinalEducation()[i]);
+        }
+
+        System.out.println("company_Tel_Number: "+company_Tel_Number);
+
         
-        double my_Percentile;
+       
+    //    System.out.println("아이고 :"+applicantContentDto.getApplicant_FinalEducation().toString());
+    //    System.out.println(applicantContentDto.getApplicant_Carrer());                                                                 
+
+    //    System.out.println();                                                                 
+    //    System.out.println();                                                                 
 
         
        
@@ -77,7 +94,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             
             
             
-            System.out.println("여길 보세요"+applicantContentDto);
+            System.out.println("여길 보세요@@@@@@@@@@2@@"+applicantContentDto);
             System.out.println("여기를 보시오2"+applicantContentDto.getApplicant_FinalEducation());
             // ! 여기 지원자의 대학교를 보고 회사측에서 지정한 점수를 return 하는 함수 
             data.setApplicant_university_score(Applicant_Total_Score_Function.University_Matching_Function(company_university_info,applicantContentDto));    
@@ -222,6 +239,37 @@ public class ApplicantServiceimplements implements ApplicantService{
 
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
+    }
+
+    public ResponseDto<GetMyApplyCompanyResponseDto> getMyApplyCompanyList(String companyEmail,String applicantEmail){
+
+        GetMyApplyCompanyResponseDto data = null;
+        data = new GetMyApplyCompanyResponseDto();
+
+        try{
+            CompanyEntity companyEntity = company_Reposiotry.findByCompanyEmail(companyEmail);
+            data.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
+            data.setCompanyName(companyEntity.getCompanyName());
+            data.setCompanyAddress(companyEntity.getCompanyAddress());
+            data.setCompanyCategory(companyEntity.getCompanyCategory());
+            data.setCompanyPassword(companyEntity.getCompanyPassword());
+            data.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
+
+
+            ApplicantEntity applicantEntity = applicant_Repository.findByApplicantUserEmail(applicantEmail);
+            data.setApplicantTotalScore(applicantEntity.getApplicantTotalScore());
+
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+        
     }
     
 }

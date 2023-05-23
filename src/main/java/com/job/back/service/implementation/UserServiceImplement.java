@@ -15,6 +15,7 @@ import com.job.back.dto.request.user.PatchUserProfilDto;
 import com.job.back.dto.request.user.ValidateUserEmailDto;
 import com.job.back.dto.request.user.ValidateUserTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
+import com.job.back.dto.response.applicant.GetApplicantDataResponseDto;
 import com.job.back.dto.response.user.AddUserWishListResponseDto;
 import com.job.back.dto.response.user.GetUserResponseDto;
 import com.job.back.dto.response.user.PatchUserComponentResponseDto;
@@ -231,6 +232,33 @@ public class UserServiceImplement implements UserService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
 
+    }
+
+
+    public ResponseDto<GetApplicantDataResponseDto> getApplicantData(String userEmail){
+
+        GetApplicantDataResponseDto data = null;
+        data = new GetApplicantDataResponseDto();
+
+        try{
+
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+            data.setApplicant_FinalEducation(userEntity.getUserFinalEducation());
+            data.setApplicant_Carrer(userEntity.getUserCarrer());
+            data.setApplicant_License(userEntity.getUserLicense());
+
+
+            
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+        
     }
 
 
