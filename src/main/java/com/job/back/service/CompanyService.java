@@ -1,5 +1,7 @@
 package com.job.back.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.job.back.dto.request.company.PatchCompanyProfileDto;

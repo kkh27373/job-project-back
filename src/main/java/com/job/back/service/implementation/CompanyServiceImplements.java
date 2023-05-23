@@ -1,5 +1,9 @@
 package com.job.back.service.implementation;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -33,10 +37,6 @@ public class CompanyServiceImplements implements CompanyService {
     CompanyReposiotry companyRepository;
     @Autowired
     ApplicantRepositroy applicantRepositroy;
-    
-
-     
-
    
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
@@ -150,8 +150,9 @@ public class CompanyServiceImplements implements CompanyService {
         try{
 
             List<CompanyEntity> companyEntities = companyRepository.findAll();
+            
             data = new GetCompanyListMainResponseDto[companyEntities.size()];
-
+            
         for (int i = 0; i < companyEntities.size(); i++) {
 
             CompanyEntity companyEntity = companyEntities.get(i);

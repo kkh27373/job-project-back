@@ -1,5 +1,7 @@
 package com.job.back.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +89,15 @@ public class CompanyController {
 
     }
 
-    // @GetMapping(MAIN_HEAD_TOP3_LIST)
-    // public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
-    //     ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
-    //     return response;
+    @ApiOperation(value = "회사 top3 리스트 가져오기")
+    @GetMapping(MAIN_HEAD_TOP3_LIST)
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
+        ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
+        return response;
+    
+    }
 
-    // }
+    
 
 
     @ApiOperation(value = "회사 추가 정보 저장")
