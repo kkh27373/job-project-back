@@ -24,12 +24,9 @@ import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
-<<<<<<< HEAD
 import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
 import com.job.back.dto.response.company.GetSearchListResponseDto;
-=======
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
->>>>>>> 24f6d0a53bc1f85ca8c245635e54902641799696
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
@@ -96,10 +93,7 @@ public class CompanyController {
 
     }
 
-<<<<<<< HEAD
-    
 
-=======
     // @GetMapping(MAIN_HEAD_TOP3_LIST)
     // public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
     //     ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
@@ -127,7 +121,6 @@ public class CompanyController {
     //     ResponseDto<GetCompanyInfoResponseDto> response = companyService.getComapnyInfo(companyTelNumber);
     //     return response;
     // }
->>>>>>> 24f6d0a53bc1f85ca8c245635e54902641799696
 
 
     

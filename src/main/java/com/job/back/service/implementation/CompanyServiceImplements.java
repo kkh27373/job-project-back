@@ -15,13 +15,10 @@ import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
-<<<<<<< HEAD
 import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
 import com.job.back.dto.response.company.GetSearchListResponseDto;
-=======
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
->>>>>>> 24f6d0a53bc1f85ca8c245635e54902641799696
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
@@ -39,17 +36,9 @@ import com.job.back.service.CompanyService;
 
 @Service
 public class CompanyServiceImplements implements CompanyService {
-<<<<<<< HEAD
     @Autowired private CompanyReposiotry companyRepository;
     @Autowired private ApplicantRepositroy applicantRepositroy;
 
-=======
-    @Autowired 
-    CompanyReposiotry companyRepository;
-    @Autowired
-    ApplicantRepositroy applicantRepositroy;
-    
->>>>>>> 24f6d0a53bc1f85ca8c245635e54902641799696
 
      
 
@@ -253,9 +242,6 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
     }
 
-<<<<<<< HEAD
-    
-=======
     // @Override
     // public ResponseDto<CompanyInfoResponseDto> updateCompanyInfo(CompanyAdditionalInfoDto requestBody) {
     //     CompanyInfoResponseDto data = null;
@@ -277,24 +263,23 @@ public class CompanyServiceImplements implements CompanyService {
     //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
     // }
 
-//     @Override
-//     public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
+    // @Override
+    // public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
         
-//         GetCompanyInfoResponseDto data = null;
+    //     GetCompanyInfoResponseDto data = null;
 
-//         try{
-//             CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
-//             if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+    //     try{
+    //         CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
+    //         if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
-//             companyInformationRepository.save(companyInformationEntity);
+    //         companyInformationRepository.save(companyInformationEntity);
 
-//             data = new GetCompanyInfoResponseDto(companyInformationEntity);
+    //         data = new GetCompanyInfoResponseDto(companyInformationEntity);
 
-//         }catch (Exception e) {
-//             e.printStackTrace();
-//             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-//         }
-//         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
-//     }
->>>>>>> 24f6d0a53bc1f85ca8c245635e54902641799696
+    //     }catch (Exception e) {
+    //         e.printStackTrace();
+    //         return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+    //     }
+    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    // }
 }
