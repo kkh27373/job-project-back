@@ -178,54 +178,67 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);     
     }
 
-    // @Override
-    // public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail){
+    @Override
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail){
 
-    //     GetCompanyTop3ListResponseDto[] data = null;
+        GetCompanyTop3ListResponseDto[] data = null;
 
-    //     try{
-    //         // ! 기준을 정하면 기준에 따라 디스플레이 되는 회사들의 순번이 정해진다 
-    //         List<CompanyEntity> companyEntities = companyRepository.findAll();
-    //         data = new GetCompanyTop3ListResponseDto[companyEntities.size()];
+        try{
+            // ! 기준을 정하면 기준에 따라 디스플레이 되는 회사들의 순번이 정해진다 
+            List<CompanyEntity> companyEntities = companyRepository.findAll();
+            data = new GetCompanyTop3ListResponseDto[companyEntities.size()];
 
-    //     for (int i = 0; i < companyEntities.size(); i++) {
+        for (int i = 0; i < companyEntities.size(); i++) {
 
-    //         CompanyEntity companyEntity = companyEntities.get(i);
-    //         GetCompanyListMainResponseDto responseDto = new GetCompanyListMainResponseDto();
+            CompanyEntity companyEntity = companyEntities.get(i);
+            GetCompanyTop3ListResponseDto responseDto = new GetCompanyTop3ListResponseDto();
 
-    //         responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
-    //         responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
-    //         responseDto.setCompanyName(companyEntity.getCompanyName());
-    //         responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
-    //         responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
-    //         responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
+            responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
+            responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
+            responseDto.setCompanyName(companyEntity.getCompanyName());
+            responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
+            responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
+            responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
 
-    //         data[i] = responseDto;
-    //     }
+            data[i] = responseDto;
+        }
             
-    //     }catch(Exception e){
-    //         e.printStackTrace();
-    //         return ResponseDto.setFailed((ResponseMessage.DATABASE_ERROR));
-    //     }
-    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);  
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed((ResponseMessage.DATABASE_ERROR));
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);  
 
-    // }
+    }
 
     @Override
     public ResponseDto<CompanyInfoResponseDto>insertCompanyAdditionalInfo( CompanyAdditionalInfoDto requestBody) {
         
         CompanyInfoResponseDto data = null;
 
-        CompanyEntity companyInformationEntity = new CompanyEntity(requestBody);
+        
+        System.out.println(requestBody.getCompanyContents());
+        System.out.println(requestBody.getCompanyAnnualSales());
+        System.out.println(requestBody.getCompanyTelNumber());
+
+
+        
 
         try {
             // ? 기존의 정보
+            // ? 이게 null이라네 
             CompanyEntity companyentity_old =companyRepository.findByCompanyTelNumber(requestBody.getCompanyTelNumber());
             
             // ?새로운 정보
             CompanyEntity companyentity_new = new CompanyEntity(requestBody);
 
             companyentity_old.setCompanyEmployee(companyentity_new.getCompanyEmployee());
+            companyentity_old.setCompanyHomePage(companyentity_new.getCompanyHomePage());
+            companyentity_old.setCompanyContents(companyentity_new.getCompanyContents());
+            companyentity_old.setCompanyCategory(companyentity_new.getCompanyCategory());
+            companyentity_old.setCompanyAnnualSales(companyentity_new.getCompanyAnnualSales());
+            companyentity_old.setCompanyStartingSalary(companyentity_new.getCompanyStartingSalary());
+
             
 
 

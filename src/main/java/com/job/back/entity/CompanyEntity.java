@@ -28,7 +28,7 @@ public class CompanyEntity {
     private String companyPassword;
     private String companyEmail;
 
-    private String companyHomepage;
+    private String companyHomePage;
     private String companyContents;
     private String companyEmployee;
     private String companyAnnualSales;
@@ -45,12 +45,11 @@ public class CompanyEntity {
 
     //  ? 회사에 대한 추가 정보 
     public CompanyEntity(CompanyAdditionalInfoDto dto){
-        this.companyHomepage = dto.getCompanyHomepage();
+        this.companyHomePage = dto.getCompanyHomePage();
         this.companyContents = dto.getCompanyContents();
         this.companyEmployee = dto.getCompanyEmployee();
         this.companyAnnualSales = dto.getCompanyAnnualSales();
         this.companyStartingSalary = dto.getCompanyStartingSalary();
-        this.companyProfileUrl = dto.getCompanyProfileUrl();
         this.companyCategory = dto.getCompanyCategory();
     }
 
