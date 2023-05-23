@@ -212,16 +212,29 @@ public class CompanyServiceImplements implements CompanyService {
         
         CompanyInfoResponseDto data = null;
 
-        CompanyEntity companyInformationEntity = new CompanyEntity(requestBody);
+        
+        System.out.println(requestBody.getCompanyContents());
+        System.out.println(requestBody.getCompanyAnnualSales());
+        System.out.println(requestBody.getCompanyTelNumber());
+
+
+        
 
         try {
             // ? 기존의 정보
+            // ? 이게 null이라네 
             CompanyEntity companyentity_old =companyRepository.findByCompanyTelNumber(requestBody.getCompanyTelNumber());
             
             // ?새로운 정보
             CompanyEntity companyentity_new = new CompanyEntity(requestBody);
 
             companyentity_old.setCompanyEmployee(companyentity_new.getCompanyEmployee());
+            companyentity_old.setCompanyHomePage(companyentity_new.getCompanyHomePage());
+            companyentity_old.setCompanyContents(companyentity_new.getCompanyContents());
+            companyentity_old.setCompanyCategory(companyentity_new.getCompanyCategory());
+            companyentity_old.setCompanyAnnualSales(companyentity_new.getCompanyAnnualSales());
+            companyentity_old.setCompanyStartingSalary(companyentity_new.getCompanyStartingSalary());
+
             
 
 
