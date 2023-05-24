@@ -1,5 +1,7 @@
 package com.job.back.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -49,6 +51,10 @@ public class CompanyEntity {
         this.companyAnnualSales = dto.getCompanyAnnualSales();
         this.companyStartingSalary = dto.getCompanyStartingSalary();
         this.companyCategory = dto.getCompanyCategory();
+    }
+
+
+    public void addRecommendedCompanies(List<CompanyEntity> recommendedCompanies) {
     }
 
 

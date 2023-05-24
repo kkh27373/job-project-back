@@ -42,7 +42,8 @@ public class ApplicantEntity {
                            String applicantFinalEducation,
                            String applicantCarrer,
                            String applicantLicense,
-                           int applicantTotalScore){
+                           int applicantTotalScore
+                           ){
 
                             this.applicantUserEmail = applicantUserEmail;
                             this.applicantCompanyTelNumber = applicantCompanyTelNumber;

@@ -77,15 +77,7 @@ public class ApplicantServiceimplements implements ApplicantService{
     //    System.out.println();                                                                 
     //    System.out.println();                                                                 
 
-        
-       
-        
-        
-
         try{
-        
-
-            
 
             // ! 지원자가 접속한 company의 Select_component와 지원자의 Select_Component를 비교한다 ==> Applicant에게 점수를 확정하여 보여준다 
             // ? Repository는 매개변수로 받은 전화번호에 해당하는 instance를 반환한다 
@@ -99,21 +91,12 @@ public class ApplicantServiceimplements implements ApplicantService{
             System.out.println("여기를 보시오2"+applicantContentDto.getApplicant_FinalEducation());
             // ! 여기 지원자의 대학교를 보고 회사측에서 지정한 점수를 return 하는 함수 
             data.setApplicant_university_score(Applicant_Total_Score_Function.University_Matching_Function(company_university_info,applicantContentDto));    
-
-            
-            
-            
-            
+        
             CompanySelectComponent_Carrer_Entity company_carrer_info = companySelectComponent_Carrer_Repository.findByCompanyTelNumber(company_Tel_Number);
             if(company_carrer_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
 
-            data.setApplicant_carrer_score(Applicant_Total_Score_Function.Carrer_Matching_Function(company_carrer_info, applicantContentDto));
-
-            
-            
-            
-            
+            data.setApplicant_carrer_score(Applicant_Total_Score_Function.Carrer_Matching_Function(company_carrer_info, applicantContentDto));     
             
             CompanySelectComponent_License_Entity company_license_info = companySelectComponent_License_Repository.findByCompanyTelNumber(company_Tel_Number);
             if(company_license_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
@@ -124,28 +107,6 @@ public class ApplicantServiceimplements implements ApplicantService{
             int applicant_total_score = data.getApplicant_university_score()+data.getApplicant_carrer_score()+data.getApplicant_license_score();
             
             data.setApplicant_total_score(applicant_total_score);
-
-
-
-
-
-
-
-            
-
-            
-            
-            
-
-
-
-
-
-
-
-
-
-
 
             ApplicantEntity for_Repository_saving = new ApplicantEntity(applicantContentDto.getApplicantEmail(),
                                                                         company_Tel_Number,
@@ -160,25 +121,13 @@ public class ApplicantServiceimplements implements ApplicantService{
             // !  Matching 된 정보를 applicantRepository에 save한다 
             applicant_Repository.save(for_Repository_saving);
 
-            
-            
-
-
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
 
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
-
-
-
-
     }
-
-
-
-
 
     @Override
     public ResponseDto<ApplicantPercentileResponseDto> show_Applicant_Percentile(String company_Tel_Number,Applicant_Total_Score_Dto my_dto){
@@ -189,11 +138,6 @@ public class ApplicantServiceimplements implements ApplicantService{
         List<Integer> arr = new ArrayList<>();
 
         double my_Percentile;
-
-        
-
-    
-
 
         try{
 
@@ -224,13 +168,7 @@ public class ApplicantServiceimplements implements ApplicantService{
                                                                   my_applicantEntity.getApplicantLicense(), 
                                                                   my_dto.getApplicant_Total_Score(), my_Percentile);
 
-            
-            
             applicant_Repository.save(applicantEntity);
-
-
-
-
 
 
         }catch(Exception e){

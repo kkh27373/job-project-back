@@ -3,8 +3,14 @@ package com.job.back.service.implementation;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -12,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
+import com.job.back.common.util.DatabaseJson;
 import com.job.back.dto.request.company.CompanyAdditionalInfoDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
@@ -27,8 +34,12 @@ import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
+import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
+import com.job.back.entity.CompanySelectComponent_University_Entity;
+import com.job.back.entity.UserEntity;
 import com.job.back.repository.ApplicantRepositroy;
 import com.job.back.repository.CompanyRepository;
+import com.job.back.repository.UserReposiotory;
 import com.job.back.service.CompanyService;
 
 @Service
@@ -37,6 +48,8 @@ public class CompanyServiceImplements implements CompanyService {
     CompanyRepository companyRepository;
     @Autowired
     ApplicantRepositroy applicantRepositroy;
+    @Autowired
+    UserReposiotory userReposiotory;
    
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
@@ -104,11 +117,7 @@ public class CompanyServiceImplements implements CompanyService {
             
 
             List<ApplicantEntity> applicant_List = applicantRepositroy.findByApplicantCompanyTelNumber(companyTelNumber);
-
-
-
-
-            data = new ListUpApplicantResponseDto(applicant_List);
+              data = new ListUpApplicantResponseDto(applicant_List);
             
 
         }catch(Exception e){
@@ -175,37 +184,22 @@ public class CompanyServiceImplements implements CompanyService {
     }
 
     @Override
-    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail){
-
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail) {
         GetCompanyTop3ListResponseDto[] data = null;
 
         try{
-            // ! 기준을 정하면 기준에 따라 디스플레이 되는 회사들의 순번이 정해진다 
-            List<CompanyEntity> companyEntities = companyRepository.findAll();
-            data = new GetCompanyTop3ListResponseDto[companyEntities.size()];
-
-        for (int i = 0; i < companyEntities.size(); i++) {
-
-            CompanyEntity companyEntity = companyEntities.get(i);
-            GetCompanyTop3ListResponseDto responseDto = new GetCompanyTop3ListResponseDto();
-
-            responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
-            responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
-            responseDto.setCompanyName(companyEntity.getCompanyName());
-            responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
-            responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
-            responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
-
-            data[i] = responseDto;
-        }
             
-        }catch(Exception e){
-            e.printStackTrace();
-            return ResponseDto.setFailed((ResponseMessage.DATABASE_ERROR));
+
+        }catch(Exception e) {
+            e.fillInStackTrace();
         }
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);  
+        return null;
+
 
     }
+
+    
+
 
     @Override
     public ResponseDto<CompanyInfoResponseDto>insertCompanyAdditionalInfo( CompanyAdditionalInfoDto requestBody) {
