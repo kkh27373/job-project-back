@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
+import com.job.back.dto.response.company.GetCompanyPageResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
 import com.job.back.dto.response.company.GetSearchListResponseDto;
@@ -42,7 +44,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping(ApiPattern.COMPANY)
 public class CompanyController {
-    @Autowired private CompanyServiceImplements companyService;
+    @Autowired private CompanyService companyService;
     @Autowired private CompanyFileService companyFileService;
 
     private final String GET_COMPANY = "/";
@@ -54,6 +56,7 @@ public class CompanyController {
     private final String INSERT_COMPANY_INFO = "/insertCompanyInfo";
     private final String UPDATE_COMPANY_INFO = "/updateCompanyInfo";
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
+    private final String GET_COMPANY_PAGE = "/{companyTelNumber}";
 
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
@@ -94,12 +97,12 @@ public class CompanyController {
     }
 
 
-    // @GetMapping(MAIN_HEAD_TOP3_LIST)
-    // public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
-    //     ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
-    //     return response;
+    @GetMapping(MAIN_HEAD_TOP3_LIST)
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
+        ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
+        return response;
 
-    // }
+    }
 
 
     @ApiOperation(value = "회사 추가 정보 저장")
@@ -121,6 +124,13 @@ public class CompanyController {
     //     ResponseDto<GetCompanyInfoResponseDto> response = companyService.getComapnyInfo(companyTelNumber);
     //     return response;
     // }
+
+    @ApiOperation(value = "회사 페이지 조회")
+    @GetMapping(GET_COMPANY_PAGE)
+    public ResponseDto<GetCompanyPageResponseDto> getCompanyPage(@PathVariable("companyTelNumber") String companyTelNumber){
+        ResponseDto<GetCompanyPageResponseDto> response = companyService.getCompanyPage(companyTelNumber);
+        return response;
+    }
 
 
     
