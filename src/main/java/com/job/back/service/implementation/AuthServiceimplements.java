@@ -1,5 +1,7 @@
 package com.job.back.service.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +20,7 @@ import com.job.back.dto.response.auth.UserSignUpResonseDto;
 import com.job.back.entity.CompanyEntity;
 import com.job.back.entity.UserEntity;
 import com.job.back.provider.TokenProvider;
-import com.job.back.repository.CompanyReposiotry;
+import com.job.back.repository.CompanyRepository;
 import com.job.back.repository.UserReposiotory;
 import com.job.back.service.AuthService;
 
@@ -26,7 +28,7 @@ import com.job.back.service.AuthService;
 public class AuthServiceimplements implements AuthService {
 
     @Autowired private UserReposiotory userReposiotory;
-    @Autowired private CompanyReposiotry companyReposiotry;
+    @Autowired private CompanyRepository companyRepository;
     @Autowired private TokenProvider tokenProvider;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -74,15 +76,15 @@ public class AuthServiceimplements implements AuthService {
         CompanyEntity companyEntity = new CompanyEntity(dto);
 
         try {
-            boolean hasEmail = companyReposiotry.existsByCompanyEmail(companyEmail);
+            boolean hasEmail = companyRepository.existsByCompanyEmail(companyEmail);
             if(hasEmail) return ResponseDto.setFailed(ResponseMessage.EXIST_EMAIL);
 
-            boolean hasTelNumber = companyReposiotry.existsByCompanyTelNumber(companyTelNumber);
+            boolean hasTelNumber = companyRepository.existsByCompanyTelNumber(companyTelNumber);
             if(hasTelNumber) return ResponseDto.setFailed(ResponseMessage.EXIST_TEL_NUMBER);
 
             String encodedPassword = passwordEncoder.encode(companyPassword);
             companyEntity.setCompanyPassword(encodedPassword);
-            companyReposiotry.save(companyEntity);
+            companyRepository.save(companyEntity);
 
             data = new CompanySignUpResponseDto(true);
 
@@ -140,16 +142,16 @@ public class AuthServiceimplements implements AuthService {
     public ResponseDto<CompanySignInResponseDto> companySignIn(CompanySignInDto dto) {
         CompanySignInResponseDto data = null;
         
-        CompanyEntity companyEntity = null;
+        List<CompanyEntity> companyEntity = null;
 
         String companyEmail = dto.getCompanyEmail();
         String companyPassword = dto.getCompanyPassword();
 
         try {
-            companyEntity = companyReposiotry.findByCompanyEmail(companyEmail);
+            companyEntity = companyRepository.findByCompanyEmail(companyEmail);
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
 
-            boolean isEqualPassword = passwordEncoder.matches(companyPassword, companyEntity.getCompanyPassword());
+            boolean isEqualPassword = passwordEncoder.matches(companyPassword, companyEntity.get(0).getCompanyPassword());
             if(!isEqualPassword) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
             
         } catch (Exception e) {
@@ -159,7 +161,7 @@ public class AuthServiceimplements implements AuthService {
 
         try {
             String token = tokenProvider.create(companyEmail);
-            data = new CompanySignInResponseDto(companyEntity, token);
+            data = new CompanySignInResponseDto(companyEntity.get(0), token);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
