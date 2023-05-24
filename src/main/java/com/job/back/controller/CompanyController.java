@@ -51,7 +51,6 @@ public class CompanyController {
     private final String INSERT_COMPANY_INFO = "/insertCompanyInfo";
     private final String UPDATE_COMPANY_INFO = "/updateCompanyInfo";
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
-    private final String GET_MY_APPLY_COMPANY_LIST_URL = "/my-list";
 
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
@@ -120,15 +119,7 @@ public class CompanyController {
     // }
 
 
-    @GetMapping(GET_MY_APPLY_COMPANY_LIST_URL)
-    public ResponseDto<GetMyApplyCompanyResponseDto> getMyCompanyListUrl(@AuthenticationPrincipal String companyEmail,
-                                                                         @Valid @RequestBody String applicantEmail   ){
-
-        ResponseDto<GetMyApplyCompanyResponseDto> response = applicantService.getMyApplyCompanyList(companyEmail,applicantEmail);
-        return response;
-
-
-    }
+    
 
 
     

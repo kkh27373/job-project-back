@@ -13,6 +13,7 @@ import com.job.back.dto.Applicant_Total_Score_Dto;
 import com.job.back.dto.Carrer_Dto;
 import com.job.back.dto.License_Dto;
 import com.job.back.dto.University_Grade_Dto;
+import com.job.back.dto.request.applicant.Applicant_Email_Dto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.applicant.ApplicantPercentileResponseDto;
 import com.job.back.dto.response.applicant.ApplicantScoreResponseDto;
@@ -23,7 +24,7 @@ import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 import com.job.back.entity.CompanySelectComponent_License_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.repository.ApplicantRepositroy;
-import com.job.back.repository.CompanyReposiotry;
+import com.job.back.repository.CompanyRepository;
 import com.job.back.repository.CompanySelectComponent_Carrer_Repository;
 import com.job.back.repository.CompanySelectComponent_License_Repository;
 import com.job.back.repository.CompanySelectComponent_University_Repository;
@@ -45,7 +46,7 @@ public class ApplicantServiceimplements implements ApplicantService{
     @Autowired
     ApplicantRepositroy applicant_Repository;
     @Autowired 
-    CompanyReposiotry company_Reposiotry;
+    CompanyRepository company_Repository;
     
 
     
@@ -241,26 +242,54 @@ public class ApplicantServiceimplements implements ApplicantService{
 
     }
 
-    public ResponseDto<GetMyApplyCompanyResponseDto> getMyApplyCompanyList(String companyEmail,String applicantEmail){
+    public ResponseDto<List<GetMyApplyCompanyResponseDto>> getMyApplyCompanyList(String companyEmail,Applicant_Email_Dto applicantEmail_dto){
 
-        GetMyApplyCompanyResponseDto data = null;
-        data = new GetMyApplyCompanyResponseDto();
+        List<GetMyApplyCompanyResponseDto> data = new ArrayList<>();
+        
 
         try{
-            CompanyEntity companyEntity = company_Reposiotry.findByCompanyEmail(companyEmail);
-            data.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
-            data.setCompanyName(companyEntity.getCompanyName());
-            data.setCompanyAddress(companyEntity.getCompanyAddress());
-            data.setCompanyCategory(companyEntity.getCompanyCategory());
-            data.setCompanyPassword(companyEntity.getCompanyPassword());
-            data.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
+            // ? 1명 N개의 정보 (김현태가 지원한 ==> A회사 B회사 C회사)
+            List<ApplicantEntity> applicant_company_list = applicant_Repository.findByApplicantUserEmail(applicantEmail_dto.getApplicantEmail());
+           
+            // ? A회사 B  C회사에 대한 정보를 가져와야해 
+            
+
+            for(int i=0;i<applicant_company_list.size();i++){
+
+                CompanyEntity company = company_Repository.findByCompanyTelNumber(applicant_company_list.get(i).getApplicantCompanyTelNumber()); 
+
+                
+                GetMyApplyCompanyResponseDto responseDto = new GetMyApplyCompanyResponseDto();
+                responseDto.setApplicantTotalScore(applicant_company_list.get(i).getApplicantTotalScore());
+                responseDto.setCompanyTelNumber(company.getCompanyTelNumber());
+                responseDto.setCompanyProfileUrl(company.getCompanyProfileUrl());
+                responseDto.setCompanyPassword(company.getCompanyPassword());
+                responseDto.setCompanyName(company.getCompanyName());
+                responseDto.setCompanyCategory(company.getCompanyCategory());
+                responseDto.setCompanyAddress(company.getCompanyAddress());
 
 
-            ApplicantEntity applicantEntity = applicant_Repository.findByApplicantUserEmail(applicantEmail);
-            data.setApplicantTotalScore(applicantEntity.getApplicantTotalScore());
+
+                
 
 
 
+                data.add(responseDto);
+
+
+
+            }
+
+            
+            
+            
+
+
+
+            
+            
+            
+        
 
         }catch(Exception e){
             e.printStackTrace();
