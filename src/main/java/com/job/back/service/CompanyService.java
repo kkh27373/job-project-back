@@ -10,6 +10,7 @@ import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.request.company.CompanyAdditionalInfoDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
+import com.job.back.dto.response.company.GetCompanyPageResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
@@ -29,5 +30,6 @@ public interface CompanyService {
     public ResponseDto<CompanyInfoResponseDto> insertCompanyAdditionalInfo( CompanyAdditionalInfoDto requestBody);
     // public ResponseDto<CompanyInfoResponseDto> updateCompanyInfo(CompanyAdditionalInfoDto requestBody);
     // public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber);
+    public ResponseDto<GetCompanyPageResponseDto> getCompanyPage(String companyTelNumber);
 
 }

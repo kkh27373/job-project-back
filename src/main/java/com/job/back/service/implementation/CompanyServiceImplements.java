@@ -25,7 +25,10 @@ import com.job.back.dto.request.company.ValidateCompanyEmailDto;
 import com.job.back.dto.request.company.ValidateCompanyTelNumberDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
+import com.job.back.dto.response.company.GetCompanyPageResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
+import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
+import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
@@ -34,6 +37,12 @@ import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
+import com.job.back.entity.RelatedSearchWordEntity;
+import com.job.back.entity.SearchWordLogEntity;
+import com.job.back.entity.resultSet.RelatedSearchWordResultSet;
+import com.job.back.repository.ApplicantRepositroy;
+import com.job.back.repository.RelatedSearchWordRepository;
+import com.job.back.repository.SearchWordLogRepository;
 import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.entity.UserEntity;
@@ -44,12 +53,10 @@ import com.job.back.service.CompanyService;
 
 @Service
 public class CompanyServiceImplements implements CompanyService {
-    @Autowired 
-    CompanyRepository companyRepository;
-    @Autowired
-    ApplicantRepositroy applicantRepositroy;
-    @Autowired
-    UserReposiotory userReposiotory;
+    @Autowired private CompanyRepository companyRepository;
+    @Autowired private ApplicantRepositroy applicantRepositroy;
+
+    @Autowired private UserReposiotory userReposiotory;
    
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
@@ -245,44 +252,63 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
     }
 
+    
     // @Override
     // public ResponseDto<CompanyInfoResponseDto> updateCompanyInfo(CompanyAdditionalInfoDto requestBody) {
-    //     CompanyInfoResponseDto data = null;
-
-    //     CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
-
-    //     try {
-    //         companyInformationEntity.patchCompany(requestBody); 
+        //     CompanyInfoResponseDto data = null;
+        
+        //     CompanyInformationEntity companyInformationEntity = new CompanyInformationEntity(requestBody);
+        
+        //     try {
+            //         companyInformationEntity.patchCompany(requestBody); 
             
-    //         companyInformationRepository.save(companyInformationEntity);
- 
-    //         data = new CompanyInfoResponseDto(true);
+            //         companyInformationRepository.save(companyInformationEntity);
+            
+            //         data = new CompanyInfoResponseDto(true);
+            
+            //     } catch (Exception e) {
+                //         e.printStackTrace();
+                //         return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+                //     }
+                
+                //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+                // }
+                
+                // @Override
+                // public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
+                    
+    //     GetCompanyInfoResponseDto data = null;
 
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
+    //     try{
+    //         CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
+    //         if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+
+    //         companyInformationRepository.save(companyInformationEntity);
+
+    //         data = new GetCompanyInfoResponseDto(companyInformationEntity);
+
+    //     }catch (Exception e) {
+        //         e.printStackTrace();
     //         return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
     //     }
-
-    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
     // }
 
-//     @Override
-//     public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber) {
+    @Override
+    public ResponseDto<GetCompanyPageResponseDto> getCompanyPage(String companyTelNumber) {
         
-//         GetCompanyInfoResponseDto data = null;
+        GetCompanyPageResponseDto data = null;
 
-//         try{
-//             CompanyInformationEntity companyInformationEntity = companyInformationRepository.findByCompanyTelNumber(compantTelNumber);
-//             if(companyInformationEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
+        try {
+            CompanyEntity companyEntity = companyRepository.findByCompanyTelNumber(companyTelNumber);
+            if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_TEL_NUMBER);
+            
+            data = new GetCompanyPageResponseDto(companyEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    }
 
-//             companyInformationRepository.save(companyInformationEntity);
-
-//             data = new GetCompanyInfoResponseDto(companyInformationEntity);
-
-//         }catch (Exception e) {
-//             e.printStackTrace();
-//             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-//         }
-//         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
-//     }
 }

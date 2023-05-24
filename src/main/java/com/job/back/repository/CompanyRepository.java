@@ -12,6 +12,7 @@ import com.job.back.entity.UserEntity;
 @Repository
 public interface CompanyRepository extends JpaRepository<CompanyEntity, String> {
     public CompanyEntity findByCompanyTelNumber(String companyTelNumber);
+    public List<CompanyEntity> findByCompanyNameContainsOrCompanyCategory(String companyName, String companyCategory);
     public List<CompanyEntity> findByCompanyEmail(String companyEmail);
     
 

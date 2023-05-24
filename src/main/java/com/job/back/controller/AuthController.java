@@ -20,8 +20,11 @@ import com.job.back.dto.response.auth.UserSignInResponseDto;
 import com.job.back.dto.response.auth.UserSignUpResonseDto;
 import com.job.back.service.AuthService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(ApiPattern.AUTH)
+@Api(description = "인증모듈")
 public class AuthController {
     @Autowired private AuthService authService;
     
