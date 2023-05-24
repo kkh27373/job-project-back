@@ -11,7 +11,7 @@ import com.job.back.entity.ApplicantEntity;
 public interface ApplicantRepositroy extends JpaRepository<ApplicantEntity, String> {
     // public boolean findByApplicantUserEmail (String applicantUserEmail);
     public List<ApplicantEntity> findByApplicantCompanyTelNumber(String company_Tel_Number);
-    public ApplicantEntity findByApplicantUserEmail(String applicantUserEmail);
+    public List<ApplicantEntity> findByApplicantUserEmail(String applicantUserEmail);
     public List<ApplicantEntity> findByApplicantCompanyTelNumberOrderByApplicantTotalScoreDesc(String company_Tel_Number);
     public ApplicantEntity findByApplicantCompanyTelNumberAndApplicantUserEmail(String company_tel_number,String applicantUserEmail);
     public ApplicantEntity findByApplicantUserEmailAndApplicantCompanyTelNumber(String applicantUserEmail,String company_Tel_Number);

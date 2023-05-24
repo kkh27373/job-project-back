@@ -43,6 +43,7 @@ public class WebSecurityConfig {
             "/company/validate/**",
             "/company/list",
             "/search/**",
+            "/company/top3-company-list",
             "/company/insertCompanyInfo",
             "/company/updateCompanyInfo",
             "/company/getCompanyInfo",

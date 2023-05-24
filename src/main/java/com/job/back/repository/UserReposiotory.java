@@ -1,5 +1,7 @@
 package com.job.back.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,7 @@ public interface UserReposiotory extends JpaRepository<UserEntity,String> {
     public boolean existsByUserEmailOrUserTelNumber(String userEmail, String userTelNumber);
 
     public UserEntity findByUserEmail(String userEmail);
+
 
     public UserEntity findByUserTelNumber(String userTelNumber);
 }

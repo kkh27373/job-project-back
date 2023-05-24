@@ -1,6 +1,16 @@
 package com.job.back.service.implementation;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -8,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.job.back.common.constant.ResponseMessage;
+import com.job.back.common.util.DatabaseJson;
 import com.job.back.dto.request.company.CompanyAdditionalInfoDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
 import com.job.back.dto.request.company.ValidateCompanyEmailDto;
@@ -30,19 +41,22 @@ import com.job.back.entity.RelatedSearchWordEntity;
 import com.job.back.entity.SearchWordLogEntity;
 import com.job.back.entity.resultSet.RelatedSearchWordResultSet;
 import com.job.back.repository.ApplicantRepositroy;
-import com.job.back.repository.CompanyReposiotry;
 import com.job.back.repository.RelatedSearchWordRepository;
 import com.job.back.repository.SearchWordLogRepository;
+import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
+import com.job.back.entity.CompanySelectComponent_University_Entity;
+import com.job.back.entity.UserEntity;
+import com.job.back.repository.ApplicantRepositroy;
+import com.job.back.repository.CompanyRepository;
+import com.job.back.repository.UserReposiotory;
 import com.job.back.service.CompanyService;
 
 @Service
 public class CompanyServiceImplements implements CompanyService {
-    @Autowired private CompanyReposiotry companyRepository;
+    @Autowired private CompanyRepository companyRepository;
     @Autowired private ApplicantRepositroy applicantRepositroy;
 
-
-     
-
+    @Autowired private UserReposiotory userReposiotory;
    
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
@@ -87,10 +101,10 @@ public class CompanyServiceImplements implements CompanyService {
         GetCompanyResponseDto data = null;
         
         try {
-            CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            List<CompanyEntity> companyEntity = companyRepository.findByCompanyEmail(companyEmail);
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
-            data = new GetCompanyResponseDto(companyEntity);
+            data = new GetCompanyResponseDto(companyEntity.get(0));
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,11 +124,7 @@ public class CompanyServiceImplements implements CompanyService {
             
 
             List<ApplicantEntity> applicant_List = applicantRepositroy.findByApplicantCompanyTelNumber(companyTelNumber);
-
-
-
-
-            data = new ListUpApplicantResponseDto(applicant_List);
+              data = new ListUpApplicantResponseDto(applicant_List);
             
 
         }catch(Exception e){
@@ -133,12 +143,12 @@ public class CompanyServiceImplements implements CompanyService {
 
         try{
 
-            CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            List<CompanyEntity> companyEntity = companyRepository.findByCompanyEmail(companyEmail);
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
-            companyEntity.setCompanyProfileUrl(dto.getCompanyProfileUrl());
-            companyRepository.save(companyEntity);
+            companyEntity.get(0).setCompanyProfileUrl(dto.getCompanyProfileUrl());
+            companyRepository.save(companyEntity.get(0));
             
-            data = new PatchCompanyProfileResponseDto(companyEntity);
+            data = new PatchCompanyProfileResponseDto(companyEntity.get(0));
         
         }catch(Exception exception){
             exception.printStackTrace();
@@ -156,8 +166,9 @@ public class CompanyServiceImplements implements CompanyService {
         try{
 
             List<CompanyEntity> companyEntities = companyRepository.findAll();
+            
             data = new GetCompanyListMainResponseDto[companyEntities.size()];
-
+            
         for (int i = 0; i < companyEntities.size(); i++) {
 
             CompanyEntity companyEntity = companyEntities.get(i);
@@ -180,37 +191,22 @@ public class CompanyServiceImplements implements CompanyService {
     }
 
     @Override
-    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail){
-
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail) {
         GetCompanyTop3ListResponseDto[] data = null;
 
         try{
-            // ! 기준을 정하면 기준에 따라 디스플레이 되는 회사들의 순번이 정해진다 
-            List<CompanyEntity> companyEntities = companyRepository.findAll();
-            data = new GetCompanyTop3ListResponseDto[companyEntities.size()];
-
-        for (int i = 0; i < companyEntities.size(); i++) {
-
-            CompanyEntity companyEntity = companyEntities.get(i);
-            GetCompanyTop3ListResponseDto responseDto = new GetCompanyTop3ListResponseDto();
-
-            responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
-            responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
-            responseDto.setCompanyName(companyEntity.getCompanyName());
-            responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
-            responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
-            responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
-
-            data[i] = responseDto;
-        }
             
-        }catch(Exception e){
-            e.printStackTrace();
-            return ResponseDto.setFailed((ResponseMessage.DATABASE_ERROR));
+
+        }catch(Exception e) {
+            e.fillInStackTrace();
         }
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);  
+        return null;
+
 
     }
+
+    
+
 
     @Override
     public ResponseDto<CompanyInfoResponseDto>insertCompanyAdditionalInfo( CompanyAdditionalInfoDto requestBody) {

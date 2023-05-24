@@ -54,4 +54,8 @@ public class CompanyEntity {
     }
 
 
+    public void addRecommendedCompanies(List<CompanyEntity> recommendedCompanies) {
+    }
+
+
 }

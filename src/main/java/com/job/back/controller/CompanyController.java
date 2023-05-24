@@ -29,10 +29,12 @@ import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.GetRelatedSearchWordResponseDto;
 import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
+import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.service.CompanyService;
+import com.job.back.service.ApplicantService;
 import com.job.back.service.CompanyFileService;
 import com.job.back.service.implementation.CompanyServiceImplements;
 
@@ -46,6 +48,7 @@ import io.swagger.annotations.ApiParam;
 public class CompanyController {
     @Autowired private CompanyService companyService;
     @Autowired private CompanyFileService companyFileService;
+    @Autowired private ApplicantService applicantService;
 
     private final String GET_COMPANY = "/";
     private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
@@ -96,14 +99,13 @@ public class CompanyController {
 
     }
 
-
+    @ApiOperation(value = "회사 top3 리스트 가져오기")
     @GetMapping(MAIN_HEAD_TOP3_LIST)
     public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
         return response;
-
+    
     }
-
 
     @ApiOperation(value = "회사 추가 정보 저장")
     @PostMapping(INSERT_COMPANY_INFO)
@@ -131,6 +133,9 @@ public class CompanyController {
         ResponseDto<GetCompanyPageResponseDto> response = companyService.getCompanyPage(companyTelNumber);
         return response;
     }
+
+
+    
 
 
     

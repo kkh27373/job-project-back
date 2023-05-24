@@ -13,7 +13,7 @@ import com.job.back.entity.CompanyEntity;
 import com.job.back.entity.RelatedSearchWordEntity;
 import com.job.back.entity.SearchWordLogEntity;
 import com.job.back.entity.resultSet.RelatedSearchWordResultSet;
-import com.job.back.repository.CompanyReposiotry;
+import com.job.back.repository.CompanyRepository;
 import com.job.back.repository.RelatedSearchWordRepository;
 import com.job.back.repository.SearchWordLogRepository;
 import com.job.back.service.SearchService;
@@ -21,7 +21,7 @@ import com.job.back.service.SearchService;
 @Service
 public class SearchServiceImplements implements SearchService {
 
-    @Autowired private CompanyReposiotry companyRepository;
+    @Autowired private CompanyRepository companyRepository;
     @Autowired private SearchWordLogRepository searchWordLogRepository;
     @Autowired private RelatedSearchWordRepository relatedSearchWordRepository;
 
