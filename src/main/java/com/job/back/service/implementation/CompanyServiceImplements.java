@@ -38,14 +38,14 @@ import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.entity.UserEntity;
 import com.job.back.repository.ApplicantRepositroy;
-import com.job.back.repository.CompanyReposiotry;
+import com.job.back.repository.CompanyRepository;
 import com.job.back.repository.UserReposiotory;
 import com.job.back.service.CompanyService;
 
 @Service
 public class CompanyServiceImplements implements CompanyService {
     @Autowired 
-    CompanyReposiotry companyRepository;
+    CompanyRepository companyRepository;
     @Autowired
     ApplicantRepositroy applicantRepositroy;
     @Autowired
@@ -94,10 +94,10 @@ public class CompanyServiceImplements implements CompanyService {
         GetCompanyResponseDto data = null;
         
         try {
-            CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            List<CompanyEntity> companyEntity = companyRepository.findByCompanyEmail(companyEmail);
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
-            data = new GetCompanyResponseDto(companyEntity);
+            data = new GetCompanyResponseDto(companyEntity.get(0));
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,12 +136,12 @@ public class CompanyServiceImplements implements CompanyService {
 
         try{
 
-            CompanyEntity companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            List<CompanyEntity> companyEntity = companyRepository.findByCompanyEmail(companyEmail);
             if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
-            companyEntity.setCompanyProfileUrl(dto.getCompanyProfileUrl());
-            companyRepository.save(companyEntity);
+            companyEntity.get(0).setCompanyProfileUrl(dto.getCompanyProfileUrl());
+            companyRepository.save(companyEntity.get(0));
             
-            data = new PatchCompanyProfileResponseDto(companyEntity);
+            data = new PatchCompanyProfileResponseDto(companyEntity.get(0));
         
         }catch(Exception exception){
             exception.printStackTrace();

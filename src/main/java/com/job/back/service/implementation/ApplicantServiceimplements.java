@@ -13,14 +13,18 @@ import com.job.back.dto.Applicant_Total_Score_Dto;
 import com.job.back.dto.Carrer_Dto;
 import com.job.back.dto.License_Dto;
 import com.job.back.dto.University_Grade_Dto;
+import com.job.back.dto.request.applicant.Applicant_Email_Dto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.applicant.ApplicantPercentileResponseDto;
 import com.job.back.dto.response.applicant.ApplicantScoreResponseDto;
+import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.entity.ApplicantEntity;
+import com.job.back.entity.CompanyEntity;
 import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
 import com.job.back.entity.CompanySelectComponent_License_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.repository.ApplicantRepositroy;
+import com.job.back.repository.CompanyRepository;
 import com.job.back.repository.CompanySelectComponent_Carrer_Repository;
 import com.job.back.repository.CompanySelectComponent_License_Repository;
 import com.job.back.repository.CompanySelectComponent_University_Repository;
@@ -41,6 +45,8 @@ public class ApplicantServiceimplements implements ApplicantService{
     CompanySelectComponent_License_Repository companySelectComponent_License_Repository;
     @Autowired
     ApplicantRepositroy applicant_Repository;
+    @Autowired 
+    CompanyRepository company_Repository;
     
 
     
@@ -56,8 +62,20 @@ public class ApplicantServiceimplements implements ApplicantService{
         data = new ApplicantScoreResponseDto();  
         
         List<Integer> arr = new ArrayList<>();
+
+        for(int i=0;i<applicantContentDto.getApplicant_FinalEducation().length;i++){
+            System.out.println("for문 돈다"+applicantContentDto.getApplicant_FinalEducation()[i]);
+        }
+
+        System.out.println("company_Tel_Number: "+company_Tel_Number);
+
         
-        double my_Percentile;
+       
+    //    System.out.println("아이고 :"+applicantContentDto.getApplicant_FinalEducation().toString());
+    //    System.out.println(applicantContentDto.getApplicant_Carrer());                                                                 
+
+    //    System.out.println();                                                                 
+    //    System.out.println();                                                                 
 
         try{
 
@@ -65,8 +83,11 @@ public class ApplicantServiceimplements implements ApplicantService{
             // ? Repository는 매개변수로 받은 전화번호에 해당하는 instance를 반환한다 
             CompanySelectComponent_University_Entity company_university_info = companySelectComponent_University_Repository.findByCompanyTelNumber(company_Tel_Number);
             if(company_university_info==null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
-                       
-            System.out.println("여길 보세요"+applicantContentDto);
+            
+            
+            
+            
+            System.out.println("여길 보세요@@@@@@@@@@2@@"+applicantContentDto);
             System.out.println("여기를 보시오2"+applicantContentDto.getApplicant_FinalEducation());
             // ! 여기 지원자의 대학교를 보고 회사측에서 지정한 점수를 return 하는 함수 
             data.setApplicant_university_score(Applicant_Total_Score_Function.University_Matching_Function(company_university_info,applicantContentDto));    
@@ -157,6 +178,65 @@ public class ApplicantServiceimplements implements ApplicantService{
 
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
+    }
+
+    public ResponseDto<List<GetMyApplyCompanyResponseDto>> getMyApplyCompanyList(String companyEmail,Applicant_Email_Dto applicantEmail_dto){
+
+        List<GetMyApplyCompanyResponseDto> data = new ArrayList<>();
+        
+
+        try{
+            // ? 1명 N개의 정보 (김현태가 지원한 ==> A회사 B회사 C회사)
+            List<ApplicantEntity> applicant_company_list = applicant_Repository.findByApplicantUserEmail(applicantEmail_dto.getApplicantEmail());
+           
+            // ? A회사 B  C회사에 대한 정보를 가져와야해 
+            
+
+            for(int i=0;i<applicant_company_list.size();i++){
+
+                CompanyEntity company = company_Repository.findByCompanyTelNumber(applicant_company_list.get(i).getApplicantCompanyTelNumber()); 
+
+                
+                GetMyApplyCompanyResponseDto responseDto = new GetMyApplyCompanyResponseDto();
+                responseDto.setApplicantTotalScore(applicant_company_list.get(i).getApplicantTotalScore());
+                responseDto.setCompanyTelNumber(company.getCompanyTelNumber());
+                responseDto.setCompanyProfileUrl(company.getCompanyProfileUrl());
+                responseDto.setCompanyPassword(company.getCompanyPassword());
+                responseDto.setCompanyName(company.getCompanyName());
+                responseDto.setCompanyCategory(company.getCompanyCategory());
+                responseDto.setCompanyAddress(company.getCompanyAddress());
+
+
+
+                
+
+
+
+                data.add(responseDto);
+
+
+
+            }
+
+            
+            
+            
+
+
+
+            
+            
+            
+        
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+        
     }
     
 }

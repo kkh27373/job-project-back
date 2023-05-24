@@ -24,9 +24,11 @@ import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.GetCompanyListMainResponseDto;
 import com.job.back.dto.response.company.GetCompanyResponseDto;
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
+import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
+import com.job.back.service.ApplicantService;
 import com.job.back.service.CompanyFileService;
 import com.job.back.service.implementation.CompanyServiceImplements;
 
@@ -40,6 +42,7 @@ import io.swagger.annotations.ApiParam;
 public class CompanyController {
     @Autowired private CompanyServiceImplements companyService;
     @Autowired private CompanyFileService companyFileService;
+    @Autowired private ApplicantService applicantService;
 
     private final String GET_COMPANY = "/";
     private final String VALIDATE_COMPANY_EMAIL = "/validate/companyEmail";
@@ -119,6 +122,9 @@ public class CompanyController {
     //     ResponseDto<GetCompanyInfoResponseDto> response = companyService.getComapnyInfo(companyTelNumber);
     //     return response;
     // }
+
+
+    
 
 
     
