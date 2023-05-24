@@ -19,7 +19,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, String> 
     public boolean existsByCompanyTelNumber(String companyTelNumber);
     public List<CompanyEntity> findAll();
     
-    public List<UserEntity> findAllByCompanyEmail(String companyEmail);
 }
 
 

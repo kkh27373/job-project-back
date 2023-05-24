@@ -188,12 +188,17 @@ public class CompanyServiceImplements implements CompanyService {
         GetCompanyTop3ListResponseDto[] data = null;
 
         try{
-            
+            List<CompanyEntity> companyEntities = companyRepository.findAll();
+            data = new GetCompanyTop3ListResponseDto [companyEntities.size()];
+
+            List<CompanyEntity> companyEntity = companyRepository.findByCompanyEmail(companyEmail);
+            if(companyEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_COMPANY);
 
         }catch(Exception e) {
             e.fillInStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
-        return null;
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
 
     }
@@ -210,9 +215,6 @@ public class CompanyServiceImplements implements CompanyService {
         System.out.println(requestBody.getCompanyContents());
         System.out.println(requestBody.getCompanyAnnualSales());
         System.out.println(requestBody.getCompanyTelNumber());
-
-
-        
 
         try {
             // ? 기존의 정보
