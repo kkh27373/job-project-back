@@ -2,6 +2,7 @@ package com.job.back.dto.response.auth;
 
 import com.job.back.entity.UserEntity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,25 +11,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserSignInResponseDto {
-    // 이메일일
+    @ApiModelProperty(value = "유저 이메일", example = "userEmail@user.com", required = true)
     private String userEmail;
-    // 패스워드
+    @ApiModelProperty(value = "유저 비밀번호", example = "P!ssW0rd!", required = true)
     private String userPassword;
-    // 프로필
+    @ApiModelProperty(value = "유저 프로필 이미지 URL", example = "http://~", required = true)
     private String userProfileUrl;
-    // 전화번호
+    @ApiModelProperty(value = "유저 전화번호", example = "010-2222-2222", required = true)
     private String userTelNumber;
-    //이름
+    @ApiModelProperty(value = "유저 이름", example = "홍길동", required = true)
     private String userName;
-    // 주소
+    @ApiModelProperty(value = "유저 주소", example = "부산광역시 기장군", required = true)
     private String userAddress;
-    //나이
+    @ApiModelProperty(value = "유저 나이", example = "20", required = true)
     private int userAge;
-    //성별
+    @ApiModelProperty(value = "유저 성별", example = "남", required = true)
     private String userGender;
-    //로그인시 받을 토큰
+    @ApiModelProperty(value = "JWT", example = "3600000", required = true)
     private String token;
-    // 토큰 만료기간
+    @ApiModelProperty(value = "사용자", example = "", required = true)
     private int expiredTime;
 
     public UserSignInResponseDto(UserEntity userEntity, String token) {
