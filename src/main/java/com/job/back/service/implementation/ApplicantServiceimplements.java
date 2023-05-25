@@ -213,29 +213,10 @@ public class ApplicantServiceimplements implements ApplicantService{
                 responseDto.setCompanyCategory(company.getCompanyCategory());
                 responseDto.setCompanyAddress(company.getCompanyAddress());
 
-
-
-                
-
-
-
                 data.add(responseDto);
 
-
-
             }
-
             
-            
-            
-
-
-
-            
-            
-            
-        
-
         }catch(Exception e){
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);

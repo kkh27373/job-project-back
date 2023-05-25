@@ -61,26 +61,28 @@ public class CompanyController {
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
     private final String GET_COMPANY_PAGE = "/{companyTelNumber}";
 
+    @ApiOperation(value = "회사 정보 불러오기",notes = "Request Header Authorization에 Bearer Token을 포함하여 요청을 하면, 성공시 회사 정보를 반환하고 실패시 실패 메세지를 반환")
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyResponseDto> response = companyService.getCompany(companyEmail);
         return response;
     }
 
-    
+    @ApiOperation(value = "회사이메일로 중복 체크하기", notes = "Request Body에 email을 포함하여 요청하면, 중복 결과를 반환, 실패시 실패 메세지를 반환")
     @PostMapping(VALIDATE_COMPANY_EMAIL)
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(@Valid @RequestBody ValidateCompanyEmailDto requestBody){
         ResponseDto<ValidateCompanyEmailResponseDto> response = companyService.validateCompanyEmail(requestBody);
         return response;
     }
 
+    @ApiOperation(value = "회사 전화번호로 중복 체크하기", notes="Request Body에 telNumber를 포함하여 요청하면, 중복 결과를 반환, 실패시 실패 메세지를 반환")
     @PostMapping(VALIDATE_COMPANY_TEL_NUMBER)
     public ResponseDto<ValidateCompanyTelNumberResponseDto> validateCompanyTelNumber(@Valid @RequestBody ValidateCompanyTelNumberDto requestBody){
         ResponseDto<ValidateCompanyTelNumberResponseDto> response = companyService.validateCompanyTelNumber(requestBody);
         return response;
     }
 
-    @ApiOperation(value = "회사 프로필")
+    @ApiOperation(value = "회사 프로필 사진 URL 수정", notes = "Request Header Authorization에 Bearer JWT를 포함하여 Request Bpdy에 profile을 포함하여 요청을 하면, 성공시 회사 정보를 반환, 실패시 실패 메세지를 반환")
     @PatchMapping(PATCH_COMPANY_PROFILE)
     public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(
         @ApiParam(hidden = true)
@@ -92,6 +94,7 @@ public class CompanyController {
 
     }
 
+    @ApiOperation(value = "회사 리스트 가져오기",notes = "회사정보를 response에 담아서 뿌려준다 만약 실패시 실패 메세지를 전달한다.")
     @GetMapping(Main_list_company_info)
     public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyListMainResponseDto[]> response  = companyService.getCompanyListMain(companyEmail);
@@ -99,7 +102,7 @@ public class CompanyController {
 
     }
 
-    @ApiOperation(value = "회사 top3 리스트 가져오기")
+    @ApiOperation(value = "회사 top3 리스트 가져오기",notes = "요청 하면, 지원자 경력,학력,자격증 기준으로 상위 3개 게시물 리스트를 반환,실패시 실패 메세지 반환")
     @GetMapping(MAIN_HEAD_TOP3_LIST)
     public ResponseDto<GetCompanyTop3ListResponseDto[]> getCompanyListTop3(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyTop3ListResponseDto[]> response = companyService.getTop3CompanyList(companyEmail);
@@ -107,7 +110,7 @@ public class CompanyController {
     
     }
 
-    @ApiOperation(value = "회사 추가 정보 저장")
+    @ApiOperation(value = "회사 추가 정보 저장",notes = "회사업종,회사 홈페이지, 회사 설명, 회사 인원수, 회사 년 매출, 회사 초봉을 입력하면 회사 회원정보에 추가되고 실패시에는 실패 메세지 반환")
     @PostMapping(INSERT_COMPANY_INFO)
     public ResponseDto<CompanyInfoResponseDto>insertCompanyInfo(@Valid @RequestBody CompanyAdditionalInfoDto requestBody){
         ResponseDto<CompanyInfoResponseDto> response = companyService.insertCompanyAdditionalInfo(requestBody);

@@ -27,8 +27,12 @@ import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.service.ApplicantService;
 import com.job.back.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(ApiPattern.APPLICANT)
+@Api(description = "지원자 모듈")
 public class ApplicantController {
 
     private final String APPLICANT_SCORE_PER_COMPANY = "/score/{company_Tel_Number}";
@@ -43,7 +47,7 @@ public class ApplicantController {
     @Autowired
     UserService userService;
 
-
+    @ApiOperation(value = "지원자 정보 불러오기",notes = "유저이메일을 통해 지원자 정보를 가져온다 만약 실패시 실패 메세지를 띄운다.")
     @GetMapping(GET_APPLICANT_DATA)
     public ResponseDto<GetApplicantDataResponseDto> getApplicantData(
         @AuthenticationPrincipal String email
@@ -53,7 +57,7 @@ public class ApplicantController {
         return response;
     }
 
-
+    @ApiOperation(value = "특정 회사가 지원자에게 주는 총 점수",notes = "Applicant_Score_Dto에 User의 select_component(final_education,carrer,license)가 담겨서 보내진다 만약 실패 실패 메세지를 띄운다. ")
     @PostMapping(APPLICANT_SCORE_PER_COMPANY)
     public ResponseDto<ApplicantScoreResponseDto> showApplicantTotalScore(
         @AuthenticationPrincipal String email,
@@ -70,6 +74,7 @@ public class ApplicantController {
 
     }
 
+    @ApiOperation(value = "특정 회사에 지원한 지원자의 백분위",notes = "RequestBody에 Applicant_Total_Score_Dto를 같이 요청하면 요청한 회사에서 백분위가 나온다. ")
     @PostMapping(APPLICANT_PERCENTILE)
     public ResponseDto<ApplicantPercentileResponseDto> showApplicantPercentile(
         @AuthenticationPrincipal String email,
@@ -84,7 +89,7 @@ public class ApplicantController {
 
     }
 
-
+    @ApiOperation(value = "지원자가 지원한 회사 리스트", notes = " 회사 이메일과 지원자이메일을 통해 지원자가 지원한 회사인지 확인하고 화면에 띄운다")
     @PostMapping(GET_MY_COMPANY_LIST_URL)
     public ResponseDto<List<GetMyApplyCompanyResponseDto>> getMyCompanyListUrl(@AuthenticationPrincipal String companyEmail,
                                                                          @Valid @RequestBody Applicant_Email_Dto applicantEmail){
