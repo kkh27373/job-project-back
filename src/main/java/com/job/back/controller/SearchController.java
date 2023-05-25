@@ -27,7 +27,7 @@ public class SearchController {
     private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
     private final String GET_RELATED_SEARCH_WORD = "/related-search-word/{searchWord}";
 
-    @ApiOperation(value = "검색어에 대한 게시물 리스트 가져오기")
+    @ApiOperation(value = "검색어에 대한 게시물 리스트 가져오기", notes="Path Variable에 searchWord와 previousSearchWord를 포함하여 요청을 하면, 성공시 검색어에 해당하는 게시물 리스트를 최신순으로 반환, 실패시 실패 메세지를 반환")
     @GetMapping(value = {GET_SEARCH_LIST, GET_SEARCH_LIST_PREVIOUS})
     public ResponseDto<List<GetSearchListResponseDto>> getSearchList(
         @PathVariable("searchWord") String searchWord,
