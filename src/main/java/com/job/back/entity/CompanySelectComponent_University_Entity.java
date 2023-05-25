@@ -58,6 +58,5 @@ public class CompanySelectComponent_University_Entity {
 
     }
 
-    
-    
+
 }
