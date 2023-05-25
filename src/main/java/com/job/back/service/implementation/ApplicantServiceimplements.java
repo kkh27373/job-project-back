@@ -14,9 +14,11 @@ import com.job.back.dto.Carrer_Dto;
 import com.job.back.dto.License_Dto;
 import com.job.back.dto.University_Grade_Dto;
 import com.job.back.dto.request.applicant.Applicant_Email_Dto;
+import com.job.back.dto.request.applicant.GetInfoForPercentileDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.applicant.ApplicantPercentileResponseDto;
 import com.job.back.dto.response.applicant.ApplicantScoreResponseDto;
+import com.job.back.dto.response.applicant.GetInfoForPercentileResponseDto;
 import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.entity.ApplicantEntity;
 import com.job.back.entity.CompanyEntity;
@@ -132,7 +134,8 @@ public class ApplicantServiceimplements implements ApplicantService{
     @Override
     public ResponseDto<ApplicantPercentileResponseDto> show_Applicant_Percentile(String company_Tel_Number,Applicant_Total_Score_Dto my_dto){
 
-        ApplicantPercentileResponseDto data =null;
+        ApplicantPercentileResponseDto data =new ApplicantPercentileResponseDto();
+        
 
         
         List<Integer> arr = new ArrayList<>();
@@ -149,6 +152,7 @@ public class ApplicantServiceimplements implements ApplicantService{
             // applicant_Repository.findByApplicantCompanyTelNumber(company_Tel_Number);
             // ! 나의 백분위를 알고싶은 지원자의 entity
             // ! 지원자의 이메일과 지원회사의 전화번호를 이용해서 두가지 모두를 매개변수로 받아서 사용한다
+            System.out.println("여기요: "+my_dto.getApplicant_Email()+"요기요 2 :"+company_Tel_Number);
             ApplicantEntity my_applicantEntity = applicant_Repository
                     .findByApplicantUserEmailAndApplicantCompanyTelNumber(my_dto.getApplicant_Email(),company_Tel_Number);
 
@@ -168,10 +172,13 @@ public class ApplicantServiceimplements implements ApplicantService{
                                                                   my_applicantEntity.getApplicantLicense(), 
                                                                   my_dto.getApplicant_Total_Score(), my_Percentile);
 
+
+            data.setApplicant_percentile(my_Percentile);
+
             applicant_Repository.save(applicantEntity);
 
 
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
@@ -237,6 +244,40 @@ public class ApplicantServiceimplements implements ApplicantService{
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
 
         
+    }
+
+    public ResponseDto<List<GetInfoForPercentileResponseDto>> getInfoForPercentile(String applicantEmail){
+        System.out.println("여기 2: "+applicantEmail);
+        List<GetInfoForPercentileResponseDto> data = new ArrayList<>();
+
+        try{
+            List<ApplicantEntity> applicantentities = applicant_Repository.findByApplicantUserEmail(applicantEmail);
+
+            for(int i=0;i<applicantentities.size();i++){
+
+                GetInfoForPercentileResponseDto ex = new GetInfoForPercentileResponseDto();
+
+                ex.setCompanyTelNumber(applicantentities.get(i).getApplicantCompanyTelNumber());
+                System.out.println("여기가 문제예요!!:"+applicantentities.get(i).getApplicantCompanyTelNumber());
+                ex.setApplicant_Email(applicantentities.get(i).getApplicantUserEmail()); 
+                ex.setApplicant_Total_Score(applicantentities.get(i).getApplicantTotalScore());
+
+                data.add(ex);
+
+            }
+
+            
+
+            
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
     }
     
 }

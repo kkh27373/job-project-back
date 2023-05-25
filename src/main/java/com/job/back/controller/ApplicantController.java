@@ -17,10 +17,12 @@ import com.job.back.common.constant.ApiPattern;
 import com.job.back.dto.Applicant_Content_Dto;
 import com.job.back.dto.Applicant_Total_Score_Dto;
 import com.job.back.dto.request.applicant.Applicant_Email_Dto;
+import com.job.back.dto.request.applicant.GetInfoForPercentileDto;
 import com.job.back.dto.response.ResponseDto;
 import com.job.back.dto.response.applicant.ApplicantPercentileResponseDto;
 import com.job.back.dto.response.applicant.ApplicantScoreResponseDto;
 import com.job.back.dto.response.applicant.GetApplicantDataResponseDto;
+import com.job.back.dto.response.applicant.GetInfoForPercentileResponseDto;
 import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.service.ApplicantService;
 import com.job.back.service.UserService;
@@ -33,6 +35,7 @@ public class ApplicantController {
     private final String APPLICANT_PERCENTILE = "/percentile/{company_Tel_Number}";
     private final String GET_APPLICANT_DATA = "/get-data";
     private final String GET_MY_COMPANY_LIST_URL = "/my-list";
+    private final String GET_INFO_FOR_PERCENTILE = "/get-info";
 
 
     @Autowired
@@ -73,6 +76,7 @@ public class ApplicantController {
         @Valid @RequestBody Applicant_Total_Score_Dto dto,
         @PathVariable String company_Tel_Number
     ){
+        System.out.println("전화번호 받았더"+company_Tel_Number);
 
         ResponseDto<ApplicantPercentileResponseDto> response = applicantService.show_Applicant_Percentile(company_Tel_Number,dto);
 
@@ -88,6 +92,14 @@ public class ApplicantController {
         ResponseDto<List<GetMyApplyCompanyResponseDto>> response = applicantService.getMyApplyCompanyList(companyEmail,applicantEmail);
         return response;
 
+
+    }
+
+    @GetMapping(GET_INFO_FOR_PERCENTILE)
+    public ResponseDto<List<GetInfoForPercentileResponseDto>> getInfoForPercentile(@AuthenticationPrincipal String applicantEmail){
+        System.out.println("여기봐 : "+applicantEmail);
+        ResponseDto<List<GetInfoForPercentileResponseDto>> response = applicantService.getInfoForPercentile(applicantEmail);
+        return response;
 
     }
 
