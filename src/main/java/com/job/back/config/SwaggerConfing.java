@@ -26,7 +26,7 @@ public class SwaggerConfing {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-        .title("Hoon`s board REST API")
+        .title("Job site REST API")
         .description("Spring boot로 작성한 REST API 명세서")
         .version("1.0.0")
         .build();
