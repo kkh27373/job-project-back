@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.job.back.entity.ApplicantEntity;
+import com.job.back.entity.CompanyEntity;
 
 @Repository
 public interface ApplicantRepositroy extends JpaRepository<ApplicantEntity, String> {
@@ -15,4 +16,6 @@ public interface ApplicantRepositroy extends JpaRepository<ApplicantEntity, Stri
     public List<ApplicantEntity> findByApplicantCompanyTelNumberOrderByApplicantTotalScoreDesc(String company_Tel_Number);
     public ApplicantEntity findByApplicantCompanyTelNumberAndApplicantUserEmail(String company_tel_number,String applicantUserEmail);
     public ApplicantEntity findByApplicantUserEmailAndApplicantCompanyTelNumber(String applicantUserEmail,String company_Tel_Number);
+    
+
 }

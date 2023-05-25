@@ -44,9 +44,9 @@ import com.job.back.repository.ApplicantRepositroy;
 import com.job.back.repository.RelatedSearchWordRepository;
 import com.job.back.repository.SearchWordLogRepository;
 import com.job.back.entity.CompanySelectComponent_Carrer_Entity;
+import com.job.back.entity.CompanySelectComponent_License_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.entity.UserEntity;
-import com.job.back.repository.ApplicantRepositroy;
 import com.job.back.repository.CompanyRepository;
 import com.job.back.repository.UserReposiotory;
 import com.job.back.service.CompanyService;
@@ -55,8 +55,6 @@ import com.job.back.service.CompanyService;
 public class CompanyServiceImplements implements CompanyService {
     @Autowired private CompanyRepository companyRepository;
     @Autowired private ApplicantRepositroy applicantRepositroy;
-
-    @Autowired private UserReposiotory userReposiotory;
    
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
@@ -190,22 +188,40 @@ public class CompanyServiceImplements implements CompanyService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);     
     }
 
+    
     @Override
-    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail) {
+    public ResponseDto<GetCompanyTop3ListResponseDto[]> getTop3CompanyList(String companyEmail){
+
         GetCompanyTop3ListResponseDto[] data = null;
 
         try{
-            
+            // 회사데이터를 가져온다.
+            List<CompanyEntity> companyEntities = companyRepository.findAll();
+            data = new GetCompanyTop3ListResponseDto[companyEntities.size()];
+            // 화면에 반환 해줘야 되는 것들을 가져온다.
+        for (int i = 0; i < companyEntities.size(); i++) {
 
-        }catch(Exception e) {
-            e.fillInStackTrace();
+            CompanyEntity companyEntity = companyEntities.get(i);
+            GetCompanyTop3ListResponseDto responseDto = new GetCompanyTop3ListResponseDto();
+
+            responseDto.setCompanyAddress(companyEntity.getCompanyAddress());
+            responseDto.setCompanyCategory(companyEntity.getCompanyCategory());
+            responseDto.setCompanyName(companyEntity.getCompanyName());
+            responseDto.setCompanyPassword(companyEntity.getCompanyPassword());
+            responseDto.setCompanyProfileUrl(companyEntity.getCompanyProfileUrl());
+            responseDto.setCompanyTelNumber(companyEntity.getCompanyTelNumber());
+
+            data[i]=responseDto;
         }
-        return null;
-
+       
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseDto.setFailed((ResponseMessage.DATABASE_ERROR));
+        }
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);  
 
     }
-
-    
 
 
     @Override
@@ -217,9 +233,6 @@ public class CompanyServiceImplements implements CompanyService {
         System.out.println(requestBody.getCompanyContents());
         System.out.println(requestBody.getCompanyAnnualSales());
         System.out.println(requestBody.getCompanyTelNumber());
-
-
-        
 
         try {
             // ? 기존의 정보
