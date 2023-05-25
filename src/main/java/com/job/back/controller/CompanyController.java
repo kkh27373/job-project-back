@@ -61,26 +61,28 @@ public class CompanyController {
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
     private final String GET_COMPANY_PAGE = "/{companyTelNumber}";
 
+    @ApiOperation(value = "회사 정보 불러오기")
     @GetMapping(GET_COMPANY)
     public ResponseDto<GetCompanyResponseDto> getCompany(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyResponseDto> response = companyService.getCompany(companyEmail);
         return response;
     }
 
-    
+    @ApiOperation(value = "회사이메일로 중복 체크하기")
     @PostMapping(VALIDATE_COMPANY_EMAIL)
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(@Valid @RequestBody ValidateCompanyEmailDto requestBody){
         ResponseDto<ValidateCompanyEmailResponseDto> response = companyService.validateCompanyEmail(requestBody);
         return response;
     }
 
+    @ApiOperation(value = "회사 전화번호로 중복 체크하기")
     @PostMapping(VALIDATE_COMPANY_TEL_NUMBER)
     public ResponseDto<ValidateCompanyTelNumberResponseDto> validateCompanyTelNumber(@Valid @RequestBody ValidateCompanyTelNumberDto requestBody){
         ResponseDto<ValidateCompanyTelNumberResponseDto> response = companyService.validateCompanyTelNumber(requestBody);
         return response;
     }
 
-    @ApiOperation(value = "회사 프로필")
+    @ApiOperation(value = "회사 프로필 사진 URL 수정")
     @PatchMapping(PATCH_COMPANY_PROFILE)
     public ResponseDto<PatchCompanyProfileResponseDto> patchCompanyProfile(
         @ApiParam(hidden = true)
@@ -92,6 +94,7 @@ public class CompanyController {
 
     }
 
+    @ApiOperation(value = "회사 리스트 가져오기",notes = "회사정보를 response에 담아서 뿌려준다 만약 실패시 실패 메세지를 전달한다.")
     @GetMapping(Main_list_company_info)
     public ResponseDto<GetCompanyListMainResponseDto[]> getCompanyListMain(@AuthenticationPrincipal String companyEmail){
         ResponseDto<GetCompanyListMainResponseDto[]> response  = companyService.getCompanyListMain(companyEmail);

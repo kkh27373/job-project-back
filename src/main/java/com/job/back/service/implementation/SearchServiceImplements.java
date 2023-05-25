@@ -50,21 +50,21 @@ public class SearchServiceImplements implements SearchService {
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
     }
 
-    @Override
-    public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(String searchWord) {
-        GetRelatedSearchWordResponseDto data = null;
+    // @Override
+    // public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(String searchWord) {
+    //     GetRelatedSearchWordResponseDto data = null;
 
-        try {
+    //     try {
 
-            List<RelatedSearchWordResultSet> relatedSearchWordList = relatedSearchWordRepository.findTop15(searchWord);
+    //         List<RelatedSearchWordResultSet> relatedSearchWordList = relatedSearchWordRepository.findTop15(searchWord);
 
-            data = GetRelatedSearchWordResponseDto.copyList(relatedSearchWordList);
+    //         data = GetRelatedSearchWordResponseDto.copyList(relatedSearchWordList);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
-        }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+    //     }
 
-        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
-    }
+    //     return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
+    // }
 }
