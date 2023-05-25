@@ -5,10 +5,12 @@ import java.util.List;
 
 import com.job.back.entity.resultSet.RelatedSearchWordResultSet;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@ApiModel(value = "안 씀.")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
