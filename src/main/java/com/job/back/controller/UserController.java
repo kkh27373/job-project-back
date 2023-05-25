@@ -53,7 +53,7 @@ public class UserController {
         return response;
      }
 
-     @ApiOperation(value = "유저 이메일 중복 체크")
+     @ApiOperation(value = "유저 이메일 중복 체크", notes = "Request Body에 email을 포함하여 요청하면, 중복 결과를 반환, 실패시 실패 메세지를 반환")
      @PostMapping(VALIDATE_USER_EMAIL)
      public ResponseDto<ValidateEmailResponseDto> validateEmail
      (@Valid @RequestBody ValidateUserEmailDto requsetBody
@@ -62,7 +62,7 @@ public class UserController {
         return response;
      };
 
-     @ApiOperation(value = "유저 전화번호 중복 체크")
+     @ApiOperation(value = "유저 전화번호 중복 체크", notes="Request Body에 telNumber를 포함하여 요청하면, 중복 결과를 반환, 실패시 실패 메세지를 반환")
      @PostMapping(VALIDATE_USER_TEL_NUMBER)
      public ResponseDto<ValidateTelNumberResponseDto> validateTelNumber
      (@Valid @RequestBody ValidateUserTelNumberDto requsetBody
@@ -71,7 +71,7 @@ public class UserController {
         return response;
      };
 
-
+     @ApiOperation(value = "유저 정보 추가 ", notes="유저 최종학력,유저 경력,유저자격증을 유저 이메일이랑 같이 보내면 유저 정보에 추가를 하고 실패시 실패 메세지를 반환. ")
      @PostMapping(USER_SELECT_COMPONENT)
      public ResponseDto<PatchUserComponentResponseDto> patchUserSelectComponent
      (@AuthenticationPrincipal String email, 
@@ -83,7 +83,7 @@ public class UserController {
       
       }
 
-
+      @ApiOperation(value = "유저 점수 및 퍼센트",notes = " ")
       @PostMapping(ADD_USER_WISH_LIST)
       public ResponseDto<AddUserWishListResponseDto> addUserWishList(
          @AuthenticationPrincipal String email,
@@ -96,7 +96,7 @@ public class UserController {
 
       }
 
-      @ApiOperation(value = "유저 프로필")
+      @ApiOperation(value = "유저 프로필 URL 수정", notes = "Request Header Authorization에 Bearer JWT를 포함하여 Request Bpdy에 profile을 포함하여 요청을 하면, 성공시 유저 정보를 반환, 실패시 실패 메세지를 반환")
       @PatchMapping(PATH_PROFILE)
       public ResponseDto<PatchUserProfileResponseDto> patchUserProfile(
          @ApiParam(hidden = true)

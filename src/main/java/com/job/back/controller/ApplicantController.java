@@ -25,8 +25,12 @@ import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.service.ApplicantService;
 import com.job.back.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(ApiPattern.APPLICANT)
+@Api(description = "지원자 모듈")
 public class ApplicantController {
 
     private final String APPLICANT_SCORE_PER_COMPANY = "/score/{company_Tel_Number}";
@@ -40,7 +44,7 @@ public class ApplicantController {
     @Autowired
     UserService userService;
 
-
+    @ApiOperation(value = "지원자 정보 불러오기")
     @GetMapping(GET_APPLICANT_DATA)
     public ResponseDto<GetApplicantDataResponseDto> getApplicantData(
         @AuthenticationPrincipal String email
@@ -50,7 +54,7 @@ public class ApplicantController {
         return response;
     }
 
-
+    @ApiOperation(value = "특정 회사가 지원자에게 주는 총 점수")
     @PostMapping(APPLICANT_SCORE_PER_COMPANY)
     public ResponseDto<ApplicantScoreResponseDto> showApplicantTotalScore(
         @AuthenticationPrincipal String email,
@@ -67,6 +71,7 @@ public class ApplicantController {
 
     }
 
+    @ApiOperation(value = "특정 회사에 지원한 지원자의 백분위")
     @PostMapping(APPLICANT_PERCENTILE)
     public ResponseDto<ApplicantPercentileResponseDto> showApplicantPercentile(
         @AuthenticationPrincipal String email,
@@ -80,7 +85,7 @@ public class ApplicantController {
 
     }
 
-
+    @ApiOperation(value = "지원자가 지원한 회사 리스트")
     @PostMapping(GET_MY_COMPANY_LIST_URL)
     public ResponseDto<List<GetMyApplyCompanyResponseDto>> getMyCompanyListUrl(@AuthenticationPrincipal String companyEmail,
                                                                          @Valid @RequestBody Applicant_Email_Dto applicantEmail){

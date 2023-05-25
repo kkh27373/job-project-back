@@ -19,6 +19,8 @@ import com.job.back.dto.response.company.SelectLicenseResponseDto;
 import com.job.back.dto.response.company.SelectUniversityResponseDto;
 import com.job.back.service.CompanySelectComponentService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(ApiPattern.SELECT_COMPONENT)
 public class ComponentSelectController {
@@ -30,6 +32,7 @@ public class ComponentSelectController {
     @Autowired
     CompanySelectComponentService companyselectcomponentservice;
 
+    @ApiOperation(value = "회사가 요구하는 학력 저장하기")
     @PostMapping(COMPANY_SELECT_UNIVERSITY)
     public ResponseDto<SelectUniversityResponseDto> selectUniversity(
         @AuthenticationPrincipal String email,
@@ -47,7 +50,7 @@ public class ComponentSelectController {
         
     }
 
-
+    @ApiOperation(value = "회사가 요구하는 경력 저장하기")
     @PostMapping(COMPANY_SELECT_CARRER)
     public ResponseDto<SelectCarrerResponseDto> selectCarrer(
         @AuthenticationPrincipal String email,
@@ -60,6 +63,7 @@ public class ComponentSelectController {
 
     }
 
+    @ApiOperation(value = "회사가 요구하는 자격증 저장하기")
     @PostMapping(COMPANY_SELECT_LICENSE)
     public ResponseDto<SelectLicenseResponseDto> selectLicense(
         @AuthenticationPrincipal String email,

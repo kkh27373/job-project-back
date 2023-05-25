@@ -28,7 +28,7 @@ public class CompanyFileController {
     private final String COPANY_UPLOAD = "/companyUpload";
     private final String COMPANY_GET_FILE = "/{companyFileName}";
 
-    @ApiOperation(value = "회사 업로드")
+    @ApiOperation(value = "회사 프로필 업로드")
     @PostMapping(COPANY_UPLOAD)
     public String companyUplad(
         @ApiParam(value = "업로드할 파일", required = true)

@@ -21,6 +21,8 @@ import com.job.back.dto.response.auth.UserSignUpResonseDto;
 import com.job.back.service.AuthService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.val;
 
 @RestController
 @RequestMapping(ApiPattern.AUTH)
@@ -33,13 +35,13 @@ public class AuthController {
     private final String COMPANY_SIGN_UP = "/signup/company";
     private final String COMPANY_LOG_IN = "/login/company";
 
-    // 유저 회원가입
+    @ApiOperation(value = "유저 회원가입",notes = "유저이메일,유저패스워드,유저전화번호,유저이름,유저주소,유저나이,유저성별을 기입해서 회원을 등록하고, 성공 시에는 회원가입 성공 여부에 true가 반환된다.")
     @PostMapping(USER_SIGN_UP)
     public ResponseDto<UserSignUpResonseDto> userSignUp(@Valid @RequestBody UserSignUpDto requestBody){
         ResponseDto<UserSignUpResonseDto> response = authService.userSignUp(requestBody);
         return response;
     }
-    //회사 회원가입
+    @ApiOperation(value = "회사 회원가입", notes = "회사 전화번호,회사 이름, 회사 주소, 회사 패스워드,회사 이메일을 입력하여 회사 회원을 등록하고, 성공 시에는 회원가입 성공 여부에 true가 반환된다.")
     @PostMapping(COMPANY_SIGN_UP)
     public ResponseDto<CompanySignUpResponseDto> companySignUp(@Valid @RequestBody CompanySignUpDto requestBody){
         System.out.println("API companySignUp Request body :" + requestBody.toString());
@@ -47,12 +49,14 @@ public class AuthController {
         return response;
     }
 
+    @ApiOperation(value = "유저 로그인", notes = "아이디와 비밀번호를 입력할시 일치할 경우, 회원 정보와 토큰 만료기간을 반환하고, 실패한다면 해당 메세지를 반환")
     @PostMapping(USER_LOG_IN)
     public ResponseDto<UserSignInResponseDto> userSignIn(@Valid @RequestBody UserSignInDto requestBody){
         ResponseDto<UserSignInResponseDto> response = authService.userSignIn(requestBody);
         return response;
     }
 
+    @ApiOperation(value = "회사 로그인",notes = "아이디와 비밀번호를 입력할시 일치할 경우, 회원 장보와 토큰 만료기간을 반환하고, 실패한다면 해당 메세지를 반환")
     @PostMapping(COMPANY_LOG_IN)
     public ResponseDto<CompanySignInResponseDto> companySignIn(@Valid @RequestBody CompanySignInDto requestBody){
         ResponseDto<CompanySignInResponseDto> response = authService.companySignIn(requestBody);

@@ -15,6 +15,7 @@ import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.service.SearchService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(description = "검색 모듈")
 @RestController
@@ -26,6 +27,7 @@ public class SearchController {
     private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
     private final String GET_RELATED_SEARCH_WORD = "/related-search-word/{searchWord}";
 
+    @ApiOperation(value = "검색어에 대한 게시물 리스트 가져오기")
     @GetMapping(value = {GET_SEARCH_LIST, GET_SEARCH_LIST_PREVIOUS})
     public ResponseDto<List<GetSearchListResponseDto>> getSearchList(
         @PathVariable("searchWord") String searchWord,
@@ -35,9 +37,10 @@ public class SearchController {
         return response;
     }
 
-    @GetMapping(GET_RELATED_SEARCH_WORD)
-    public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(@PathVariable("searchWord") String searchWord){
-        ResponseDto<GetRelatedSearchWordResponseDto> response = searchService.getRelatedSearchWord(searchWord);
-        return response;
-    }
+    // @ApiOperation(value = "")
+    // @GetMapping(GET_RELATED_SEARCH_WORD)
+    // public ResponseDto<GetRelatedSearchWordResponseDto> getRelatedSearchWord(@PathVariable("searchWord") String searchWord){
+    //     ResponseDto<GetRelatedSearchWordResponseDto> response = searchService.getRelatedSearchWord(searchWord);
+    //     return response;
+    // }
 }
