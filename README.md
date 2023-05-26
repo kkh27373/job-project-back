@@ -21,9 +21,10 @@
 <img src="img/회사의 등록.png" width="640"/><br>
 <img src="img/회사등록2.png" width="640"/><br>
 5. 지원자들은 자신의 능력, 스펙을 웹 페이지에 등록한다.
+<img src="img/개인 스펙 등록.png" width="640"/><br>
 
 6. 등록 후 자신이 지원을 원하는 회사의 이미지에서 "Percentile"이라는 버튼을 누르면 자신의 백분위가 어떤지 알 수 있다.
-
+<img src="img/백분위 마지막.png" width="640"/><br>
 
 
 
