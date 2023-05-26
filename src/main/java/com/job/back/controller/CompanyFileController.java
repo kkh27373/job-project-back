@@ -28,7 +28,7 @@ public class CompanyFileController {
     private final String COPANY_UPLOAD = "/companyUpload";
     private final String COMPANY_GET_FILE = "/{companyFileName}";
 
-    @ApiOperation(value = "회사 프로필 업로드")
+    @ApiOperation(value = "회사 프로필 업로드",notes = "Request Body에 100MB 이하의 file을 포함하여 요청을 하면, 성공시 다운로드 URL을 반환, 실패시 null을 반환")
     @PostMapping(COPANY_UPLOAD)
     public String companyUplad(
         @ApiParam(value = "업로드할 파일", required = true)
@@ -37,7 +37,7 @@ public class CompanyFileController {
         String response = compantfileService.companyUpload(companyFile);
         return response;
     }
-    @ApiOperation(value = "회사파일 다운로드")
+    @ApiOperation(value = "회사파일 다운로드",notes = "Path Variable에 fileName을 포함하여 요청하면, 성공시 해당하는 파일의 Resource를 반환, 실패시 null을 반환")
     @GetMapping(value = COMPANY_GET_FILE, produces = {MediaType.ALL_VALUE})
     public Resource getCompanyFile(
         @ApiParam(value="파일명", example="example.png", required=true)

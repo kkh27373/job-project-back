@@ -32,7 +32,7 @@ public class ComponentSelectController {
     @Autowired
     CompanySelectComponentService companyselectcomponentservice;
 
-    @ApiOperation(value = "회사가 요구하는 학력 저장하기")
+    @ApiOperation(value = "회사가 요구하는 학력 저장하기",notes = "회사가 요구하는 학교 및 그 학교에 대한 점수를 기입하면 회사 정보에 저장이 된다 만약 실패시 실패 메세지를 보낸다.")
     @PostMapping(COMPANY_SELECT_UNIVERSITY)
     public ResponseDto<SelectUniversityResponseDto> selectUniversity(
         @AuthenticationPrincipal String email,
@@ -50,7 +50,7 @@ public class ComponentSelectController {
         
     }
 
-    @ApiOperation(value = "회사가 요구하는 경력 저장하기")
+    @ApiOperation(value = "회사가 요구하는 경력 저장하기",notes = "회사가 지정한 경력")
     @PostMapping(COMPANY_SELECT_CARRER)
     public ResponseDto<SelectCarrerResponseDto> selectCarrer(
         @AuthenticationPrincipal String email,
