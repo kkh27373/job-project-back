@@ -33,6 +33,12 @@ public class GetCompanyTop3ListResponseDto {
     
     @ApiModelProperty(value = "회사 비밀번호", example = "P!ssW0rd!", required = true)
     private String companyPassword;
+
+    @ApiModelProperty(value = "회사 직원 수", example = "1000", required = false)
+    private String companyEmployee;
+    
+    @ApiModelProperty(value = "회사 연 매출", example = "200000000", required = false)
+    private String companyAnnualSales;
     
     public GetCompanyTop3ListResponseDto(CompanyEntity companyEntity) {
         this.companyTelNumber = companyEntity.getCompanyTelNumber();
@@ -41,6 +47,8 @@ public class GetCompanyTop3ListResponseDto {
         this.companyAddress = companyEntity.getCompanyAddress();
         this.companyCategory = companyEntity.getCompanyCategory();
         this.companyPassword = companyEntity.getCompanyPassword();
+        this.companyEmployee = companyEntity.getCompanyEmployee();
+        this.companyAnnualSales = companyEntity.getCompanyAnnualSales();
     }
 
     public static List<GetCompanyTop3ListResponseDto> copyList(List<CompanyEntity> companyEntitiesList) {

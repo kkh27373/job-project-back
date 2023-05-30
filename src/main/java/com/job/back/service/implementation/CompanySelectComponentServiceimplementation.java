@@ -2,6 +2,7 @@ package com.job.back.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.job.back.common.constant.ResponseMessage;
 import com.job.back.dto.response.ResponseDto;

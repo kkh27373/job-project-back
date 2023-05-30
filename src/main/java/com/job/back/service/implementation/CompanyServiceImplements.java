@@ -33,6 +33,7 @@ import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
+import com.job.back.dto.response.company.SelectUniversityResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.entity.ApplicantEntity;
@@ -48,6 +49,7 @@ import com.job.back.entity.CompanySelectComponent_License_Entity;
 import com.job.back.entity.CompanySelectComponent_University_Entity;
 import com.job.back.entity.UserEntity;
 import com.job.back.repository.CompanyRepository;
+import com.job.back.repository.CompanySelectComponent_University_Repository;
 import com.job.back.repository.UserReposiotory;
 import com.job.back.service.CompanyService;
 
@@ -55,6 +57,7 @@ import com.job.back.service.CompanyService;
 public class CompanyServiceImplements implements CompanyService {
     @Autowired private CompanyRepository companyRepository;
     @Autowired private ApplicantRepositroy applicantRepositroy;
+    @Autowired private CompanySelectComponent_University_Repository companySelectComponentIUniversityRepository;
    
     @Override
     public ResponseDto<ValidateCompanyEmailResponseDto> validateCompanyEmail(ValidateCompanyEmailDto dto) {
@@ -322,6 +325,24 @@ public class CompanyServiceImplements implements CompanyService {
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    }
+
+    @Override
+    public ResponseDto<SelectUniversityResponseDto> getSelectComponentUniversity(String companyTelNumber) {
+        
+        SelectUniversityResponseDto data = null;
+
+        try {
+            CompanySelectComponent_University_Entity companySelectComponent_Information_Entity = companySelectComponentIUniversityRepository.findByCompanyTelNumber(companyTelNumber);
+            if(companySelectComponent_Information_Entity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_TEL_NUMBER);
+
+            data = new SelectUniversityResponseDto(companySelectComponent_Information_Entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS,data);
     }
 
 }
