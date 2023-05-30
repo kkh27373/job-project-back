@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class ComponentSelectController {
     CompanySelectComponentService companyselectcomponentservice;
 
     @ApiOperation(value = "회사가 요구하는 학력 저장하기",notes = "회사가 요구하는 학교 및 그 학교에 대한 점수를 기입하면 회사 정보에 저장이 된다 만약 실패시 실패 메세지를 보낸다.")
-    @PostMapping(COMPANY_SELECT_UNIVERSITY)
+    @GetMapping(COMPANY_SELECT_UNIVERSITY)
     public ResponseDto<SelectUniversityResponseDto> selectUniversity(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody University_Grade_Dto University

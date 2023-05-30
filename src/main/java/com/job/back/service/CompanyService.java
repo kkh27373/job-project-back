@@ -16,6 +16,7 @@ import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.CompanyInfoResponseDto;
 import com.job.back.dto.response.company.ListUpApplicantResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
+import com.job.back.dto.response.company.SelectUniversityResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 
@@ -31,5 +32,6 @@ public interface CompanyService {
     // public ResponseDto<CompanyInfoResponseDto> updateCompanyInfo(CompanyAdditionalInfoDto requestBody);
     // public ResponseDto<GetCompanyInfoResponseDto> getComapnyInfo( String compantTelNumber);
     public ResponseDto<GetCompanyPageResponseDto> getCompanyPage(String companyTelNumber);
+    public ResponseDto<SelectUniversityResponseDto> getSelectComponentUniversity(String companyTelNumber);
 
 }

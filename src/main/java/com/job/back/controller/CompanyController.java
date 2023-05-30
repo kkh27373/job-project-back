@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.job.back.common.constant.ApiPattern;
+import com.job.back.dto.University_Grade_Dto;
 import com.job.back.dto.request.company.CompanyAdditionalInfoDto;
 import com.job.back.dto.request.company.GetCompanyListMainDto;
 import com.job.back.dto.request.company.PatchCompanyProfileDto;
@@ -31,11 +32,13 @@ import com.job.back.dto.response.company.GetSearchListResponseDto;
 import com.job.back.dto.response.company.GetCompanyTop3ListResponseDto;
 import com.job.back.dto.response.company.GetMyApplyCompanyResponseDto;
 import com.job.back.dto.response.company.PatchCompanyProfileResponseDto;
+import com.job.back.dto.response.company.SelectUniversityResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyEmailResponseDto;
 import com.job.back.dto.response.company.ValidateCompanyTelNumberResponseDto;
 import com.job.back.service.CompanyService;
 import com.job.back.service.ApplicantService;
 import com.job.back.service.CompanyFileService;
+import com.job.back.service.CompanySelectComponentService;
 import com.job.back.service.implementation.CompanyServiceImplements;
 
 import io.swagger.annotations.Api;
@@ -48,6 +51,7 @@ import io.swagger.annotations.ApiParam;
 public class CompanyController {
     @Autowired private CompanyService companyService;
     @Autowired private CompanyFileService companyFileService;
+    @Autowired private CompanySelectComponentService companyselectcomponentservice;
     @Autowired private ApplicantService applicantService;
 
     private final String GET_COMPANY = "/";
@@ -60,6 +64,7 @@ public class CompanyController {
     private final String UPDATE_COMPANY_INFO = "/updateCompanyInfo";
     private final String GET_COMPANY_INFO = "/getCompanyInfo";
     private final String GET_COMPANY_PAGE = "/{companyTelNumber}";
+    private final String GET_UNIVERSITY_INFO = "/{companyTelNumber}/university";
 
     @ApiOperation(value = "회사 정보 불러오기",notes = "Request Header Authorization에 Bearer Token을 포함하여 요청을 하면, 성공시 회사 정보를 반환하고 실패시 실패 메세지를 반환")
     @GetMapping(GET_COMPANY)
@@ -137,8 +142,15 @@ public class CompanyController {
         return response;
     }
 
-
-    
+    @ApiOperation(value = "회사가 설정한 학력 조회")
+    @GetMapping(GET_UNIVERSITY_INFO)
+    public ResponseDto<SelectUniversityResponseDto> getUniversity(@PathVariable("companyTelNumber") String companyTelNumber, String[] University_grade_one,int first_grade_score,
+    String[] University_grade_two,int second_grade_score,
+    String[] University_grade_third,int third_grade_score,
+    String[] University_grade_etc,int etc_grade_score){
+        ResponseDto<SelectUniversityResponseDto> response = companyselectcomponentservice.select_University_Score(companyTelNumber, University_grade_one, first_grade_score, University_grade_two, second_grade_score, University_grade_third, third_grade_score, University_grade_etc, etc_grade_score);
+        return response;
+    }
 
 
     

@@ -47,6 +47,7 @@ public class WebSecurityConfig {
             "/company/insertCompanyInfo",
             "/company/updateCompanyInfo",
             "/company/getCompanyInfo",
+            "/company/**/university",
             "/select/**").permitAll()
                                                         // ! 공통된 부분이 있으면 범위가 넓은 놈들이 뒤로 가게 상세한 놈들이 앞으로  
             .antMatchers(HttpMethod.GET,"/api/board/**", "/company/*").permitAll()
